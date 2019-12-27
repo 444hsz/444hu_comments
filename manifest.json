@@ -1,10 +1,10 @@
 {
   "name": "444.hu comments",
   "short_name": "444comments",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "manifest_version": 2,
   "author": "NERBlock Developer",
-  "description": "Enables commenting again in articles on 444.hu.",
+  "description": "Enable Disqus comments in every article on 444.hu.",
   "permissions": ["http://*.444.hu/", "https://*.444.hu/"],
   "content_scripts": [
     {

@@ -1,4 +1,4 @@
-function addCommentButton() {
+document.addEventListener('DOMContentLoaded', function () {
     // article check
     var af = document.querySelector("article footer.hide-print");
     if (null == af) {
@@ -7,7 +7,7 @@ function addCommentButton() {
 
     // comments enabled check
     if (null !== document.getElementById("disqus_thread")) {
-        console.debug("[444hu] comments enabled by default");
+        console.debug("[444comments] comments enabled by 444.hu");
         return;
     }
 
@@ -24,9 +24,9 @@ function addCommentButton() {
         '<div id="disqus_thread" class="freehand layout"></div>' +
     '</section>';
 
-    console.debug("[444hu] comments enabled");
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-    addCommentButton();
+    console.debug("[444comments] comments enabled by extension");
 });
+
+var script = document.createElement('script');
+script.textContent = "window.addEventListener('load', () => {require('blog/comment').default()});";
+(document.head || document.documentElement).prepend(script);
