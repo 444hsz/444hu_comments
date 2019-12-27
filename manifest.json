@@ -1,0 +1,46 @@
+{
+  "name": "444.hu comments",
+  "short_name": "444comments",
+  "version": "1.0.2",
+  "manifest_version": 2,
+  "author": "NERBlock Developer",
+  "description": "Enables commenting again in articles on 444.hu.",
+  "permissions": ["http://*.444.hu/", "https://*.444.hu/"],
+  "content_scripts": [
+    {
+      "matches": ["http://*.444.hu/*", "https://*.444.hu/*"],
+      "js": ["444hu_comments.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "page_action": {
+    "default_icon": {
+      "19": "images/icon32.png",
+      "20": "images/icon32.png",
+      "25": "images/icon32.png",
+      "30": "images/icon32.png",
+      "35": "images/icon48.png",
+      "38": "images/icon48.png",
+      "40": "images/icon48.png",
+
+      "16": "images/icon16.png",
+      "32": "images/icon32.png",
+      "48": "images/icon48.png",
+      "128": "images/icon128.png"
+    }
+  },
+  "icons": {
+    "19": "images/icon32.png",
+    "20": "images/icon32.png",
+    "25": "images/icon32.png",
+    "30": "images/icon32.png",
+    "35": "images/icon48.png",
+    "38": "images/icon48.png",
+    "40": "images/icon48.png",
+
+    "16": "images/icon16.png",
+    "32": "images/icon32.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  }
+}
