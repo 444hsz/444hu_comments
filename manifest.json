@@ -1,7 +1,7 @@
 {
   "name": "444.hu comments",
   "short_name": "444comments",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "manifest_version": 2,
   "author": "NERBlock Developer",
   "description": "Enable Disqus comments in every article on 444.hu.",

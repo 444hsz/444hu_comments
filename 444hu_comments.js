@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     // article check
     var af = document.querySelector("article footer.hide-print");
-    if (null == af) {
+    if (null === af) {
         return;
     }
 
