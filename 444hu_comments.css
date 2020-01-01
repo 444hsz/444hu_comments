@@ -1,0 +1,93 @@
+section#comments.docked-comments {
+    --docked-comments-bg-color: #f5f5f5;
+    --docked-comments-padding: 17px;
+    --docked-comments-width: 520px;
+    width: var(--docked-comments-width);
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: var(--docked-comments-padding);
+    padding-right: 0px;
+    z-index: 1000;
+    background-color: var(--docked-comments-bg-color);
+    box-shadow: 0px 0px 30px #444;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: var(--blog-accent-color) var(--docked-comments-bg-color);
+}
+
+section#comments.docked-comments::-webkit-scrollbar {
+    width: var(--docked-comments-padding);
+}
+section#comments.docked-comments::-webkit-scrollbar-track {
+    background: none;
+}
+section#comments.docked-comments::-webkit-scrollbar-thumb {
+    background-color: var(--blog-accent-color);
+    border: 6px solid var(--docked-comments-bg-color);
+    border-radius: 10px;
+}
+
+section#comments .comments-docked-toggle {
+    border: 0;
+    width: 100%;
+    text-align: right;
+    line-height: 25px;
+    background-color: var(--subhead-color);
+    text-transform: uppercase;
+    color: #fff;
+    cursor: pointer;
+    font-family: league;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    padding: 0;
+    padding-right: 2px;
+}
+
+section#comments .comments-docked-open>svg {
+    padding: 0;
+    color: var(--blog-accent-color);
+    height: 14px;
+    transform: rotate(270deg);
+}
+
+section#comments .comments-docked-close>svg {
+    padding: 0;
+    color: red;
+    margin: 0 0 -2px 2px;
+    height: 18px;
+}
+
+section#comments .comments-docked-hidden {
+    display: none;
+}
+
+section#comments .comments-docked-resizer {
+    display: none;
+}
+
+section#comments.docked-comments .comments-docked-resizer {
+    --docked-comments-resizer-width: 8px;
+    display: inline-block;
+    position: fixed;
+    top: 0;
+    right: calc(var(--docked-comments-width) - var(--docked-comments-resizer-width));
+    background-image: linear-gradient(to right, #eee, var(--docked-comments-bg-color));
+    width: var(--docked-comments-resizer-width);
+    height: 100%;
+    cursor: ew-resize;
+}
+
+section#comments.docked-comments.dragged {
+    box-shadow: 0px 0px 30px var(--blog-accent-color);
+}
+
+section#comments.docked-comments .comments-docked-resizer>img{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+

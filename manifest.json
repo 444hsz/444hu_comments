@@ -1,7 +1,7 @@
 {
   "name": "444.hu comments",
   "short_name": "444comments",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "manifest_version": 2,
   "author": "NERBlock Developer",
   "description": "Enable Disqus comments in every article on 444.hu.",
@@ -10,6 +10,7 @@
     {
       "matches": ["http://*.444.hu/*", "https://*.444.hu/*"],
       "js": ["444hu_comments.js"],
+      "css": ["444hu_comments.css"],
       "run_at": "document_start"
     }
   ],
