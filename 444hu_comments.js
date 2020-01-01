@@ -1,16 +1,20 @@
-var fffloaded = false;
-
+var loaded444comments = false;
 document.addEventListener('DOMContentLoaded', function () {
     // only run once (fix for kepek.444.hu)
-    if (fffloaded) return;
-    else fffloaded = true;
+    if (loaded444comments) return;
+    else loaded444comments = true;
 
     function addDockButtons() {
+
+        document.querySelector("#headline div.byline").innerHTML =
+            '<div><button class="gae-comment-click-open comments-toggle-top">Hozzászólások</button></div>' +
+            document.querySelector("#headline div.byline").innerHTML;
+
         document.querySelector("section#comments div.subhead").innerHTML +=
-        `<span class="comments-docked-toggle">
-            <span class="comments-docked-close comments-docked-hidden">bezár<svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveAspectRatio="xMidYMid" class="icon icon-close"><use xlink:href="/assets/blog/static/icon-defs.svg#icon-close"></use></svg></span>
-            <span class="comments-docked-open">Hozzászólások megjelenítése oldalsávban<svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveAspectRatio="xMidYMid" class="icon icon-chevron-down"><use xlink:href="/assets/blog/static/icon-defs.svg#icon-chevron-down"></use></svg></span>
-        </span>`;
+            `<span class="comments-docked-toggle">
+                <span class="comments-docked-close comments-docked-hidden">bezár<svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveAspectRatio="xMidYMid" class="icon icon-close"><use xlink:href="/assets/blog/static/icon-defs.svg#icon-close"></use></svg></span>
+                <span class="comments-docked-open">Hozzászólások panel<svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveAspectRatio="xMidYMid" class="icon icon-chevron-down"><use xlink:href="/assets/blog/static/icon-defs.svg#icon-chevron-down"></use></svg></span>
+            </span>`;
         document.querySelector('.comments-docked-toggle').addEventListener('click', () => {
             document.getElementById('comments').classList.toggle('docked-comments');
             document.querySelector('.comments-docked-open').classList.toggle('comments-docked-hidden');
@@ -19,6 +23,9 @@ document.addEventListener('DOMContentLoaded', function () {
             document.querySelector("section#comments .comments-docked-resizer").style.right = "calc(var(--docked-comments-width) - var(--docked-comments-resizer-width))";
             if (null !== document.querySelector(".comments-toggle"))
                 document.querySelector(".comments-toggle").click();
+        });
+        document.querySelector('.comments-toggle-top').addEventListener('click', () => {
+            document.querySelector('.comments-docked-toggle').click();
         });
     }
 
@@ -67,15 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
         initCommentButton();
     }
 
-    // only run on article pages
-    var af = document.querySelector("article footer.hide-print");
-    if (null === af) return;
-
-    // readd comments html
-    if (null !== document.getElementById("disqus_thread")) {
-        console.debug("[444comments] comments enabled by 444.hu");
-    } else {
-        console.debug("[444comments] comments enabled by extension");
+    function addCommentsHtml() {
         af.innerHTML +=
         '<section id="comments"><!-- comments -->' +
             '<div class="subhead"><span>Uralkodj magadon!</span></div>' +
@@ -87,6 +86,17 @@ document.addEventListener('DOMContentLoaded', function () {
             '<div class="ad"><div id="444_aloldal_kommentek"></div></div>' +
             '<div id="disqus_thread" class="freehand layout"></div>' +
         '</section>';
+    }
+
+    // only run on article pages
+    var af = document.querySelector("article footer.hide-print");
+    if (null === af) return;
+
+    if (null !== document.getElementById("disqus_thread")) {
+        console.debug("[444comments] comments enabled by 444.hu");
+    } else {
+        addCommentsHtml();
+        console.debug("[444comments] comments enabled by extension");
     }
 
     init();

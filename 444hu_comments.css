@@ -92,3 +92,16 @@ section#comments.docked-comments .comments-docked-resizer>img{
     transform: translateY(-50%);
 }
 
+.comments-toggle-top {
+    width: 150px;
+    margin-right: 20px;
+    border: 0;
+    padding: .3125rem;
+    background-color: #29af0a;
+    background-color: var(--blog-accent-color);
+    text-transform: uppercase;
+    font-family: league;
+    font-size: 1.625rem;
+    color: #fff;
+    cursor: pointer;
+}
