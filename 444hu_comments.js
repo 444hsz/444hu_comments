@@ -1,6 +1,7 @@
 var fffloaded = false;
 
 document.addEventListener('DOMContentLoaded', function () {
+    // only run once (fix for kepek.444.hu)
     if (fffloaded) return;
     else fffloaded = true;
 
@@ -16,22 +17,21 @@ document.addEventListener('DOMContentLoaded', function () {
             document.querySelector('.comments-docked-close').classList.toggle('comments-docked-hidden');
             document.getElementById('comments').style.width = 'var(--docked-comments-width)';
             document.querySelector("section#comments .comments-docked-resizer").style.right = "calc(var(--docked-comments-width) - var(--docked-comments-resizer-width))";
+            if (null !== document.querySelector(".comments-toggle"))
+                document.querySelector(".comments-toggle").click();
         });
     }
 
     function addResizeBar() {
-        var sc = document.querySelector("section#comments").innerHTML;
         var ce = document.querySelector("section#comments");
-        ce.innerHTML = 
-            '<div class="comments-docked-resizer">' +
-            '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAABkCAYAAABOx/oaAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAIVJREFUeNrs1jEKwCAMBVCt6CjO4v2P4yWc9AYqYocWC34LQoc6mCXwEkjIFGqtreQKemdykCfqCFuhR/KGdbrzB2SMIXLOEWOMiN57ROccYggBMaWEKISY3HPBe27cuHHjF8w5I5ZSEKWUiFprRGMMolJqcqXh9CGufWQ61Ul7bO/BKcAAgRIiMqCaF2AAAAAASUVORK5CYII=">' +
-            '</div>' + sc;
+        ce.innerHTML = '<div class="comments-docked-resizer"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAABkCAYAAABOx/oaAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAIVJREFUeNrs1jEKwCAMBVCt6CjO4v2P4yWc9AYqYocWC34LQoc6mCXwEkjIFGqtreQKemdykCfqCFuhR/KGdbrzB2SMIXLOEWOMiN57ROccYggBMaWEKISY3HPBe27cuHHjF8w5I5ZSEKWUiFprRGMMolJqcqXh9CGufWQ61Ul7bO/BKcAAgRIiMqCaF2AAAAAASUVORK5CYII="></div>' + ce.innerHTML;
         var re = document.querySelector("section#comments .comments-docked-resizer");
         re.addEventListener('mousedown', initResize, false);
 
         function initResize(e) {
             e.preventDefault();
             document.getElementById("disqus_thread").style.pointerEvents = "none";
+            document.getElementById("content-main").style.pointerEvents = "none";
             ce.classList.toggle("dragged");
             window.addEventListener('mousemove', Resize, false);
             window.addEventListener('mouseup', stopResize, false);
@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
             window.removeEventListener('mousemove', Resize, false);
             window.removeEventListener('mouseup', stopResize, false);
             document.getElementById("disqus_thread").style.pointerEvents = "";
+            document.getElementById("content-main").style.pointerEvents = "";
             ce.classList.toggle("dragged");
         }
 
@@ -66,32 +67,27 @@ document.addEventListener('DOMContentLoaded', function () {
         initCommentButton();
     }
 
-    // article check
+    // only run on article pages
     var af = document.querySelector("article footer.hide-print");
-    if (null === af) {
-        return;
-    }
-
-    // comments enabled check
-    if (null !== document.getElementById("disqus_thread")) {
-        init();
-        console.debug("[444comments] comments enabled by 444.hu");
-        return;
-    }
+    if (null === af) return;
 
     // readd comments html
-    af.innerHTML +=
-    '<section id="comments"><!-- comments -->' +
-        '<div class="subhead"><span>Uralkodj magadon!</span></div>' +
-        '<div>' +
-            '<b>Új kommentelési szabályok érvényesek 2019. december 2-től.</b>' +
-            '<a href="https://444.hu/2019/12/02/valtoznak-a-kommenteles-szabalyai-a-444-en" target="_blank">Itt olvashatod el</a>, hogy mik azok, és <a href="https://444.hu/2019/12/02/ezert-valtoztatunk-a-kommenteles-szabalyain" target="_blank">itt azt</a>, hogy miért vezettük be őket.' +
-        '</div>' +
-        '<button class="gae-comment-click-open comments-toggle">Hozzászólások</button>' +
-        '<div class="ad"><div id="444_aloldal_kommentek"></div></div>' +
-        '<div id="disqus_thread" class="freehand layout"></div>' +
-    '</section>';
+    if (null !== document.getElementById("disqus_thread")) {
+        console.debug("[444comments] comments enabled by 444.hu");
+    } else {
+        console.debug("[444comments] comments enabled by extension");
+        af.innerHTML +=
+        '<section id="comments"><!-- comments -->' +
+            '<div class="subhead"><span>Uralkodj magadon!</span></div>' +
+            '<div>' +
+                '<b>Új kommentelési szabályok érvényesek 2019. december 2-től.</b>' +
+                '<a href="https://444.hu/2019/12/02/valtoznak-a-kommenteles-szabalyai-a-444-en" target="_blank">Itt olvashatod el</a>, hogy mik azok, és <a href="https://444.hu/2019/12/02/ezert-valtoztatunk-a-kommenteles-szabalyain" target="_blank">itt azt</a>, hogy miért vezettük be őket.' +
+            '</div>' +
+            '<button class="gae-comment-click-open comments-toggle">Hozzászólások</button>' +
+            '<div class="ad"><div id="444_aloldal_kommentek"></div></div>' +
+            '<div id="disqus_thread" class="freehand layout"></div>' +
+        '</section>';
+    }
 
     init();
-    console.debug("[444comments] comments enabled by extension");
 });

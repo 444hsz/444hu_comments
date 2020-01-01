@@ -79,6 +79,7 @@ section#comments.docked-comments .comments-docked-resizer {
     width: var(--docked-comments-resizer-width);
     height: 100%;
     cursor: ew-resize;
+    pointer-events: auto;
 }
 
 section#comments.docked-comments.dragged {
