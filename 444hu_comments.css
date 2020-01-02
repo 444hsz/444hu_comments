@@ -15,6 +15,7 @@ section#comments.docked-comments {
     overflow: hidden;
     border-left: 5px solid var(--docked-comments-subhead-bg);
     border-right: 5px solid var(--docked-comments-subhead-bg);
+    border-bottom: 5px solid var(--docked-comments-subhead-bg);
 }
 
 section#comments.docked-comments .comments-contents {
@@ -28,11 +29,26 @@ section#comments.docked-comments .comments-contents {
 }
 
 section#comments.docked-comments .subhead {
-    padding: 9px 6px 5px var(--docked-comments-padding);
+    padding: 9px 6px 5px 0px;
     height: auto;
     box-shadow: 0px 0px 5px var(--docked-comments-subhead-bg);
     margin-bottom: 0px;
     background-color: var(--docked-comments-subhead-bg);
+}
+
+section#comments.docked-comments .subhead .logo {
+    width: 18px;
+    min-width: 18px;
+    margin: 2px 10px 0px 8px;
+    padding: 0px;
+    display: inline-block;
+}
+section#comments .subhead .logo {
+    display: none;
+}
+
+section#comments.docked-comments .subhead .logo>img {
+    padding: 0px;
 }
 
 section#comments.docked-comments .comments-contents::-webkit-scrollbar {
@@ -59,14 +75,17 @@ section#comments .comments-docked-toggle {
     background-color: var(--subhead-color);
     text-transform: uppercase;
     color: #fff;
-    cursor: pointer;
     font-family: league;
     font-size: 1.1rem;
     letter-spacing: 1px;
     padding: 0;
     padding-right: 2px;
+    margin-left: 15px;
 }
 
+section#comments .comments-docked-open {
+    cursor: pointer;
+}
 section#comments .comments-docked-open>svg {
     padding: 0;
     color: var(--blog-accent-color);
@@ -75,6 +94,7 @@ section#comments .comments-docked-open>svg {
 }
 
 section#comments .comments-docked-close {
+    cursor: pointer;
     color: #444;
 }
 
