@@ -2,7 +2,6 @@ section#comments.docked-comments {
     --docked-comments-bg-color: #f5f5f5;
     --docked-comments-padding: 17px;
     --docked-comments-width: 550px;
-    --docked-comments-subhead-bg: #dedede;
     width: var(--docked-comments-width);
     height: 100vh;
     position: fixed;
@@ -10,15 +9,19 @@ section#comments.docked-comments {
     right: 0;
     margin: 0;
     z-index: 1000;
-    background-color: var(--docked-comments-bg-color);
-    box-shadow: 0px 0px 30px var(--topbar-bg-color);
+    background-color: var(--blog-accent-color);
+    box-shadow: 12px 0px 40px var(--topbar-bg-color);
     overflow: hidden;
-    border-left: 5px solid var(--docked-comments-subhead-bg);
-    border-right: 5px solid var(--docked-comments-subhead-bg);
-    border-bottom: 5px solid var(--docked-comments-subhead-bg);
+    padding: 0 5px 5px 5px;
 }
 
+section#comments.docked-comments.dragged {
+    box-shadow: none;
+}
+
+
 section#comments.docked-comments .comments-contents {
+    background-color: var(--docked-comments-bg-color);
     padding: var(--docked-comments-padding);
     padding-right: 0px;
     height: calc(100% - 40px);
@@ -31,21 +34,20 @@ section#comments.docked-comments .comments-contents {
 section#comments.docked-comments .subhead {
     padding: 9px 5px 5px 0px;
     height: auto;
-    box-shadow: 0px 0px 5px var(--docked-comments-subhead-bg);
     margin-bottom: 0px;
-    background-color: var(--docked-comments-subhead-bg);
     -webkit-user-select: none;
     -webkit-touch-callout: none;
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    color: #fff;
 }
 
 section#comments.docked-comments .subhead .logo {
     width: 18px;
     min-width: 18px;
-    margin: 2px 10px 0px 5px;
+    margin: 2px 10px 0 5px;
     padding: 0px;
     display: inline-block;
 }
@@ -105,12 +107,13 @@ section#comments .comments-docked-open>svg {
 
 section#comments .comments-docked-close {
     cursor: pointer;
-    color: #444;
+    color: #fff;
 }
 
 section#comments .comments-docked-close>svg {
     padding: 0;
-    color: #444;
+    color: #fff;
+    fill: currentColor;
     margin: 0 0 -4px 0;
     height: 22px;
     width: auto;
@@ -118,13 +121,13 @@ section#comments .comments-docked-close>svg {
 
 section#comments .comments-docked-disqus {
     cursor: pointer;
-    color: var(--subhead-color);
+    color: #fff;
 }
 section#comments .comments-docked-disqus>a>svg {
     padding: 0;
-    color: var(--subhead-color);
+    color: #fff;
     margin: 0 10px -1px;
-    height: 15px;
+    height: 18px;
 }
 
 section#comments .comments-docked-hidden {
@@ -148,14 +151,13 @@ section#comments.docked-comments .comments-docked-resizer {
     background: none;
 }
 
-section#comments.docked-comments.dragged {
-    box-shadow: 0px 0px 30px var(--blog-accent-color);
-}
-
-section#comments.docked-comments .comments-docked-resizer>img{
+section#comments.docked-comments .comments-docked-resizer>div {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
+    margin: 0 5px 0 2px;
+    height: 70px;
+    background-color: var(--docked-comments-bg-color);
 }
 
 .comments-toggle-top {
