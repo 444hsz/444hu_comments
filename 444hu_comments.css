@@ -100,7 +100,7 @@ section#comments .comments-docked-open {
 }
 section#comments .comments-docked-open>svg {
     padding: 0;
-    color: var(--blog-accent-color);
+    color: #fff;
     height: 14px;
     transform: rotate(270deg);
 }
@@ -161,10 +161,10 @@ section#comments.docked-comments .comments-docked-resizer>div {
 }
 
 .comments-toggle-top {
-    width: 150px;
+    width: 160px;
     margin-right: 20px;
     border: 0;
-    padding: .3125rem;
+    padding: 7px 2px 4px 5px;
     background-color: #29af0a;
     background-color: var(--blog-accent-color);
     text-transform: uppercase;
@@ -172,4 +172,22 @@ section#comments.docked-comments .comments-docked-resizer>div {
     font-size: 1.625rem;
     color: #fff;
     cursor: pointer;
+}
+
+button.comments-toggle-top:focus {outline:0;}
+
+.comments-toggle-top>svg {
+    padding: 0;
+    width: 21px;
+    height: 21px;
+    margin: 0 0 -1px 4px;
+    transform: rotate(-90deg);
+    -webkit-transition: 0.3s ease-out;
+    -moz-transition: 0.3s ease-out;
+    -o-transition: 0.3s ease-out;
+    transition: 0.3s ease-out;
+}
+
+.comments-toggle-top>svg.opened {
+    transform: none;
 }
