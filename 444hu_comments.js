@@ -10,6 +10,38 @@ document.addEventListener('DOMContentLoaded', function () {
         return slug.replace(/-/g, "_").substr(0, 100);
     }
 
+    function getNoDisqusHosts() {
+        return [
+            'geekz.444.hu'
+        ];
+    }
+
+    function getConfig() {
+        return {
+            "sites":{
+                "default": {
+                    "enable_comments": true,
+                    "disqus_link": true,
+                    "top_button_insert_selector": "div.byline"
+                },
+                "444.hu": {},
+                "tldr.444.hu": {},
+                "jo.444.hu": {},
+                "geekz.444.hu": {
+                    "disqus_link": false,
+                }
+            }
+        }
+    }
+
+    function getCurrentHostConfigFor(key) {
+        var cfg = getConfig();
+        if (typeof cfg.sites[window.location.hostname] !== "undefined" && typeof cfg.sites[window.location.hostname][key] !== "undefined")
+            return cfg.sites[window.location.hostname][key];
+        else
+            return cfg.sites["default"][key];
+    }
+
     function addDockButtons() {
         function toggleDocked() {
             document.getElementById('comments').classList.toggle('docked-comments');
@@ -22,7 +54,15 @@ document.addEventListener('DOMContentLoaded', function () {
             if (null !== document.querySelector(".comments-toggle")) document.querySelector(".comments-toggle").click();
         }
 
-        document.querySelector("#headline div.byline").innerHTML = '<div><button class="gae-comment-click-open comments-toggle-top">Hozzászólások<svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveAspectRatio="xMidYMid" class="icon icon-chevron-down"><use xlink:href="/assets/blog/static/icon-defs.svg#icon-chevron-down"></use></svg></button></div>' + document.querySelector("#headline div.byline").innerHTML;
+        if (!getCurrentHostConfigFor("disqus_link")) {
+            document.querySelector('.comments-docked-disqus').classList.toggle('comments-docked-disabled');
+        }
+
+        var bl = document.querySelector(getCurrentHostConfigFor("top_button_insert_selector"));
+        if (null !== bl) {
+            bl.innerHTML = '<div><button class="gae-comment-click-open comments-toggle-top">Hozzászólások<svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveAspectRatio="xMidYMid" class="icon icon-chevron-down"><use xlink:href="/assets/blog/static/icon-defs.svg#icon-chevron-down"></use></svg></button></div>' + bl.innerHTML;
+        }
+
         document.querySelector('.comments-docked-open').addEventListener('click', toggleDocked);
         document.querySelector('.comments-docked-close').addEventListener('click', toggleDocked);
         document.querySelector('.comments-toggle-top').addEventListener('click', toggleDocked);
@@ -43,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
         function Resize(e) {
             e.preventDefault();
             var w = document.body.clientWidth - e.clientX;
-            if (w > 260) {
+            if (w > 280) {
                 ce.style.width =  w + 'px';
                 re.style.right =  (w - 8) + 'px';
             }

@@ -10,15 +10,16 @@ section#comments.docked-comments {
     margin: 0;
     z-index: 1000;
     background-color: var(--blog-accent-color);
-    box-shadow: 12px 0px 40px var(--topbar-bg-color);
+    box-shadow: 12px 0px 40px #000;
     overflow: hidden;
     padding: 0 5px 5px 5px;
+    max-width: none;
+    min-width: none;
 }
 
 section#comments.docked-comments.dragged {
     box-shadow: none;
 }
-
 
 section#comments.docked-comments .comments-contents {
     background-color: var(--docked-comments-bg-color);
@@ -123,6 +124,7 @@ section#comments .comments-docked-disqus {
     cursor: pointer;
     color: #fff;
 }
+
 section#comments .comments-docked-disqus>a>svg {
     padding: 0;
     color: #fff;
@@ -132,6 +134,11 @@ section#comments .comments-docked-disqus>a>svg {
 
 section#comments .comments-docked-hidden {
     display: none;
+}
+
+section#comments .comments-docked-disabled {
+    pointer-events: none;
+    opacity: 0.5;
 }
 
 section#comments .comments-docked-resizer {
