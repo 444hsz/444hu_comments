@@ -12,18 +12,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function getConfig(key) {
         var cfg = {
-            "version": "1.1.3",
+            "version": "1.1.4",
             "sites":{
                 "default": {
-                    "enable_comments": true,
-                    "disqus_link": true,
+                    "disqus_forum_name": "444hu",
                     "top_button_insert_selector": "div.byline"
                 },
-                "444.hu": {},
-                "tldr.444.hu": {},
-                "jo.444.hu": {},
                 "geekz.444.hu": {
-                    "disqus_link": false,
+                    "disqus_forum_name": "geekzblog"
                 }
             }
         }
@@ -50,10 +46,6 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('comments').style.width = 'var(--docked-comments-width)';
             document.querySelector("section#comments .comments-docked-resizer").style.right = "calc(var(--docked-comments-width) - var(--docked-comments-resizer-width))";
             if (null !== document.querySelector(".comments-toggle")) document.querySelector(".comments-toggle").click();
-        }
-
-        if (!getCurrentHostConfigFor("disqus_link")) {
-            document.querySelector('.comments-docked-disqus').classList.toggle('comments-docked-disabled');
         }
 
         var bl = document.querySelector(getCurrentHostConfigFor("top_button_insert_selector"));
@@ -117,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
             `<span class="comments-title">Uralkodj magadon!</span>` +
             `<span class="comments-docked-toggle">` + 
                 `<span class="comments-docked-open">Hozzászólások panel<svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveAspectRatio="xMidYMid" class="icon icon-chevron-down"><use xlink:href="/assets/blog/static/icon-defs.svg#icon-chevron-down"></use></svg></span>` + 
-                `<span class="comments-docked-disqus comments-docked-hidden"><a title="Topic megnyitása Disqus-on" href="https://disqus.com/home/discussion/444hu/` + getDisqusSlug() + `" target="_blank"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFZJREFUeNqUkQEKwDAIA+Pwrdmb9lpXaWGds7IeiGAiooo18CB4M2vQkU/keDNbXL21Qx+QBCfdKjODtjQzq6/M6TQtFvtwYIO/Zj+faSiUSPhgyS3AAFOjnhIuz2DAAAAAAElFTkSuQmCC"></a></span>` +
+                `<span class="comments-docked-disqus comments-docked-hidden"><a title="Topic megnyitása Disqus-on" href="https://disqus.com/home/discussion/` + getCurrentHostConfigFor("disqus_forum_name") + '/' + getDisqusSlug() + `" target="_blank"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFZJREFUeNqUkQEKwDAIA+Pwrdmb9lpXaWGds7IeiGAiooo18CB4M2vQkU/keDNbXL21Qx+QBCfdKjODtjQzq6/M6TQtFvtwYIO/Zj+faSiUSPhgyS3AAFOjnhIuz2DAAAAAAElFTkSuQmCC"></a></span>` +
                 `<span class="comments-docked-close comments-docked-hidden"><a href="javascript:void(0)"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAADxJREFUeNpi+A8BaUDMgAeD5BEMPBrg8gwENKCI45TAZgADHpMwbMLrRnQ5sk0m2s1EhwZJ4Ux0DAIEGABDKYzoRdlxEwAAAABJRU5ErkJggg=="></a></span>` +
             `</span>
         </div>
