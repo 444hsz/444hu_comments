@@ -12,7 +12,7 @@ section#comments.docked-comments {
     background-color: var(--blog-accent-color);
     box-shadow: 12px 0px 40px #000;
     overflow: hidden;
-    padding: 0 0 5px 5px;
+    padding: 0 0 5px 0;
     max-width: none;
     min-width: none;
 }
@@ -25,7 +25,7 @@ section#comments.docked-comments .comments-contents {
     background-color: var(--docked-comments-bg-color);
     padding: var(--docked-comments-padding);
     padding-right: 0px;
-    margin: 0 5px 0 0;
+    margin: 0 5px 0 5px;
     height: calc(100% - 31px);
     overflow-x: hidden;
     overflow-y: scroll;
@@ -58,13 +58,17 @@ section#comments .subhead .logo {
 
 section#comments.docked-comments .subhead .logo>a {
     border: none;
-    padding: 0;
+    padding: 0 15px 0 15px;
+}
+
+section#comments.docked-comments .subhead .logo>a:hover {
+    background-color: rgba(255, 255, 255, 0.15);
 }
 
 section#comments.docked-comments .subhead .logo>a>img {
     padding: 0;
     display: inline-block;
-    margin: 8px 8px 8px 3px;
+    margin: 8px 8px 8px 0;
     max-width: none;
     min-width: none;
     width: 56px;
@@ -167,6 +171,7 @@ section#comments.docked-comments .comments-docked-title {
     margin: 6px 0 0;
     font-size: 20px;
     letter-spacing: 0.2px;
+    color: #fff;
 }
 
 section#comments .comments-docked-resizer {

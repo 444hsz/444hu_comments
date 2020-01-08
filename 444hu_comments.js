@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     else loaded444comments = true;
 
     function getDisqusSlug() {
-        var path = window.location.pathname.split("/");
+        var path = window.location.pathname.replace(/\/+$/, "").split("/");
         var slug = path[path.length - 1];
         return slug.replace(/-/g, "_").substr(0, 100);
     }
@@ -112,13 +112,12 @@ document.addEventListener('DOMContentLoaded', function () {
     function getCommentsInnerHTML() {
         var html = `
         <div class="comments-docked-resizer"><div></div></div>
-        <div class="subhead">
-            <span class="logo"><a href="https://chrome.google.com/webstore/detail/444hu-comments/lbeeoakjnfiejomcokohmfbfblbhjllo" title="444comments v` + getConfig("version") + `" target="_blank"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAAPCAYAAACx+QwLAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFpJREFUeNpi/A8EDAjACKWJFcMF6KkWrxgTwzAHox4c9eCoBwcWsFDBjMFQuo4m0dEkiif5DJTa0RiExSC2DMw4SN3LSKoYCwntO0YSkhWt1I62RUdcHgQIMADPlRkjQbOuPAAAAABJRU5ErkJggg=="></a></span>
-            <span class="comments-title">Uralkodj magadon!</span>
-            <span class="comments-docked-title">Hozzászólások</span>
-            <span class="comments-docked-toggle">` + 
+        <div class="subhead">` +
+            `<span class="logo"><a href="https://chrome.google.com/webstore/detail/444hu-comments/lbeeoakjnfiejomcokohmfbfblbhjllo" title="v` + getConfig("version") + `" target="_blank"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAAPCAYAAACx+QwLAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFpJREFUeNpi/A8EDAjACKWJFcMF6KkWrxgTwzAHox4c9eCoBwcWsFDBjMFQuo4m0dEkiif5DJTa0RiExSC2DMw4SN3LSKoYCwntO0YSkhWt1I62RUdcHgQIMADPlRkjQbOuPAAAAABJRU5ErkJggg=="><span class="comments-docked-title">Hozzászólások</span></a></span>` +
+            `<span class="comments-title">Uralkodj magadon!</span>` +
+            `<span class="comments-docked-toggle">` + 
                 `<span class="comments-docked-open">Hozzászólások panel<svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveAspectRatio="xMidYMid" class="icon icon-chevron-down"><use xlink:href="/assets/blog/static/icon-defs.svg#icon-chevron-down"></use></svg></span>` + 
-                `<span class="comments-docked-disqus comments-docked-hidden"><a title="Megnyitás Disqus-on" href="https://disqus.com/home/discussion/444hu/` + getDisqusSlug() + `" target="_blank"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFZJREFUeNqUkQEKwDAIA+Pwrdmb9lpXaWGds7IeiGAiooo18CB4M2vQkU/keDNbXL21Qx+QBCfdKjODtjQzq6/M6TQtFvtwYIO/Zj+faSiUSPhgyS3AAFOjnhIuz2DAAAAAAElFTkSuQmCC"></a></span>` +
+                `<span class="comments-docked-disqus comments-docked-hidden"><a title="Topic megnyitása Disqus-on" href="https://disqus.com/home/discussion/444hu/` + getDisqusSlug() + `" target="_blank"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFZJREFUeNqUkQEKwDAIA+Pwrdmb9lpXaWGds7IeiGAiooo18CB4M2vQkU/keDNbXL21Qx+QBCfdKjODtjQzq6/M6TQtFvtwYIO/Zj+faSiUSPhgyS3AAFOjnhIuz2DAAAAAAElFTkSuQmCC"></a></span>` +
                 `<span class="comments-docked-close comments-docked-hidden"><a href="javascript:void(0)"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAADxJREFUeNpi+A8BaUDMgAeD5BEMPBrg8gwENKCI45TAZgADHpMwbMLrRnQ5sk0m2s1EhwZJ4Ux0DAIEGABDKYzoRdlxEwAAAABJRU5ErkJggg=="></a></span>` +
             `</span>
         </div>
