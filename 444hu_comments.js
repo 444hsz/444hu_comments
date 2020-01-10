@@ -4,6 +4,12 @@ document.addEventListener('DOMContentLoaded', function () {
     if (loaded444comments) return;
     else loaded444comments = true;
 
+    function log(msg, ret) {
+        var tag = "[" + chrome.runtime.getManifest().short_name + "]";
+        if (ret) return tag + " " + msg;
+        else console.debug(tag, msg);
+    }
+
     function getDisqusSlug() {
         var path = window.location.pathname.replace(/\/+$/, "").split("/");
         var slug = path[path.length - 1];
@@ -12,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function getConfig(key) {
         var cfg = {
-            "version": "1.1.4",
             "sites":{
                 "default": {
                     "disqus_forum_name": "444hu",
@@ -91,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function initCommentButton() {
         // init comments button after load
         var script = document.createElement('script');
-        script.textContent = "window.addEventListener('load', () => {require('blog/comment').default();});";
+        script.textContent = "window.addEventListener('load', () => {console.debug('" + log("initialized", true) + "');require('blog/comment').default();});";
         (document.head || document.documentElement).prepend(script);
     }
 
@@ -102,10 +107,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function getCommentsInnerHTML() {
+        var mf = chrome.runtime.getManifest();
         var html = `
         <div class="comments-docked-resizer"><div></div></div>
         <div class="subhead">` +
-            `<span class="logo"><a href="https://chrome.google.com/webstore/detail/444hu-comments/lbeeoakjnfiejomcokohmfbfblbhjllo" title="v` + getConfig("version") + `" target="_blank"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAAPCAYAAACx+QwLAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFpJREFUeNpi/A8EDAjACKWJFcMF6KkWrxgTwzAHox4c9eCoBwcWsFDBjMFQuo4m0dEkiif5DJTa0RiExSC2DMw4SN3LSKoYCwntO0YSkhWt1I62RUdcHgQIMADPlRkjQbOuPAAAAABJRU5ErkJggg=="><span class="comments-docked-title">Hozzászólások</span></a></span>` +
+            `<span class="logo"><a href="https://chrome.google.com/webstore/detail/444hu-comments/lbeeoakjnfiejomcokohmfbfblbhjllo" title="v` + chrome.runtime.getManifest().version + `" target="_blank"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAAPCAYAAACx+QwLAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFpJREFUeNpi/A8EDAjACKWJFcMF6KkWrxgTwzAHox4c9eCoBwcWsFDBjMFQuo4m0dEkiif5DJTa0RiExSC2DMw4SN3LSKoYCwntO0YSkhWt1I62RUdcHgQIMADPlRkjQbOuPAAAAABJRU5ErkJggg=="><span class="comments-docked-title">Hozzászólások</span></a></span>` +
             `<span class="comments-title">Uralkodj magadon!</span>` +
             `<span class="comments-docked-toggle">` + 
                 `<span class="comments-docked-open">Hozzászólások panel<svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveAspectRatio="xMidYMid" class="icon icon-chevron-down"><use xlink:href="/assets/blog/static/icon-defs.svg#icon-chevron-down"></use></svg></span>` + 
@@ -125,17 +131,18 @@ document.addEventListener('DOMContentLoaded', function () {
         return html;
     }
 
-    // only run on article pages
     var af = document.querySelector("article footer.hide-print");
-    if (null === af) return;
-
-    if (null !== document.getElementById("disqus_thread")) {
-        document.getElementById("comments").innerHTML = getCommentsInnerHTML();
-        console.debug("[444comments] comments enabled by 444.hu");
+    if (null === af) {
+        // only run on article pages
+        log("no article found, doing nothing");
     } else {
-        af.innerHTML += '<section id="comments"><!-- comments -->' + getCommentsInnerHTML() + '</section>';
-        console.debug("[444comments] comments enabled by extension");
+        if (null !== document.getElementById("disqus_thread")) {
+            log("comments enabled by 444.hu");
+            document.getElementById("comments").innerHTML = getCommentsInnerHTML();
+        } else {
+            log("comments disabled by 444.hu");
+            af.innerHTML += '<section id="comments"><!-- comments -->' + getCommentsInnerHTML() + '</section>';
+        }
+        init();
     }
-
-    init();
 });
