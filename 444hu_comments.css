@@ -131,6 +131,7 @@ section#comments .comments-docked-open {
 }
 
 section#comments .comments-docked-open>a {
+    border: none;
     display: inline-block;
     margin: 1px;
     padding: 1px 4px 0px 8px;
