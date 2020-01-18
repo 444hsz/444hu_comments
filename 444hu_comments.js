@@ -108,7 +108,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 });
             });
-            console.debug('` + log("initialized", true) + `');require('blog/comment').default();
+            require('blog/comment').default();
+            console.debug('` + log("initialized", true) + `');
         });`;
         (document.head || document.documentElement).prepend(script);
     }
