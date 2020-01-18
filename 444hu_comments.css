@@ -15,10 +15,18 @@ section#comments.docked-comments {
     padding: 0 0 5px 0;
     max-width: none;
     min-width: none;
+    -webkit-transition: 0.2s linear;
+    -moz-transition: 0.2s linear;
+    -o-transition: 0.2s linear;
+    transition: 0.2s linear;
 }
 
 section#comments.docked-comments.dragged {
     box-shadow: none;
+    -webkit-transition: none;
+    -moz-transition: none;
+    -o-transition: none;
+    transition: none;
 }
 
 section#comments.docked-comments .comments-contents {
