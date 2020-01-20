@@ -15,6 +15,9 @@ document.addEventListener('DOMContentLoaded', function () {
             "sites":{
                 "default": {
                     "top_button_insert_selector": "div.byline"
+                },
+                "jo.444.hu": {
+                    "button_text_color": "#222"
                 }
             }
         }
@@ -35,7 +38,6 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('comments').classList.toggle('docked-comments');
             document.querySelector('.comments-docked-open').classList.toggle('comments-docked-hidden');
             document.querySelector('.comments-docked-close').classList.toggle('comments-docked-hidden');
-            document.querySelector('.comments-toggle-top').classList.toggle('opened');
             document.getElementById('comments').style.width = 'var(--docked-comments-width)';
             document.querySelector("section#comments .comments-docked-resizer").style.right = "calc(var(--docked-comments-width) - var(--docked-comments-resizer-width))";
             if (null !== document.querySelector(".comments-toggle")) document.querySelector(".comments-toggle").click();
@@ -43,13 +45,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var bl = document.querySelector(getCurrentHostConfigFor("top_button_insert_selector"));
         if (null !== bl) {
-            bl.innerHTML = '<div><button class="gae-comment-click-open comments-toggle-top">Hozzászólások<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAEhJREFUeNpi+P//PwMaTsMihhVjE/xPrAG4NBNlAD7NBA0gpBmvAcRoxmkAsZqxGkCKZgwD6GJzGt1DO43uKYzstE10rgIIMACk+NdFeq8++wAAAABJRU5ErkJggg=="></button></div>' + bl.innerHTML;
+            bl.innerHTML = '<div><button class="gae-comment-click-open comments-toggle-top">Hozzászólások</button></div>' + bl.innerHTML;
+            document.querySelector('.comments-toggle-top').style.color = getCurrentHostConfigFor("button_text_color");
+            document.querySelector('.comments-toggle-top').addEventListener('click', () => {
+                if (null !== document.querySelector(".comments-toggle")) document.querySelector(".comments-toggle").click();
+                document.getElementById('comments').scrollIntoView();
+            });
         }
 
-        document.querySelector('.comments-docked-open>a').addEventListener('click', toggleDocked);
+        document.querySelector('.comments-docked-open>button').addEventListener('click', toggleDocked);
         document.querySelector('.comments-docked-close>a').addEventListener('click', toggleDocked);
-        document.querySelector('.comments-toggle-top').addEventListener('click', toggleDocked);
-        document.querySelector('.comments-toggle-top').addEventListener('click', () => { document.getElementById('comments').scrollIntoView(); });
+
+        document.querySelector('.comments-docked-open>button').style.color = getCurrentHostConfigFor("button_text_color");
+        document.querySelector(".comments-toggle").style.color = getCurrentHostConfigFor("button_text_color");
+        document.querySelector(".comments-docked-title").style.color = getCurrentHostConfigFor("button_text_color");
     }
 
     function addResizeBar() {
@@ -99,15 +108,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function getCommentsInnerHTML() {
-        var mf = chrome.runtime.getManifest();
         var html =
         `<!-- comments -->
         <div class="comments-docked-resizer"><div></div></div>
         <div class="subhead">` +
-            `<span class="logo" title="v` + chrome.runtime.getManifest().version + `"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAAPCAYAAACx+QwLAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFpJREFUeNpi/A8EDAjACKWJFcMF6KkWrxgTwzAHox4c9eCoBwcWsFDBjMFQuo4m0dEkiif5DJTa0RiExSC2DMw4SN3LSKoYCwntO0YSkhWt1I62RUdcHgQIMADPlRkjQbOuPAAAAABJRU5ErkJggg=="><span class="comments-docked-title">Hozzászólások</span></span>` +
+            `<span class="logo" title="` + chrome.runtime.getManifest().name + ` v` + chrome.runtime.getManifest().version + `"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAAPCAYAAACx+QwLAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFpJREFUeNpi/A8EDAjACKWJFcMF6KkWrxgTwzAHox4c9eCoBwcWsFDBjMFQuo4m0dEkiif5DJTa0RiExSC2DMw4SN3LSKoYCwntO0YSkhWt1I62RUdcHgQIMADPlRkjQbOuPAAAAABJRU5ErkJggg=="><span class="comments-docked-title">Hozzászólások</span></span>` +
             `<span class="comments-title">Uralkodj magadon!</span>` +
             `<span class="comments-docked-toggle">` + 
-                `<span class="comments-docked-open"><a>Hozzászólások panel<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFNJREFUeNpi+P//PwMSTgNiPjQxFIwu8ASIZwMxB7EaXvyHgKm4NKELPP2PAJOBmJUUDVg1EdIAAouA2BSmhomBVEBNJxHlaZKDleSII5g0AAIMAFgXqSZuyjlLAAAAAElFTkSuQmCC"></a></span>` + 
+                `<span class="comments-docked-open"><button>Hozzászólások panel</button></span>` + 
                 `<span class="comments-docked-close comments-docked-hidden"><a><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAADxJREFUeNpi+A8BaUDMgAeD5BEMPBrg8gwENKCI45TAZgADHpMwbMLrRnQ5sk0m2s1EhwZJ4Ux0DAIEGABDKYzoRdlxEwAAAABJRU5ErkJggg=="></a></span>` +
             `</span>
         </div>

@@ -8,7 +8,7 @@ section#comments.docked-comments {
     top: 0;
     right: 0;
     margin: 0;
-    z-index: 1000;
+    z-index: 10000;
     background-color: var(--blog-accent-color);
     box-shadow: 12px 0px 40px #000;
     overflow: hidden;
@@ -125,28 +125,18 @@ section#comments .comments-docked-open {
     user-select: none;
 }
 
-section#comments .comments-docked-open>a {
+section#comments .comments-docked-open>button {
     border: none;
     display: inline-block;
     margin: 1px;
-    padding: 1px 4px 0px 8px;
+    padding: 1px 8px 0px;
     color: #f5f5f5;
-    -webkit-transition: 0.1s linear;
-    -moz-transition: 0.1s linear;
-    -o-transition: 0.1s linear;
-    transition: 0.1s linear;
-}
-
-section#comments .comments-docked-open>a:hover {
     background-color: var(--blog-accent-color);
-    text-decoration: none;
-}
-
-section#comments .comments-docked-open>a>img {
-    height: 12px;
-    width: 12px;
-    display: inline-block;
-    margin: -3px 0 0 4px;
+    font-family: league;
+    text-transform: uppercase;
+    font-size: 16px;
+    letter-spacing: 1px;
+    cursor: pointer;
 }
 
 section#comments .comments-docked-hidden {
@@ -238,8 +228,7 @@ button.comments-toggle-top {
     width: auto;
     margin-right: 20px;
     border: 0;
-    padding: 7px 6px 4px 10px;
-    background-color: #29af0a;
+    padding: 7px 14px 4px;
     background-color: var(--blog-accent-color);
     text-transform: uppercase;
     font-family: league;
@@ -250,19 +239,3 @@ button.comments-toggle-top {
 }
 
 button.comments-toggle-top:focus {outline:0;}
-
-button.comments-toggle-top>img {
-    padding: 0;
-    display: inline-block;
-    margin: 0 0 5px 6px;
-    -webkit-transition: 0.3s ease-out;
-    -moz-transition: 0.3s ease-out;
-    -o-transition: 0.3s ease-out;
-    transition: 0.3s ease-out;
-    width: 15px;
-    height: 15px;
-}
-
-.comments-toggle-top.opened>img {
-    transform: rotate(90deg);
-}
