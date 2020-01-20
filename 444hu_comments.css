@@ -61,29 +61,16 @@ section#comments.docked-comments .subhead a {
 
 section#comments.docked-comments .subhead .logo {
     margin: 0;
-    padding: 0;
     display: inline-block;
+    padding: 0 15px;
+    line-height: normal;
 }
 
 section#comments .subhead .logo {
     display: none;
 }
 
-section#comments.docked-comments .subhead .logo>a {
-    border: none;
-    padding: 0 15px;
-    -webkit-transition: 0.1s linear;
-    -moz-transition: 0.1s linear;
-    -o-transition: 0.1s linear;
-    transition: 0.1s linear;
-    line-height: normal;
-}
-
-section#comments.docked-comments .subhead .logo>a:hover {
-    background-color: rgba(255, 255, 255, 0.15);
-}
-
-section#comments.docked-comments .subhead .logo>a>img {
+section#comments.docked-comments .subhead .logo>img {
     padding: 0;
     display: inline-block;
     margin: 8px 8px 0 0;
@@ -201,18 +188,7 @@ section#comments.docked-comments .comments-docked-toggle>span>a {
 }
 
 section#comments.docked-comments .comments-docked-toggle>span>a:hover {
-    background-color: rgba(255, 255, 255, 0.15);
-}
-
-section#comments.docked-comments .comments-docked-toggle>span.comments-docked-close>a {
-    -webkit-transition: none;
-    -moz-transition: none;
-    -o-transition: none;
-    transition: none;
-}
-
-section#comments.docked-comments .comments-docked-toggle>span.comments-docked-close>a:hover {
-    background-color: #e0002d;
+    background-color: rgba(255, 255, 255, 0.25);
 }
 
 section#comments.docked-comments .comments-title {
