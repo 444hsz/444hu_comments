@@ -112,10 +112,10 @@ document.addEventListener('DOMContentLoaded', function () {
         `<!-- comments -->
         <div class="comments-docked-resizer"><div></div></div>
         <div class="subhead">` +
-            `<span class="logo" title="` + chrome.runtime.getManifest().name + ` v` + chrome.runtime.getManifest().version + `"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAAPCAYAAACx+QwLAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFpJREFUeNpi/A8EDAjACKWJFcMF6KkWrxgTwzAHox4c9eCoBwcWsFDBjMFQuo4m0dEkiif5DJTa0RiExSC2DMw4SN3LSKoYCwntO0YSkhWt1I62RUdcHgQIMADPlRkjQbOuPAAAAABJRU5ErkJggg=="><span class="comments-docked-title">Hozzászólások</span></span>` +
+            `<span class="logo" title="` + chrome.runtime.getManifest().short_name + ` v` + chrome.runtime.getManifest().version + `"><span class="comments-docked-title">Hozzászólások</span></span>` +
             `<span class="comments-title">Uralkodj magadon!</span>` +
             `<span class="comments-docked-toggle">` + 
-                `<span class="comments-docked-open"><button>Hozzászólások panel</button></span>` + 
+                `<span class="comments-docked-open"><button>Hozzászólások oldalsáv</button></span>` +
                 `<span class="comments-docked-close comments-docked-hidden"><a><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAADxJREFUeNpi+A8BaUDMgAeD5BEMPBrg8gwENKCI45TAZgADHpMwbMLrRnQ5sk0m2s1EhwZJ4Ux0DAIEGABDKYzoRdlxEwAAAABJRU5ErkJggg=="></a></span>` +
             `</span>
         </div>
