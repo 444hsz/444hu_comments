@@ -33,8 +33,8 @@ section#comments.docked-comments .comments-contents {
     background-color: var(--docked-comments-bg-color);
     padding: var(--docked-comments-padding);
     padding-right: 0px;
-    margin: 0 1px 0 9px;
-    height: calc(100% - 29px);
+    margin: 0 9px 0 9px;
+    height: calc(100% - 37px);
     overflow-x: hidden;
     overflow-y: scroll;
     scrollbar-width: thin;
