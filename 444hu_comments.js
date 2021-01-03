@@ -14,10 +14,16 @@ document.addEventListener('DOMContentLoaded', function () {
         var cfg = {
             "sites":{
                 "default": {
-                    "top_button_insert_selector": "div.byline"
+                    "top_button_insert_selector": "div.byline",
+                    "comments_section_html": getCommentsInnerHTML()
+
                 },
                 "jo.444.hu": {
                     "button_text_color": "#222"
+                },
+                "geekz.444.hu": {
+                    "comments_section_html": getCommentsInnerHTMLGeekz(),
+                    "init_script": "if (1609099410000 > 1453379951779) {window.disqus_shortname = 'geekzblog';}"
                 }
             }
         }
@@ -96,6 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
         script.textContent =
         `window.addEventListener('load', () => {
             require('blog/comment').default();
+            ` + getCurrentHostConfigFor("init_script") + `
             console.debug('` + log("initialized", true) + `');
         });`;
         (document.head || document.documentElement).prepend(script);
@@ -107,6 +114,29 @@ document.addEventListener('DOMContentLoaded', function () {
         initCommentButton();
     }
 
+    function getCommentsInnerHTMLGeekz() {
+        var html =
+        `<!-- comments -->
+        <div class="comments-docked-resizer"><div></div></div>
+        <div class="subhead">` +
+            `<span class="logo" title="` + chrome.runtime.getManifest().short_name + ` v` + chrome.runtime.getManifest().version + `"><span class="comments-docked-title">Hozzászólások</span></span>` +
+            `<span class="comments-title">Uralkodj magadon!</span>` +
+            `<span class="comments-docked-toggle">` + 
+                `<span class="comments-docked-open"><button>Hozzászólások oldalsáv</button></span>` +
+                `<span class="comments-docked-close comments-docked-hidden"><a><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAADxJREFUeNpi+A8BaUDMgAeD5BEMPBrg8gwENKCI45TAZgADHpMwbMLrRnQ5sk0m2s1EhwZJ4Ux0DAIEGABDKYzoRdlxEwAAAABJRU5ErkJggg=="></a></span>` +
+            `</span>
+        </div>
+        <div class="comments-contents">
+            <div>
+                <b>A Geekz kommentszabályzata:</b>
+                Csak témába vágó kommenteket várunk! A politikai tartalmú, sértő, személyeskedő és trollkodó, illetve a témához nem kapcsolódó hozzászólásokat figyelmeztetés nélkül töröljük! A többszörös szabályszegőket bannoljuk a Geekzről/444-ről!
+            </div>
+            <button class="gae-comment-click-open comments-toggle">Hozzászólások</button>
+            <div class="ad"><div id="444_aloldal_kommentek"></div></div>
+            <div id="disqus_thread" class="freehand layout"></div>
+        </div>`;
+        return html;
+    }
     function getCommentsInnerHTML() {
         var html =
         `<!-- comments -->
@@ -138,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
         if (null !== document.getElementById("disqus_thread")) {
             log("comments enabled by 444.hu");
-            document.getElementById("comments").innerHTML = getCommentsInnerHTML();
+            document.getElementById("comments").innerHTML = getCurrentHostConfigFor("comments_section_html");
         } else {
             log("comments disabled by 444.hu");
             af.innerHTML += '<section id="comments">' + getCommentsInnerHTML() + '</section>';
