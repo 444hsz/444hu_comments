@@ -15,15 +15,20 @@ document.addEventListener('DOMContentLoaded', function () {
             "sites":{
                 "default": {
                     "top_button_insert_selector": "div.byline",
-                    "comments_section_html": getCommentsInnerHTML()
-
+                    "comments_section_html": getCommentsInnerHTML(),
+                    "init_script": function() { return ""; }
                 },
                 "jo.444.hu": {
                     "button_text_color": "#222"
                 },
                 "geekz.444.hu": {
                     "comments_section_html": getCommentsInnerHTMLGeekz(),
-                    "init_script": "if (1609099410000 > 1453379951779) {window.disqus_shortname = 'geekzblog';}"
+                    "init_script": function() {
+                        if (new Date(document.querySelector("meta[itemprop='dateCreated']").getAttribute('content')).getTime() > 1453379951779) {
+                            return "window.disqus_shortname = 'geekzblog';";
+                        }
+                        return "";
+                    }
                 }
             }
         }
@@ -102,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function () {
         script.textContent =
         `window.addEventListener('load', () => {
             require('blog/comment').default();
-            ` + getCurrentHostConfigFor("init_script") + `
+            ` + getCurrentHostConfigFor("init_script")() + `
             console.debug('` + log("initialized", true) + `');
         });`;
         (document.head || document.documentElement).prepend(script);
