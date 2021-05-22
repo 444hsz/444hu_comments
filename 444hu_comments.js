@@ -51,8 +51,28 @@ document.addEventListener('DOMContentLoaded', function () {
                             _lc.args = {};
                             _lc.loadComments.perform();
                             Ember.getOwner = _go;
-                            this.remove();
-                        }
+                            this.classList.add('hide');
+                        };
+
+                        var oldHref = window.location.href;
+                        var bodyList = document.querySelector("body");
+                        var observer = new MutationObserver(function(mutations) {
+                            mutations.forEach(function(mutation) {
+                                if (oldHref != document.location.href) {
+                                    console.debug('` + log("article changed, resetting comments", true) + `');
+                                    oldHref = document.location.href;
+                                    document.querySelector(".comments-toggle").classList.remove('hide');
+                                    document.getElementById('comments').classList.remove('docked-comments');
+                                    document.querySelector('.comments-docked-open').classList.remove('comments-docked-hidden');
+                                    document.querySelector('.comments-docked-close').classList.add('comments-docked-hidden');
+                                    DISQUS.reset();
+                                }
+                            });
+                        });
+                        observer.observe(bodyList, {
+                            childList: true,
+                            subtree: true
+                        });
                     `;}
                 },
             }
@@ -154,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function () {
             `<span class="logo" title="` + chrome.runtime.getManifest().short_name + ` v` + chrome.runtime.getManifest().version + `"><span class="comments-docked-title">Hozzászólások</span></span>` +
             `<span class="comments-title">Uralkodj magadon!</span>` +
             `<span class="comments-docked-toggle">` + 
-                `<span class="comments-docked-open"><button>Hozzászólások oldalsáv</button></span>` +
+                `<span class="comments-docked-open"><button title="Oldalsáv">◨</button></span>` +
                 `<span class="comments-docked-close comments-docked-hidden"><a><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAADxJREFUeNpi+A8BaUDMgAeD5BEMPBrg8gwENKCI45TAZgADHpMwbMLrRnQ5sk0m2s1EhwZJ4Ux0DAIEGABDKYzoRdlxEwAAAABJRU5ErkJggg=="></a></span>` +
             `</span>
         </div>
@@ -177,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function () {
             `<span class="logo" title="` + chrome.runtime.getManifest().short_name + ` v` + chrome.runtime.getManifest().version + `"><span class="comments-docked-title">Hozzászólások</span></span>` +
             `<span class="comments-title">Uralkodj magadon!</span>` +
             `<span class="comments-docked-toggle">` + 
-                `<span class="comments-docked-open"><button>Hozzászólások oldalsáv</button></span>` +
+                `<span class="comments-docked-open"><button title="Oldalsáv">◨</button></span>` +
                 `<span class="comments-docked-close comments-docked-hidden"><a><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAADxJREFUeNpi+A8BaUDMgAeD5BEMPBrg8gwENKCI45TAZgADHpMwbMLrRnQ5sk0m2s1EhwZJ4Ux0DAIEGABDKYzoRdlxEwAAAABJRU5ErkJggg=="></a></span>` +
             `</span>
         </div>
@@ -201,7 +221,7 @@ document.addEventListener('DOMContentLoaded', function () {
             `<span class="logo" title="` + chrome.runtime.getManifest().short_name + ` v` + chrome.runtime.getManifest().version + `"><span class="comments-docked-title">Hozzászólások</span></span>` +
             `<span class="comments-title">Uralkodj magadon!</span>` +
             `<span class="comments-docked-toggle">` + 
-                `<span class="comments-docked-open"><button>Hozzászólások oldalsáv</button></span>` +
+                `<span class="comments-docked-open"><button title="Oldalsáv">◨</button></span>` +
                 `<span class="comments-docked-close comments-docked-hidden"><a><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAADxJREFUeNpi+A8BaUDMgAeD5BEMPBrg8gwENKCI45TAZgADHpMwbMLrRnQ5sk0m2s1EhwZJ4Ux0DAIEGABDKYzoRdlxEwAAAABJRU5ErkJggg=="></a></span>` +
             `</span>
         </div>

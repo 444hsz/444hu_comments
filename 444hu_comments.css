@@ -38,6 +38,10 @@ section#comments .subhead {
     cursor: pointer;
 }
 
+.hide {
+    display: none;
+}
+
 section#comments .comments-contents {
     color: #222;
     cursor: auto;
@@ -48,14 +52,6 @@ section#comments .comments-contents {
     margin: 0;
     padding: 0;
     position: relative;
-}
-
-section#comments .comments-contents > div {
-    margin-bottom: .9375rem;
-}
-
-#disqus_recommendations {
-    display: none;
 }
 
 section#comments .comments-title {
