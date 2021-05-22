@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (null !== document.querySelector(".comments-toggle")) document.querySelector(".comments-toggle").click();
         }
 
-
+        /*
         let bl = getCurrentHostConfigFor("top_button_insert_parent") ? document.querySelector(getCurrentHostConfigFor("top_button_insert_selector")).parentElement : document.querySelector(getCurrentHostConfigFor("top_button_insert_selector"));
 
         if (null !== bl) {
@@ -115,6 +115,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('comments').scrollIntoView();
             });
         }
+        */
 
         document.querySelector('.comments-docked-open>button').addEventListener('click', toggleDocked);
         document.querySelector('.comments-docked-close>a').addEventListener('click', toggleDocked);
