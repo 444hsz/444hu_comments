@@ -1,7 +1,7 @@
 {
   "name": "444.hu hozzászólások",
   "short_name": "444comments",
-  "version": "1.1.9",
+  "version": "1.2.0",
   "manifest_version": 2,
   "author": "nerblock",
   "description": "Engedélyezi a hozzászólást a 444.hu olyan cikkeinél, ahol a hozzászólási lehetőség egyébként ki van kapcsolva.",
@@ -10,8 +10,12 @@
     {
       "matches": ["http://*.444.hu/*", "https://*.444.hu/*"],
       "js": ["444hu_comments.js"],
-      "css": ["444hu_comments.css"],
+      "css": ["444hu_comments_legacy.css"],
       "run_at": "document_start"
+    },
+    {
+      "matches": ["http://444.hu/*", "https://444.hu/*"],
+      "css": ["444hu_comments.css"]
     }
   ],
   "page_action": {
