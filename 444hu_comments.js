@@ -42,32 +42,37 @@ document.addEventListener('DOMContentLoaded', function () {
                     "comments_section_insert_parent": true,
                     "comments_section_insert_retry": true,
                     "init_script": function() { return `
-                        document.querySelector(".comments-toggle").onclick = function() {
-                            window.disqus_url = document.URL;
-                            let _dc = require('disqus/components/disqus-comments');
-                            let _lc = new _dc.default();
-                            let _go = Ember.getOwner;
-                            Ember.getOwner = function() { return { lookup: function() { return { get: function() { return "444hu"; }}}}}
-                            _lc.args = {};
-                            _lc.loadComments.perform();
-                            Ember.getOwner = _go;
-                            this.classList.add('hide');
-                        };
+                        if (null !== document.querySelector(".comments-toggle")) {
+                            document.querySelector(".comments-toggle").onclick = function() {
+                                window.disqus_url = document.URL;
+                                let _dc = require('disqus/components/disqus-comments'),
+                                    _lc = new _dc.default(),
+                                    _go = Ember.getOwner;
+                                Ember.getOwner = function() { return { lookup: function() { return { get: function() { return "444hu"; }}}}}
+                                _lc.args = {};
+                                _lc.loadComments.perform();
+                                Ember.getOwner = _go;
+                                this.classList.add('hide');
+                            };
+                        }
 
                         var oldHref = window.location.href;
                         var bodyList = document.querySelector("body");
                         var observer = new MutationObserver(function(mutations) {
-                            mutations.forEach(function(mutation) {
-                                if (oldHref != document.location.href) {
-                                    console.debug('` + log("article changed, resetting comments", true) + `');
-                                    oldHref = document.location.href;
+                            if (oldHref != document.location.href) {
+                                console.debug('` + log("article changed, resetting comments", true) + `');
+                                if (oldHref == 'https://444.hu/')
+                                    location.reload();
+                                oldHref = document.location.href;
+                                if (null !== document.querySelector(".comments-toggle")) {
                                     document.querySelector(".comments-toggle").classList.remove('hide');
                                     document.getElementById('comments').classList.remove('docked-comments');
                                     document.querySelector('.comments-docked-open').classList.remove('comments-docked-hidden');
                                     document.querySelector('.comments-docked-close').classList.add('comments-docked-hidden');
-                                    DISQUS.reset();
+                                    if (typeof DISQUS !== "undefined")
+                                        DISQUS.reset();
                                 }
-                            });
+                            }
                         });
                         observer.observe(bodyList, {
                             childList: true,
@@ -148,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    function initCommentButton() {
+    function injectInitScript() {
         // init comments button after load
         var script = document.createElement('script');
         script.textContent = `
@@ -163,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function init() {
         addResizeBar();
         addDockButtons();
-        initCommentButton();
+        injectInitScript();
     }
 
     function getCommentsInnerHTMLGeekz() {
@@ -260,9 +265,11 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     
+        af = document.querySelector(getCurrentHostConfigFor("comments_section_insert_selector"));
         if (null === af) {
             // only run on article pages
             log("no article found, doing nothing");
+            injectInitScript();
         } else {
             if (null !== document.getElementById("disqus_thread")) {
                 log("comments enabled by 444.hu");
