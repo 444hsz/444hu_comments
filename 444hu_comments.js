@@ -24,6 +24,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         if (_cd) {
                             _ret += "require('blog/comment').default();";
                         }
+                        _ret += `
+                            if (window.location.hash.startsWith('#comment')) {
+                                document.querySelector(".comments-toggle").click();
+                                document.getElementById('comments').scrollIntoView();
+                            }
+                        `;
                         return _ret;
                     }
                 },
@@ -41,6 +47,12 @@ document.addEventListener('DOMContentLoaded', function () {
                                 _ret += "window.disqus_shortname = 'geekzblog';";
                             }
                         }
+                        _ret += `
+                            if (window.location.hash.startsWith('#comment')) {
+                                document.querySelector(".comments-toggle").click();
+                                document.getElementById('comments').scrollIntoView();
+                            }
+                        `;
                         return _ret;
                     }
                 },
@@ -70,10 +82,23 @@ document.addEventListener('DOMContentLoaded', function () {
                             return href.match(/^https:\\/\\/444\\.hu\\/\\d{4}\\/\\d{2}\\/\\d{2}\\/.+/i);
                         }
 
+                        if (isArticleUrl(document.location.href) && window.location.hash.startsWith('#comment')) {
+                            document.querySelector(".comments-toggle").click();
+                            document.getElementById('comments').scrollIntoView();
+                        }
+
                         var oldHref = window.location.href;
                         var observer = new MutationObserver(function(mutations) {
                             if (oldHref != document.location.href) {
                                 console.debug('` + log("url changed, resetting comments", true) + `');
+                                if (null !== document.querySelector(".comments-toggle")) {
+                                    document.querySelector(".comments-toggle").classList.remove('hide');
+                                    document.getElementById('comments').classList.remove('docked-comments');
+                                    document.querySelector('.comments-docked-open').classList.remove('comments-docked-hidden');
+                                    document.querySelector('.comments-docked-close').classList.add('comments-docked-hidden');
+                                    if (typeof DISQUS !== "undefined")
+                                        DISQUS.reset();
+                                }
                                 if (isArticleUrl(document.location.href)) {
                                     if (!isArticleUrl(oldHref)) {
                                         console.debug('` + log("workaround activated, reloading page", true) + `');
@@ -95,16 +120,12 @@ document.addEventListener('DOMContentLoaded', function () {
                                             });
                                         }
                                     }, 1000);
+                                    if (window.location.hash.startsWith('#comment')) {
+                                        document.querySelector(".comments-toggle").click();
+                                        document.getElementById('comments').scrollIntoView();
+                                    }
                                 }
                                 oldHref = document.location.href;
-                                if (null !== document.querySelector(".comments-toggle")) {
-                                    document.querySelector(".comments-toggle").classList.remove('hide');
-                                    document.getElementById('comments').classList.remove('docked-comments');
-                                    document.querySelector('.comments-docked-open').classList.remove('comments-docked-hidden');
-                                    document.querySelector('.comments-docked-close').classList.add('comments-docked-hidden');
-                                    if (typeof DISQUS !== "undefined")
-                                        DISQUS.reset();
-                                }
                             }
                         });
                         observer.observe(document.querySelector("body"), {
