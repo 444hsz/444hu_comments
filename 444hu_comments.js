@@ -56,13 +56,19 @@ document.addEventListener('DOMContentLoaded', function () {
                             };
                         }
 
+                        function isArticleUrl(href) {
+                            return href.match(/^https:\\/\\/444\\.hu\\/\\d{4}\\/\\d{2}\\/\\d{2}\\/.+/i);
+                        }
+
                         var oldHref = window.location.href;
-                        var bodyList = document.querySelector("body");
                         var observer = new MutationObserver(function(mutations) {
                             if (oldHref != document.location.href) {
-                                console.debug('` + log("article changed, resetting comments", true) + `');
-                                if (oldHref == 'https://444.hu/')
+                                console.debug('` + log("url changed, resetting comments", true) + `');
+
+                                if (isArticleUrl(document.location.href) && !isArticleUrl(oldHref)) {
+                                    console.debug('` + log("workaround activated, reloading page", true) + `');
                                     location.reload();
+                                }
                                 oldHref = document.location.href;
                                 if (null !== document.querySelector(".comments-toggle")) {
                                     document.querySelector(".comments-toggle").classList.remove('hide');
@@ -74,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 }
                             }
                         });
-                        observer.observe(bodyList, {
+                        observer.observe(document.querySelector("body"), {
                             childList: true,
                             subtree: true
                         });
