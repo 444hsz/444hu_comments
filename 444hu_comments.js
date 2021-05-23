@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 },
                 "444.hu": {
                     "top_button_insert_selector": '[style="--avatar-width: 40px; --avatar-height: 40px;"]',
-                    "top_button_insert_parent": true,
+                    "top_button_insert_workaround": true,
                     "comments_section_html": getCommentsInnerHTML(),
                     "comments_section_insert_selector": "#ap-article-footer1",
                     "comments_section_insert_parent": true,
@@ -64,10 +64,27 @@ document.addEventListener('DOMContentLoaded', function () {
                         var observer = new MutationObserver(function(mutations) {
                             if (oldHref != document.location.href) {
                                 console.debug('` + log("url changed, resetting comments", true) + `');
-
-                                if (isArticleUrl(document.location.href) && !isArticleUrl(oldHref)) {
-                                    console.debug('` + log("workaround activated, reloading page", true) + `');
-                                    location.reload();
+                                if (isArticleUrl(document.location.href)) {
+                                    if (!isArticleUrl(oldHref)) {
+                                        console.debug('` + log("workaround activated, reloading page", true) + `');
+                                        location.reload();
+                                    }
+                                    setTimeout(function() {
+                                        let bl = document.querySelector('` + getCurrentHostConfigFor("top_button_insert_selector") + `');
+                                        if (null !== bl) {
+                                            bl.style.setProperty("--avatar-width", "194px");
+                                            bl.style.setProperty("background", "none");
+                                            bl.style.setProperty("transition", "0.2s ease");
+                                            bl.style.setProperty("-webkit-transition", "0.2s ease");
+                                            bl.style.setProperty("-moz-transition", "0.2s ease");
+                                            bl.style.setProperty("-o-transition", "0.2s ease");
+                                            bl.innerHTML = '<div><button class="gae-comment-click-open comments-toggle-top">Hozzászólások</button></div>' + bl.innerHTML;
+                                            document.querySelector('.comments-toggle-top').addEventListener('click', () => {
+                                                if (null !== document.querySelector(".comments-toggle")) document.querySelector(".comments-toggle").click();
+                                                document.getElementById('comments').scrollIntoView();
+                                            });
+                                        }
+                                    }, 1000);
                                 }
                                 oldHref = document.location.href;
                                 if (null !== document.querySelector(".comments-toggle")) {
@@ -110,10 +127,16 @@ document.addEventListener('DOMContentLoaded', function () {
             if (null !== document.querySelector(".comments-toggle")) document.querySelector(".comments-toggle").click();
         }
 
-        /*
-        let bl = getCurrentHostConfigFor("top_button_insert_parent") ? document.querySelector(getCurrentHostConfigFor("top_button_insert_selector")).parentElement : document.querySelector(getCurrentHostConfigFor("top_button_insert_selector"));
-
+        let bl = document.querySelector(getCurrentHostConfigFor("top_button_insert_selector"));
         if (null !== bl) {
+            if (getCurrentHostConfigFor("top_button_insert_workaround")) {
+                bl.style.setProperty("--avatar-width", "194px");
+                bl.style.setProperty("background", "none");
+                bl.style.setProperty("transition", "0.2s ease");
+                bl.style.setProperty("-webkit-transition", "0.2s ease");
+                bl.style.setProperty("-moz-transition", "0.2s ease");
+                bl.style.setProperty("-o-transition", "0.2s ease");
+            }
             bl.innerHTML = '<div><button class="gae-comment-click-open comments-toggle-top">Hozzászólások</button></div>' + bl.innerHTML;
             document.querySelector('.comments-toggle-top').style.color = getCurrentHostConfigFor("button_text_color");
             document.querySelector('.comments-toggle-top').addEventListener('click', () => {
@@ -121,7 +144,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('comments').scrollIntoView();
             });
         }
-        */
 
         document.querySelector('.comments-docked-open>button').addEventListener('click', toggleDocked);
         document.querySelector('.comments-docked-close>a').addEventListener('click', toggleDocked);

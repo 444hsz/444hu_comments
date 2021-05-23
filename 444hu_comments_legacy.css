@@ -152,9 +152,11 @@ section#comments.docked-comments .comments-docked-toggle>span>a>img {
     margin: 10px 18px;
     width: 11px;
     height: 11px;
+    vertical-align: middle;
 }
 
 section#comments.docked-comments .comments-docked-toggle>span>a {
+    position: relative;
     display: inline-block;
     height: auto;
     border: none;
@@ -164,6 +166,7 @@ section#comments.docked-comments .comments-docked-toggle>span>a {
     -moz-transition: 0.1s linear;
     -o-transition: 0.1s linear;
     transition: 0.1s linear;
+    cursor: pointer;
 }
 
 section#comments.docked-comments .comments-docked-toggle>span>a:hover {
