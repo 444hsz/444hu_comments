@@ -19,7 +19,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     "comments_section_insert_retry": false,
                     "comments_section_html": getCommentsInnerHTMLBlog(),
                     "init_script": function() {
-                        return "require('blog/comment').default();";
+                        let _cd = document.querySelector("meta[itemprop='dateCreated']");
+                        let _ret = "";
+                        if (_cd) {
+                            _ret += "require('blog/comment').default();";
+                        }
+                        return _ret;
                     }
                 },
                 "jo.444.hu": {
@@ -28,10 +33,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 "geekz.444.hu": {
                     "comments_section_html": getCommentsInnerHTMLGeekz(),
                     "init_script": function() {
-                        if (new Date(document.querySelector("meta[itemprop='dateCreated']").getAttribute('content')).getTime() > 1453379951779) {
-                            return "require('blog/comment').default(); window.disqus_shortname = 'geekzblog';";
+                        let _cd = document.querySelector("meta[itemprop='dateCreated']");
+                        let _ret = "";
+                        if (_cd) {
+                            _ret += "require('blog/comment').default();";
+                            if (new Date(_cd.getAttribute('content')).getTime() > 1453379951779) {
+                                _ret += "window.disqus_shortname = 'geekzblog';";
+                            }
                         }
-                        return "";
+                        return _ret;
                     }
                 },
                 "444.hu": {
