@@ -39,6 +39,7 @@ section#comments.docked-comments .comments-contents {
     overflow-y: scroll;
     scrollbar-width: thin;
     scrollbar-color: var(--blog-accent-color) var(--docked-comments-bg-color);
+    overscroll-behavior: contain;
 }
 
 section#comments.docked-comments .subhead {

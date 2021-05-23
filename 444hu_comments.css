@@ -72,6 +72,10 @@ section#comments .comments-docked-toggle {
     font-family: 'League Gothic';
 }
 
+section#comments.docked-comments .comments-contents {
+    scrollbar-color: var(--c-secondary) var(--docked-comments-bg-color);
+}
+
 section#comments.docked-comments .comments-contents::-webkit-scrollbar-thumb {
     background-color: var(--c-secondary);
     border: 6px solid var(--docked-comments-bg-color);
