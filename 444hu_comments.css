@@ -63,6 +63,10 @@ section#comments .comments-title {
     font-family: "boxed","Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
 }
 
+#disqus_thread a {
+    color: var(--c-secondary);
+}
+
 section#comments.docked-comments {
     background-color: var(--c-secondary);
 }
