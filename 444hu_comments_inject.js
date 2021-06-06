@@ -44,65 +44,110 @@
         return _emberRouter.currentRouteName === "--reader.post";
     }
 
-    function onClickCommentsButton() {
-        window.disqus_url = document.URL;
-        let _dc = require('disqus/components/disqus-comments'),
-            _lc = new _dc.default(),
-            _go = Ember.getOwner;
-        Ember.getOwner = function() { return { lookup: function() { return { get: function() { return "444hu"; }}}}}
-        _lc.args = {};
-        _lc.loadComments.perform();
-        Ember.getOwner = _go;
-        this.classList.add('hide');
-    }
-
-    function onClickTopCommentsButton() {
-        document.querySelector(".comments-toggle").click();
-        document.getElementById("comments").scrollIntoView();
-    }
-
-    function initButtons() {
-        if (null !== document.querySelector(".comments-toggle")) {
-            document.querySelector(".comments-toggle").onclick = onClickCommentsButton;
-        }
-
-        let el = document.querySelector('[style="--avatar-width: 40px; --avatar-height: 40px;"]');
-        el.style.setProperty("--avatar-width", "194px");
-        el.style.setProperty("background", "none");
-        el.style.setProperty("transition", "0.2s ease");
-        el.style.setProperty("-webkit-transition", "0.2s ease");
-        el.style.setProperty("-moz-transition", "0.2s ease");
-        el.style.setProperty("-o-transition", "0.2s ease");
-        el.innerHTML = '<div><button class="gae-comment-click-open comments-toggle-top">Hozzászólások</button></div>' + el.innerHTML;
-
-        document.querySelector(".comments-toggle-top").onclick = onClickTopCommentsButton;
-    }
-
     function scrollToHash() {
         if (window.location.hash.startsWith('#comment')) {
             document.querySelector(".comments-toggle").click();
             document.getElementById('comments').scrollIntoView();
         }
     }
-    
-    function reset() {
-        if (typeof DISQUS !== "undefined") DISQUS.reset();
-        let _el = document.querySelector("#ap-article-footer1");
-        if (null !== _el) {
-            _parentEl = _el.parentElement;
-            _parentEl.childNodes[0].remove();
+
+    function initSidebar() {
+        function initResize(e) {
+            e.preventDefault();
+            document.body.style.pointerEvents = "none";
+            ce.classList.toggle("dragged");
+            window.addEventListener('mousemove', Resize, false);
+            window.addEventListener('mouseup', stopResize, false);
         }
+
+        function Resize(e) {
+            e.preventDefault();
+            var w = document.body.clientWidth - e.clientX;
+            if (w >= 335) {
+                ce.style.width =  w + 'px';
+                re.style.right =  (w - 8) + 'px';
+            }
+        }
+
+        function stopResize(e) {
+            e.preventDefault();
+            window.removeEventListener('mousemove', Resize, false);
+            window.removeEventListener('mouseup', stopResize, false);
+            document.body.style.pointerEvents = "";
+            ce.classList.toggle("dragged");
+        }
+
+        function onClickSidebarToggle() {
+            document.getElementById('comments').classList.toggle('docked-comments');
+            document.querySelector('.comments-docked-open').classList.toggle('comments-docked-hidden');
+            document.querySelector('.comments-docked-close').classList.toggle('comments-docked-hidden');
+            document.getElementById('comments').style.width = 'var(--docked-comments-width)';
+            document.querySelector("section#comments .comments-docked-resizer").style.right = "calc(var(--docked-comments-width) - var(--docked-comments-resizer-width))";
+            let el = document.querySelector(".comments-toggle");
+            if (null !== el) el.click();
+        }
+
+        var ce = document.querySelector("section#comments");
+        var re = document.querySelector("section#comments .comments-docked-resizer");
+        re.addEventListener('mousedown', initResize, false);
+        document.querySelector('.comments-docked-open>button').onclick = onClickSidebarToggle;
+        document.querySelector('.comments-docked-close>a').onclick = onClickSidebarToggle;
     }
 
-    function insertCommentsSection() {
+    function initButtons() {
+        function onClickCommentsButton() {
+            window.disqus_url = document.URL;
+            let dc = require('disqus/components/disqus-comments'),
+                lc = new dc.default(),
+                go = Ember.getOwner;
+            Ember.getOwner = function() { return { lookup: function() { return { get: function() { return "444hu"; }}}}}
+            lc.args = {};
+            lc.loadComments.perform();
+            Ember.getOwner = go;
+            this.classList.add('hide');
+        }
+    
+        function onClickTopCommentsButton() {
+            document.querySelector(".comments-toggle").click();
+            document.getElementById("comments").scrollIntoView();
+        }
+
+        function insertTopCommentsButton() {
+            let el = document.querySelector('[style="--avatar-width: 40px; --avatar-height: 40px;"]');
+            el.style.setProperty("--avatar-width", "194px");
+            el.style.setProperty("background", "none");
+            el.innerHTML = '<div><button class="gae-comment-click-open comments-toggle-top">Hozzászólások</button></div>' + el.innerHTML;
+        }
+
+        insertTopCommentsButton();
+
+        document.querySelector(".comments-toggle").onclick = onClickCommentsButton;
+        document.querySelector(".comments-toggle-top").onclick = onClickTopCommentsButton;
+    }
+
+    function initCommentsSection() {
         _parentEl.insertBefore(_commentsSectionEl.cloneNode(true), _parentEl.childNodes[0]);
+    }
+
+    function reset() {
+        if (typeof DISQUS !== "undefined") {
+            DISQUS.reset();
+            DISQUS_RECOMMENDATIONS.reset();
+        }
+
+        let el = document.querySelector("#ap-article-footer1");
+        if (null !== el) {
+            _parentEl = el.parentElement;
+            _parentEl.childNodes[0].remove();
+        }
     }
 
     function init() {
         if (pageIsArticle()) {
             log("on article page");
             reset();
-            insertCommentsSection();
+            initCommentsSection();
+            initSidebar();
             initButtons();
             scrollToHash();
             log("comments section loaded");
