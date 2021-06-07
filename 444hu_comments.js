@@ -6,9 +6,9 @@ document.addEventListener('DOMContentLoaded', function () {
         else loaded444comments = true;
 
         function log(msg, ret) {
-            var tag = "[" + chrome.runtime.getManifest().short_name + "]";
+            var tag = "%c[" + chrome.runtime.getManifest().short_name + "]";
             if (ret) return tag + " " + msg;
-            else console.debug(tag, msg);
+            else console.debug(tag, "color: #29af0a;", msg);
         }
 
         function injectScript(scriptName) {
@@ -43,6 +43,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     },
                     "444.hu": {
                         "legacy_frontend": false
+                    },
+                    "membership.444.hu": {
+                        "disabled": true
                     },
                 }
             }
@@ -184,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (null === af) {
                 log("not on article page, doing nothing");
             } else {
-                log("on article page");
+                log("article page detected");
                 if (null !== document.getElementById("disqus_thread")) {
                     log("comments enabled by 444.hu");
                     document.getElementById("comments").innerHTML = getCurrentHostConfigFor("comments_section_html");
@@ -205,10 +208,14 @@ document.addEventListener('DOMContentLoaded', function () {
             injectScript(chrome.runtime.getURL('444hu_comments_inject.js'));
         }
 
-        if (getCurrentHostConfigFor("legacy_frontend")) {
-            startLegacy();
+        if (!getCurrentHostConfigFor("disabled")) {
+            if (getCurrentHostConfigFor("legacy_frontend")) {
+                startLegacy();
+            } else {
+                startEmber();
+            }
         } else {
-            startEmber();
+            log("Extension is disabled on " + window.location.hostname);
         }
     }());
 });

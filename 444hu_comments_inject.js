@@ -1,9 +1,11 @@
-
 (function () {
+    if (typeof Ember === "undefined") return;
+
     var _commentsSectionEl = document.createElement("section"),
         _commentsButtonTopEl = null,
         _commentsSectionTempEl = null,
         _parentEl = null,
+        _headContentAvailable = false,
         _emberApp = Ember.A(Ember.Namespace.NAMESPACES).filter(n => {return n.name === 'n3'})[0],
         _emberRouter = _emberApp.__container__.lookup('router:main'),
         _lastUrl = _emberRouter.get("url");
@@ -31,9 +33,9 @@
         </div>`;
 
     function log(msg, ret) {
-        var tag = "[444comments]";
+        var tag = "%c[444comments]";
         if (ret) return tag + " " + msg;
-        else console.debug(tag, msg);
+        else console.debug(tag, "color: #29af0a;", msg);
     }
 
     function pageChanged() {
@@ -42,6 +44,7 @@
 
     function trackPageChange() {
         _lastUrl = _emberRouter.get("url");
+        return true;
     }
 
     function pageIsArticle() {
@@ -160,8 +163,8 @@
             }
 
             _parentEl = el.parentElement;
+            _headContentAvailable = false;
 
-            log("comments section reset");
             return true;
         }
 
@@ -170,16 +173,15 @@
 
     function init() {
         if (pageIsArticle()) {
-            //log("on article page");
             if (reset()) {
                 initCommentsSection();
                 initSidebar();
                 initButtons();
                 scrollToHash();
-                //trackPageChange();
-                log("comments section loaded");
+                //trackPageChange(); //TODO: maybe uncomment this after 444 fixed the duplicate head-layout rendering issue
+                log("added comments section for slug:\n '" + _emberRouter.get("currentRoute.attributes.slug") + "'");
             } else {
-                log("can't load comments section");
+                log("adding comments section failed");
             }
         } else {
             log("not on article page, doing nothing");
@@ -187,15 +189,30 @@
     }
 
     _emberRouter.on('willTransition', trackPageChange);
+    _emberRouter.on('didTransition', () => {
+        if (!pageIsArticle()) {
+            trackPageChange();
+        }
+        return true;
+    });
 
     Ember.subscribe("render.component", {
         before(name, timestamp, payload) {},
         after(name, timestamp, payload, beganIndex) {
-            if (payload.containerKey == "component:head-layout" && !payload.initialRender && pageChanged()) {
-                init();
+            switch (payload.containerKey) {
+                case "component:head-content":
+                    if (pageIsArticle()) {
+                        _headContentAvailable = true;
+                    }
+                break;
+                case "component:head-layout":
+                    if (_headContentAvailable && !payload.initialRender && pageChanged()) {
+                        init();
+                    }
+                break;
             }
         }
     });
 
-    init(); //we need to fire init manually on the first pageload
+    init(); //on the first pageload component:head-layout is rendered serverside, so init needs to be fired manually
 }());
