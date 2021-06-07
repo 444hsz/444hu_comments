@@ -1,9 +1,13 @@
+
 (function () {
-    var _emberApp = Ember.A(Ember.Namespace.NAMESPACES).filter(n => {return n.name === 'n3'})[0],
+    var _commentsSectionEl = document.createElement("section"),
+        _commentsButtonTopEl = null,
+        _commentsSectionTempEl = null,
+        _parentEl = null,
+        _emberApp = Ember.A(Ember.Namespace.NAMESPACES).filter(n => {return n.name === 'n3'})[0],
         _emberRouter = _emberApp.__container__.lookup('router:main'),
-        _lastSlug = _emberRouter.currentRoute.attributes.slug,
-        _commentsSectionEl = document.createElement("section"),
-        _parentEl = null;
+        _lastUrl = _emberRouter.get("url");
+        //_lastUrl = _emberRouter.get("currentRoute.attributes.slug");
 
     _commentsSectionEl.id = "comments";
     _commentsSectionEl.innerHTML =
@@ -33,11 +37,11 @@
     }
 
     function pageChanged() {
-        return _lastSlug !== _emberRouter.currentRoute.attributes.slug;
+        return _lastUrl !== _emberRouter.get("url");
     }
 
     function trackPageChange() {
-        _lastSlug = _emberRouter.currentRoute.attributes.slug;
+        _lastUrl = _emberRouter.get("url");
     }
 
     function pageIsArticle() {
@@ -52,10 +56,13 @@
     }
 
     function initSidebar() {
+        var _ce = document.querySelector("section#comments");
+        var _re = document.querySelector("section#comments .comments-docked-resizer");
+
         function initResize(e) {
             e.preventDefault();
             document.body.style.pointerEvents = "none";
-            ce.classList.toggle("dragged");
+            _ce.classList.toggle("dragged");
             window.addEventListener('mousemove', Resize, false);
             window.addEventListener('mouseup', stopResize, false);
         }
@@ -64,8 +71,8 @@
             e.preventDefault();
             var w = document.body.clientWidth - e.clientX;
             if (w >= 335) {
-                ce.style.width =  w + 'px';
-                re.style.right =  (w - 8) + 'px';
+                _ce.style.width =  w + 'px';
+                _re.style.right =  (w - 8) + 'px';
             }
         }
 
@@ -74,7 +81,7 @@
             window.removeEventListener('mousemove', Resize, false);
             window.removeEventListener('mouseup', stopResize, false);
             document.body.style.pointerEvents = "";
-            ce.classList.toggle("dragged");
+            _ce.classList.toggle("dragged");
         }
 
         function onClickSidebarToggle() {
@@ -87,9 +94,8 @@
             if (null !== el) el.click();
         }
 
-        var ce = document.querySelector("section#comments");
-        var re = document.querySelector("section#comments .comments-docked-resizer");
-        re.addEventListener('mousedown', initResize, false);
+        _re.addEventListener('mousedown', initResize, false);
+
         document.querySelector('.comments-docked-open>button').onclick = onClickSidebarToggle;
         document.querySelector('.comments-docked-close>a').onclick = onClickSidebarToggle;
     }
@@ -113,10 +119,13 @@
         }
 
         function insertTopCommentsButton() {
-            let el = document.querySelector('[style="--avatar-width: 40px; --avatar-height: 40px;"]');
-            el.style.setProperty("--avatar-width", "194px");
-            el.style.setProperty("background", "none");
-            el.innerHTML = '<div><button class="gae-comment-click-open comments-toggle-top">Hozzászólások</button></div>' + el.innerHTML;
+            _commentsButtonTopEl = document.createElement("div");
+            _commentsButtonTopEl.innerHTML = '<button class="gae-comment-click-open comments-toggle-top">Hozzászólások</button>';
+
+            let p = document.querySelector('[style="--avatar-width: 40px; --avatar-height: 40px;"]');
+            p.style.setProperty("--avatar-width", "194px");
+            p.style.setProperty("background", "none");
+            p.insertBefore(_commentsButtonTopEl, p.childNodes[0]);
         }
 
         insertTopCommentsButton();
@@ -126,7 +135,8 @@
     }
 
     function initCommentsSection() {
-        _parentEl.insertBefore(_commentsSectionEl.cloneNode(true), _parentEl.childNodes[0]);
+        _commentsSectionTempEl = _commentsSectionEl.cloneNode(true);
+        _parentEl.insertBefore(_commentsSectionTempEl, _parentEl.childNodes[0]);
     }
 
     function reset() {
@@ -137,20 +147,40 @@
 
         let el = document.querySelector("#ap-article-footer1");
         if (null !== el) {
+            if (null !== _commentsButtonTopEl) {
+                _commentsButtonTopEl.parentElement.style.setProperty("--avatar-width", "40px");
+                _commentsButtonTopEl.parentElement.style.setProperty("background", null);
+                _commentsButtonTopEl.remove();
+                _commentsButtonTopEl = null;
+            }
+
+            if (null !== _commentsSectionTempEl) {
+                _commentsSectionTempEl.remove();
+                _commentsSectionTempEl = null;
+            }
+
             _parentEl = el.parentElement;
-            _parentEl.childNodes[0].remove();
+
+            log("comments section reset");
+            return true;
         }
+
+        return false;
     }
 
     function init() {
         if (pageIsArticle()) {
-            log("on article page");
-            reset();
-            initCommentsSection();
-            initSidebar();
-            initButtons();
-            scrollToHash();
-            log("comments section loaded");
+            //log("on article page");
+            if (reset()) {
+                initCommentsSection();
+                initSidebar();
+                initButtons();
+                scrollToHash();
+                //trackPageChange();
+                log("comments section loaded");
+            } else {
+                log("can't load comments section");
+            }
         } else {
             log("not on article page, doing nothing");
         }
@@ -167,5 +197,5 @@
         }
     });
 
-    init();
+    init(); //we need to fire init manually on the first pageload
 }());
