@@ -5,6 +5,16 @@ document.addEventListener('DOMContentLoaded', function () {
         if (loaded444comments) return;
         else loaded444comments = true;
 
+        var config = {
+            "default": { "legacy_frontend": true },
+            "444.hu": { "legacy_frontend": false },
+            "membership.444.hu": { "disabled": true }
+        }
+
+        function getConfig(key) {
+            return (typeof config[window.location.hostname] !== "undefined" && typeof config[window.location.hostname][key] !== "undefined") ? config[window.location.hostname][key] : config["default"][key];
+        }
+
         function log(msg, ret) {
             var tag = "%c[444comments]";
             if (ret) return tag + " " + msg;
@@ -17,29 +27,12 @@ document.addEventListener('DOMContentLoaded', function () {
             document.head.appendChild(script);
         }
 
-        function cfg(key) {
-            var cfg = {
-                "sites":{
-                    "default": { "legacy_frontend": true },
-                    "444.hu": { "legacy_frontend": false },
-                    "membership.444.hu": { "disabled": true }
-                }
-            }
-            if (null !== key) return cfg[key];
-            else return cfg;
-        }
-
-        function getConfig(key) {
-            var sites = cfg("sites");
-            return (typeof sites[window.location.hostname] !== "undefined" && typeof sites[window.location.hostname][key] !== "undefined") ? sites[window.location.hostname][key] : sites["default"][key];
-        }
-
         if (!getConfig("disabled")) {
             if (getConfig("legacy_frontend")) {
-                log("Legacy frontend mode");
+                log("Frontend: legacy");
                 injectScript(chrome.runtime.getURL('444hu_comments_inject_legacy.js'));
             } else {
-                log("Ember frontend mode");
+                log("Frontend: Ember");
                 injectScript(chrome.runtime.getURL('444hu_comments_inject.js'));
             }
         } else {

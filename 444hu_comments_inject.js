@@ -9,7 +9,6 @@
         _emberApp = Ember.A(Ember.Namespace.NAMESPACES).filter(n => {return n.name === 'n3'})[0],
         _emberRouter = _emberApp.__container__.lookup('router:main'),
         _lastUrl = _emberRouter.get("url");
-        //_lastUrl = _emberRouter.get("currentRoute.attributes.slug");
 
     _commentsSectionEl.id = "comments";
     _commentsSectionEl.innerHTML =

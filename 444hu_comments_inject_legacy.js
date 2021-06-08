@@ -1,46 +1,36 @@
 (function () {
+    var config = {
+        "default": {
+            "top_button_insert_selector": "div.byline",
+            "comments_section_insert_selector": "article footer.hide-print",
+            "comments_section_html": getCommentsInnerHTMLBlog(),
+            "init_script": function() {
+                require('blog/comment').default();
+            }
+        },
+        "jo.444.hu": {
+            "button_text_color": "#222"
+        },
+        "geekz.444.hu": {
+            "comments_section_html": getCommentsInnerHTMLGeekz(),
+            "init_script": function() {
+                require('blog/comment').default();
+                let cd = document.querySelector("meta[itemprop='dateCreated']");
+                if (null !== cd && new Date(cd.getAttribute('content')).getTime() > 1453379951779) {
+                    window.disqus_shortname = 'geekzblog';
+                }
+            }
+        }
+    }
+
+    function getConfig(key) {
+        return (typeof config[window.location.hostname] !== "undefined" && typeof config[window.location.hostname][key] !== "undefined") ? config[window.location.hostname][key] : config["default"][key];
+    }
+
     function log(msg, ret) {
         var tag = "%c[444comments]";
         if (ret) return tag + " " + msg;
         else console.debug(tag, "color: #29af0a;", msg);
-    }
-
-    function getConfig(key) {
-        var cfg = {
-            "sites":{
-                "default": {
-                    "top_button_insert_selector": "div.byline",
-                    "comments_section_insert_selector": "article footer.hide-print",
-                    "comments_section_html": getCommentsInnerHTMLBlog(),
-                    "init_script": function() {
-                        require('blog/comment').default();
-                    }
-                },
-                "jo.444.hu": {
-                    "button_text_color": "#222"
-                },
-                "geekz.444.hu": {
-                    "comments_section_html": getCommentsInnerHTMLGeekz(),
-                    "init_script": function() {
-                        require('blog/comment').default();
-                        let cd = document.querySelector("meta[itemprop='dateCreated']");
-                        if (null !== cd && new Date(cd.getAttribute('content')).getTime() > 1453379951779) {
-                            window.disqus_shortname = 'geekzblog';
-                        }
-                    }
-                }
-            }
-        }
-        if (null !== key) return cfg[key];
-        else return cfg;
-    }
-
-    function getCurrentHostConfigFor(key) {
-        var sites = getConfig("sites");
-        if (typeof sites[window.location.hostname] !== "undefined" && typeof sites[window.location.hostname][key] !== "undefined")
-            return sites[window.location.hostname][key];
-        else
-            return sites["default"][key];
     }
 
     function addDockButtons() {
@@ -53,10 +43,10 @@
             if (null !== document.querySelector(".comments-toggle")) document.querySelector(".comments-toggle").click();
         }
 
-        let bl = document.querySelector(getCurrentHostConfigFor("top_button_insert_selector"));
+        let bl = document.querySelector(getConfig("top_button_insert_selector"));
         if (null !== bl) {
             bl.innerHTML = '<div><button class="gae-comment-click-open comments-toggle-top">Hozzászólások</button></div>' + bl.innerHTML;
-            document.querySelector('.comments-toggle-top').style.color = getCurrentHostConfigFor("button_text_color");
+            document.querySelector('.comments-toggle-top').style.color = getConfig("button_text_color");
             document.querySelector('.comments-toggle-top').addEventListener('click', () => {
                 if (null !== document.querySelector(".comments-toggle")) document.querySelector(".comments-toggle").click();
                 document.getElementById('comments').scrollIntoView();
@@ -66,9 +56,9 @@
         document.querySelector('.comments-docked-open>button').addEventListener('click', toggleDocked);
         document.querySelector('.comments-docked-close>a').addEventListener('click', toggleDocked);
 
-        document.querySelector('.comments-docked-open>button').style.color = getCurrentHostConfigFor("button_text_color");
-        document.querySelector(".comments-toggle").style.color = getCurrentHostConfigFor("button_text_color");
-        document.querySelector(".comments-docked-title").style.color = getCurrentHostConfigFor("button_text_color");
+        document.querySelector('.comments-docked-open>button').style.color = getConfig("button_text_color");
+        document.querySelector(".comments-toggle").style.color = getConfig("button_text_color");
+        document.querySelector(".comments-docked-title").style.color = getConfig("button_text_color");
     }
 
     function addResizeBar() {
@@ -98,21 +88,6 @@
             document.body.style.pointerEvents = "";
             ce.classList.toggle("dragged");
         }
-    }
-
-    function injectInitScript() {
-        // init comments button after load
-        var script = document.createElement('script');
-        (document.head || document.documentElement).prepend(script);
-        script.textContent =
-        `window.addEventListener('pageshow', () => {
-            ` + getCurrentHostConfigFor("init_script")() + `
-            if (window.location.hash.startsWith('#comment')) {
-                document.querySelector(".comments-toggle").click();
-                document.getElementById('comments').scrollIntoView();
-            }
-            console.debug('` + log("comments section loaded", true) + `');
-        });`;
     }
 
     function getCommentsInnerHTMLGeekz() {
@@ -164,23 +139,24 @@
     }
 
     function init() {
-        let af = document.querySelector(getCurrentHostConfigFor("comments_section_insert_selector"));
+        let af = document.querySelector(getConfig("comments_section_insert_selector"));
         if (null === af) {
             log("not on article page, doing nothing");
         } else {
             log("article page detected");
             if (null !== document.getElementById("disqus_thread")) {
                 log("comments enabled by 444.hu");
-                document.getElementById("comments").innerHTML = getCurrentHostConfigFor("comments_section_html");
+                document.getElementById("comments").innerHTML = getConfig("comments_section_html");
             } else {
                 log("comments disabled by 444.hu");
-                af = document.querySelector(getCurrentHostConfigFor("comments_section_insert_selector"));
-                af.innerHTML += '<section id="comments">' + getCurrentHostConfigFor("comments_section_html") + '</section>';
+                af = document.querySelector(getConfig("comments_section_insert_selector"));
+                af.innerHTML += '<section id="comments">' + getConfig("comments_section_html") + '</section>';
             }
 
             addResizeBar();
             addDockButtons();
-            getCurrentHostConfigFor("init_script")();
+            getConfig("init_script")();
+            log("comments section loaded");
         }
     }
 
