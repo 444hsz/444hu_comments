@@ -18,7 +18,10 @@
       "css": ["444hu_comments.css"]
     }
   ],
-  "web_accessible_resources": ["444hu_comments_inject.js"],
+  "web_accessible_resources": [
+    "444hu_comments_inject.js",
+    "444hu_comments_inject_legacy.js"
+  ],
   "page_action": {
     "default_icon": {
       "16": "images/icon16.png",
