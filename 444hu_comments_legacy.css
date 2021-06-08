@@ -219,9 +219,7 @@ section#comments.docked-comments .comments-docked-resizer>div {
 
 button.comments-toggle-top {
     width: auto;
-    margin-right: 20px;
     border: 0;
-    padding: 7px 14px 4px;
     background-color: var(--blog-accent-color);
     text-transform: uppercase;
     font-family: league;
@@ -229,9 +227,19 @@ button.comments-toggle-top {
     color: #fff;
     cursor: pointer;
     user-select: none;
+
+    margin-right: 16px;
+    height: 40px;
+    padding: 0 18px;
+    line-height: 22px;
+    border-radius: 2px;
 }
 
 button.comments-toggle-top:focus {outline:0;}
+
+button.comments-toggle {
+    padding: 6px 0 4px;
+}
 
 #disqus_recommendations {
     display: none;
@@ -239,4 +247,8 @@ button.comments-toggle-top:focus {outline:0;}
 
 section#comments .comments-contents > div {
     margin-bottom: .9375rem;
+}
+
+.inverted {
+    filter: invert(.875);
 }

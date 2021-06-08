@@ -1,8 +1,15 @@
 button.comments-toggle-top {
     background-color: var(--c-secondary);
     font-family: 'League Gothic';
-    margin-right: 15px;
-    margin-top: -1px;
+    margin-right: 16px;
+    height: 40px;
+    padding: 0 18px;
+    line-height: 22px;
+    border-radius: 2px;
+}
+
+button.comments-toggle-top > img {
+    vertical-align: middle;
 }
 
 section#comments .comments-docked-open>button {
