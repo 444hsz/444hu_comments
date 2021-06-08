@@ -3,7 +3,7 @@
         "default": {
             "top_button_insert_selector": "div.byline",
             "comments_section_insert_selector": "article footer.hide-print",
-            "comments_section_html": getCommentsInnerHTMLBlog(),
+            "comments_section_html": getCommentsInnerHTMLBlog,
             "init_script": function() {
                 require('blog/comment').default();
             }
@@ -13,7 +13,7 @@
             "button_text_color": "#222"
         },
         "geekz.444.hu": {
-            "comments_section_html": getCommentsInnerHTMLGeekz(),
+            "comments_section_html": getCommentsInnerHTMLGeekz,
             "init_script": function() {
                 require('blog/comment').default();
                 let cd = document.querySelector("meta[itemprop='dateCreated']");
@@ -148,11 +148,11 @@
             log("article page detected");
             if (null !== document.getElementById("disqus_thread")) {
                 log("comments enabled by 444.hu");
-                document.getElementById("comments").innerHTML = getConfig("comments_section_html");
+                document.getElementById("comments").innerHTML = getConfig("comments_section_html")();
             } else {
                 log("comments disabled by 444.hu");
                 af = document.querySelector(getConfig("comments_section_insert_selector"));
-                af.innerHTML += '<section id="comments">' + getConfig("comments_section_html") + '</section>';
+                af.innerHTML += '<section id="comments">' + getConfig("comments_section_html")() + '</section>';
             }
 
             addResizeBar();

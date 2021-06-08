@@ -1,11 +1,7 @@
 button.comments-toggle-top {
     background-color: var(--c-secondary);
     font-family: 'League Gothic';
-    margin-right: 16px;
-    height: 40px;
-    padding: 0 18px;
-    line-height: 22px;
-    border-radius: 2px;
+    margin-right: 10px;
 }
 
 button.comments-toggle-top > img {
