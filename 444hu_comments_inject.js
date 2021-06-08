@@ -14,7 +14,7 @@
     _commentsSectionEl.innerHTML =
         `<div class="comments-docked-resizer"><div></div></div>
         <div class="subhead">` +
-            `<span class="logo" title=""><span class="comments-docked-title">Hozzászólások</span></span>` +
+            `<span class="logo bg-444comments-icon" title=""><span class="comments-docked-title">Hozzászólások</span></span>` +
             `<span class="comments-title">Uralkodj magadon!</span>` +
             `<span class="comments-docked-toggle">` + 
                 `<span class="comments-docked-open"><button title="Oldalsáv">◨</button></span>` +
@@ -26,7 +26,7 @@
                 <b>Új kommentelési szabályok érvényesek 2019. december 2-től.</b>
                 <a href="https://444.hu/2019/12/02/valtoznak-a-kommenteles-szabalyai-a-444-en" target="_blank">Itt olvashatod el</a>, hogy mik azok, és <a href="https://444.hu/2019/12/02/ezert-valtoztatunk-a-kommenteles-szabalyain" target="_blank">itt azt</a>, hogy miért vezettük be őket.
             </div>
-            <button class="gae-comment-click-open comments-toggle">Hozzászólások</button>
+            <button class="gae-comment-click-open comments-toggle bg-444comments-icon">Hozzászólások</button>
             <div class="ad"><div id="444_aloldal_kommentek"></div></div>
             <div id="disqus_thread" class="freehand layout"></div>
         </div>`;
