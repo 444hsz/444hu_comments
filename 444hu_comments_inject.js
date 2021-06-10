@@ -1,14 +1,20 @@
 (function () {
     if (typeof Ember === "undefined") return;
 
+    var _emberApp = Ember.A(Ember.Namespace.NAMESPACES).filter(n => {return n.name === 'n3'})[0];
+    if (_emberApp) {
+        var _emberRouter = _emberApp.__container__.lookup('router:main'),
+            _lastUrl = _emberRouter.get("url");
+    } else {
+        log("frontend app not found, extension is disabled");
+        return;
+    }
+
     var _commentsSectionEl = document.createElement("section"),
         _commentsButtonTopEl = null,
         _commentsSectionTempEl = null,
         _parentEl = null,
-        _headContentAvailable = false,
-        _emberApp = Ember.A(Ember.Namespace.NAMESPACES).filter(n => {return n.name === 'n3'})[0],
-        _emberRouter = _emberApp.__container__.lookup('router:main'),
-        _lastUrl = _emberRouter.get("url");
+        _headContentAvailable = false;
 
     _commentsSectionEl.id = "comments";
     _commentsSectionEl.innerHTML =
@@ -51,7 +57,7 @@
     }
 
     function pageIsArticle() {
-        return _emberRouter.currentRouteName.endsWith("--reader.post");
+        return String(_emberRouter.currentRouteName).endsWith("--reader.post");
     }
 
     function scrollToHash() {
@@ -198,7 +204,7 @@
                 //trackPageChange(); //TODO: maybe uncomment this after 444 fixed the duplicate head-layout rendering issue
                 log("added comments section for slug:\n '" + _emberRouter.get("currentRoute.attributes.slug") + "'");
             } else {
-                log("adding comments section failed");
+                log("adding comments section failed for slug:\n '" + _emberRouter.get("currentRoute.attributes.slug") + "'");
             }
         } else {
             log("not on article page, doing nothing");
