@@ -1,7 +1,11 @@
 button.comments-toggle-top {
     background-color: var(--c-secondary);
-    font-family: 'League Gothic';
     margin-right: 10px;
+    font-family: var(--font-title);
+    font-weight: var(--font-medium);
+    font-size: .875rem;
+    letter-spacing: .07812rem;
+    align-items: center;
 }
 
 button.comments-toggle-top > img {
@@ -14,7 +18,9 @@ section#comments .comments-docked-open>button {
 }
 
 section#comments .subhead {
-    font-family: 'League Gothic';
+    font-family: var(--font-title);
+    font-weight: var(--font-medium);
+    font-size: .875rem;
     position: relative;
     display: -ms-flexbox;
     display: flex;
@@ -27,6 +33,11 @@ section#comments .subhead {
     color: #080808;
     color: var(--subhead-color);
     font-size: 1.625rem;
+    align-items: center;
+}
+
+section#comments.docked-comments .subhead .logo {
+    height: 33px;
 }
 
 .comments-toggle {
@@ -35,10 +46,15 @@ section#comments .subhead {
     padding: .3125rem;
     background-color: var(--c-secondary);
     text-transform: uppercase;
-    font-family: 'League Gothic';
-    font-size: 1.625rem;
     color: #fff;
     cursor: pointer;
+
+    font-family: var(--font-title);
+    font-weight: var(--font-medium);
+    font-size: .875rem;
+    letter-spacing: .07812rem;
+    align-items: center;
+    height: 36px;
 }
 
 .hide {
@@ -58,9 +74,18 @@ section#comments .comments-contents {
 }
 
 section#comments .comments-title {
-    font-family: 'League Gothic';
+    font-family: var(--font-title);
+    font-weight: var(--font-medium);
+    font-size: 16px;
     background: #f5f5f5;
+    line-height: 1.5;
 }
+
+section#comments.docked-comments .comments-docked-title {
+    font-size: 16px;
+    margin-top: -2px;
+}
+
 
 #disqus_thread {
     font-family: "boxed","Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
