@@ -224,7 +224,7 @@ section#comments.docked-comments .comments-docked-resizer>div {
 }
 
 button.comments-toggle-top {
-    width: 130px;
+    width: auto;
     border: 0;
     background-color: var(--blog-accent-color);
     text-transform: uppercase;
@@ -235,7 +235,7 @@ button.comments-toggle-top {
     user-select: none;
     margin-right: 16px;
     height: 40px;
-    padding: 0 16px;
+    padding: 4px 16px 0;
     line-height: 22px;
     border-radius: 0px;
     background-position: 10px center;

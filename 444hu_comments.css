@@ -1,4 +1,5 @@
 button.comments-toggle-top {
+    width: 130px;
     background-color: var(--c-secondary);
     margin-right: 10px;
     font-family: var(--font-title);
