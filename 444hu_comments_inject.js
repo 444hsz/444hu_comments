@@ -168,6 +168,20 @@
             _parentEl = el.parentElement;
             _headContentAvailable = false;
 
+            let btns = document.evaluate("//button[contains(., 'Kommentek mutatása')]", document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null );
+            if (btns.snapshotLength) {
+                for (let i = 0; i < btns.snapshotLength; i++) {
+                    let btn = btns.snapshotItem(i);
+                    if (!btn.classList.contains('comments-toggle')) {
+                        btn.remove();
+                        log("comments enabled by 444.hu");
+                        break;
+                    }
+                }
+            } else {
+                log("comments disabled by 444.hu");
+            }
+
             return true;
         }
 
@@ -188,7 +202,6 @@
             }
         } else {
             log("not on article page, doing nothing");
-            log(_emberRouter.currentRouteName);
         }
     }
 
@@ -203,7 +216,6 @@
     Ember.subscribe("render.component", {
         before(name, timestamp, payload) {},
         after(name, timestamp, payload, beganIndex) {
-            log(payload);
             switch (payload.containerKey) {
                 case "component:head-content":
                     if (pageIsArticle()) {
