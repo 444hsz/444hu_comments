@@ -11,8 +11,9 @@
     }
 
     var _commentsSectionEl = document.createElement("section"),
-        _commentsButtonTopEl = null,
         _commentsSectionTempEl = null,
+        _commentsSectionInsertMethod = 0,
+        _commentsButtonTopEl = null,
         _parentEl = null,
         _headContentAvailable = false;
 
@@ -37,11 +38,7 @@
             <div id="disqus_thread" class="freehand layout"></div>
         </div>`;
 
-        function getConfig(key) {
-            return (typeof config[window.location.hostname] !== "undefined" && typeof config[window.location.hostname][key] !== "undefined") ? config[window.location.hostname][key] : config["default"][key];
-        }
-
-        function log(msg, ret) {
+    function log(msg, ret) {
         var tag = "%c[444comments]";
         if (ret) return tag + " " + msg;
         else console.debug(tag, "color: #29af0a;", msg);
@@ -134,21 +131,56 @@
             _commentsButtonTopEl = document.createElement("div");
             _commentsButtonTopEl.innerHTML = '<button class="gae-comment-click-open comments-toggle-top">Kommentek</button>';
 
-            let p = document.querySelector('[style="--avatar-width: 40px; --avatar-height: 40px;"]');
-            p.style.setProperty("--avatar-width", "180px");
-            p.style.setProperty("background", "none");
-            p.insertBefore(_commentsButtonTopEl, p.childNodes[0]);
+            let p;
+            switch (_commentsSectionInsertMethod) {
+                case 0:
+                    if (p = document.querySelector('[style="--avatar-width: 40px; --avatar-height: 40px;"]')) {
+                        p.style.setProperty("--avatar-width", "180px");
+                        p.style.setProperty("background", "none");
+                        p.insertBefore(_commentsButtonTopEl, p.firstElementChild);
+                        return true;
+                    } else {
+                        log("failed to insert top comments button");
+                    }
+                    break;
+                case 1:
+                case 3:
+                    if (p = document.getElementById("toolbar-dropdown-target")) {
+                        p.nextElementSibling.insertBefore(_commentsButtonTopEl, p.nextElementSibling.firstElementChild.nextElementSibling);
+                        _commentsButtonTopEl.className = p.nextElementSibling.firstElementChild.className;
+                        return true;
+                    } else {
+                        log("failed to insert top comments button");
+                    }
+                    break;
+            }
+            _commentsButtonTopEl = null;
+            return false;
         }
 
-        insertTopCommentsButton();
-
         document.querySelector(".comments-toggle").onclick = onClickCommentsButton;
-        document.querySelector(".comments-toggle-top").onclick = onClickTopCommentsButton;
+        if (insertTopCommentsButton()) {
+            document.querySelector(".comments-toggle-top").onclick = onClickTopCommentsButton;
+        }
     }
 
     function initCommentsSection() {
         _commentsSectionTempEl = _commentsSectionEl.cloneNode(true);
-        _parentEl.insertBefore(_commentsSectionTempEl, _parentEl.childNodes[0]);
+        switch (_commentsSectionInsertMethod) {
+            case 0:
+                _parentEl.insertBefore(_commentsSectionTempEl, _parentEl.firstElementChild);
+                break;
+            case 1:
+            case 3:
+                _parentEl.insertBefore(_commentsSectionTempEl, null);
+                _commentsSectionTempEl.className = _parentEl.firstElementChild.className;
+                break;
+            case 2:
+                _parentEl.insertBefore(_commentsSectionTempEl, null);
+                _commentsSectionTempEl.className = _commentsSectionTempEl.previousElementSibling.className;
+                break;
+        }
+
     }
 
     function reset() {
@@ -157,8 +189,26 @@
             DISQUS_RECOMMENDATIONS.reset();
         }
 
-        let el = document.querySelector("#ap-article-footer1");
+        let el;
+        if (el = document.querySelector("#ap-article-footer1")) { // normal article
+            _commentsSectionInsertMethod = 0;
+            _parentEl = el.parentElement;
+        }
+        else if (el = document.querySelector("aside")) { // livereport list
+            _commentsSectionInsertMethod = 1;
+            _parentEl = el.previousElementSibling.firstElementChild;
+        }
+        else if (el = document.querySelector("article > div > footer")) { // livereport single item
+            _commentsSectionInsertMethod = 2;
+            _parentEl = el.parentElement.parentElement;
+        }
+        else if (el = document.querySelector("#toolbar-dropdown-target")) { // livereport list with rendered no sidebar
+            _commentsSectionInsertMethod = 3;
+            _parentEl = el.nextElementSibling.lastElementChild.firstElementChild.firstElementChild;
+        }
+
         if (null !== el) {
+            log("Insert method: " + _commentsSectionInsertMethod);
             if (null !== _commentsButtonTopEl) {
                 _commentsButtonTopEl.parentElement.style.setProperty("--avatar-width", "40px");
                 _commentsButtonTopEl.parentElement.style.setProperty("background", null);
@@ -171,7 +221,6 @@
                 _commentsSectionTempEl = null;
             }
 
-            _parentEl = el.parentElement;
             _headContentAvailable = false;
 
             let btns = document.evaluate("//button[contains(., 'Kommentek mutatása')]", document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null );
@@ -180,21 +229,20 @@
                     let btn = btns.snapshotItem(i);
                     if (!btn.classList.contains('comments-toggle')) {
                         btn.remove();
-                        log("comments enabled by 444.hu");
+                        log("Article commentable: yes");
                         break;
                     }
                 }
             } else {
-                log("comments disabled by 444.hu");
+                log("Article commentable: no");
             }
-
             return true;
         }
-
         return false;
     }
 
     function init() {
+        console.group("%c[444comments]", "color: #29af0a;", "log");
         if (pageIsArticle()) {
             if (reset()) {
                 initCommentsSection();
@@ -202,13 +250,14 @@
                 initButtons();
                 scrollToHash();
                 //trackPageChange(); //TODO: maybe uncomment this after 444 fixed the duplicate head-layout rendering issue
-                log("added comments section for slug:\n '" + _emberRouter.get("currentRoute.attributes.slug") + "'");
+                log("Added comments section for: '" + _emberRouter.get("currentRoute.attributes.slug") + "'");
             } else {
-                log("adding comments section failed for slug:\n '" + _emberRouter.get("currentRoute.attributes.slug") + "'");
+                log("Failed to add comments section for: '" + _emberRouter.get("currentRoute.attributes.slug") + "'");
             }
         } else {
             log("not on article page, doing nothing");
         }
+        console.groupEnd();
     }
 
     _emberRouter.on('willTransition', trackPageChange);
