@@ -57,11 +57,29 @@
         return String(_emberRouter.currentRouteName).endsWith("--reader.post");
     }
 
+    function pageIsFociArticle() {
+        return _emberRouter.currentRouteName == "foci--reader.post";
+    }
+
     function scrollToHash() {
         if (window.location.hash.startsWith('#comment')) {
             document.querySelector(".comments-toggle").click();
             document.getElementById('comments').scrollIntoView();
         }
+    }
+
+    function getDisqusUrl() {
+        let url = document.URL;
+        if (pageIsFociArticle()) {
+            let d = _emberRouter.get("currentRoute.attributes.date");
+            if (d && new Date(d) < new Date("2021-06-09")) {
+                // convert thread urls to the old address format for older articles
+                // last thread on foci.444.hu was: https://foci.444.hu/2021/06/08/gol-nelkuli-foproba-az-eb-elott
+                url = url.replace("444.hu/foci/", "foci.444.hu/");
+                log("Disqus URL converted to old format: " + url);
+            }
+        }
+        return url;
     }
 
     function initSidebar() {
@@ -111,12 +129,17 @@
 
     function initButtons() {
         function onClickCommentsButton() {
-            window.disqus_url = document.URL;
+            window.disqus_url = getDisqusUrl();
             let dc = require('disqus/components/disqus-comments'),
                 lc = new dc.default(),
                 go = Ember.getOwner;
             Ember.getOwner = function() { return { lookup: function() { return { get: function() { return "444hu"; }}}}}
-            lc.args = {};
+            lc.args = {
+                identifier: null,
+                url: window.disqus_url,
+                title: null,
+                categoryId: null
+            };
             lc.loadComments.perform();
             Ember.getOwner = go;
             this.classList.add('hide');
