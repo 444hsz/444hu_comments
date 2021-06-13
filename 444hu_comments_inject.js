@@ -14,6 +14,7 @@
         _commentsSectionTempEl = null,
         _commentsSectionInsertMethod = 0,
         _commentsButtonTopEl = null,
+        _forumShortName = "444hu",
         _parentEl = null,
         _headContentAvailable = false;
 
@@ -24,14 +25,18 @@
             `<span class="logo bg-444comments-icon" title=""><span class="comments-docked-title">Kommentek</span></span>` +
             `<span class="comments-title">Uralkodj magadon!</span>` +
             `<span class="comments-docked-toggle">` + 
-                `<span class="comments-docked-open"><button title="Oldalsáv">◨</button></span>` +
+                `<span class="comments-docked-open"><label class="slider-switch" for="forumToggle">444hsz<input type="checkbox" id="forumToggle"><span class="slider round"></span></label><button id="sidebarToggle" title="Oldalsáv">◨</button></span>` +
                 `<span class="comments-docked-close comments-docked-hidden"><a><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAADxJREFUeNpi+A8BaUDMgAeD5BEMPBrg8gwENKCI45TAZgADHpMwbMLrRnQ5sk0m2s1EhwZJ4Ux0DAIEGABDKYzoRdlxEwAAAABJRU5ErkJggg=="></a></span>` +
             `</span>
         </div>
         <div class="comments-contents">
             <div>
-                <b>Új kommentelési szabályok érvényesek 2019. december 2-től.</b>
-                <a href="https://444.hu/2019/12/02/valtoznak-a-kommenteles-szabalyai-a-444-en" target="_blank">Itt olvashatod el</a>, hogy mik azok, és <a href="https://444.hu/2019/12/02/ezert-valtoztatunk-a-kommenteles-szabalyain" target="_blank">itt azt</a>, hogy miért vezettük be őket.
+                <ul class="forum-rules" id="444hu_forum_rules">
+                    <li><b>Új kommentelési szabályok érvényesek 2019. december 2-től.</b> <a href="https://444.hu/2019/12/02/valtoznak-a-kommenteles-szabalyai-a-444-en" target="_blank">Itt olvashatod el</a>, hogy mik azok, és <a href="https://444.hu/2019/12/02/ezert-valtoztatunk-a-kommenteles-szabalyain" target="_blank">itt azt</a>, hogy miért vezettük be őket.</li>
+                    <li>A 444-en előmoderálás működik, tehát a kommentek egy része csak azután jelenik meg mindenki számára láthatóan, hogy a moderátor jóváhagyta.</li>
+                    <li>A legaktívabb kommentelőkből, akik a hozzászólások 90 százalékát írják, létrehoztunk egy szabadlistát (white list). Az ő hozzászólásaik hamarabb megjelennek a cikkek alatt, de a szabályokat nekik is be kell tartaniuk.
+                    Aki azt gondolja, hogy ő is ilyen aktív kommentelő, de nem került fel első körben a szabadlistára, az küldje el a Disqus profiljának a linkjét a <a href="mailto:whitelist@444.hu">whitelist@444.hu</a> emailre, és ha január 21. után egy hónap alatt legalább 30 jóváhagyott hozzászólása van, akkor hozzáadjuk.</li>
+                </ul>
             </div>
             <button class="gae-comment-click-open comments-toggle bg-444comments-icon">Kommentek mutatása</button>
             <div class="ad"><div id="444_aloldal_kommentek"></div></div>
@@ -111,6 +116,32 @@
             _ce.classList.toggle("dragged");
         }
 
+        _re.addEventListener('mousedown', initResize, false);
+    }
+
+    function initButtons() {
+        function onClickCommentsButton() {
+            window.disqus_url = getDisqusUrl();
+            let dc = require('disqus/components/disqus-comments'),
+                lc = new dc.default(),
+                go = Ember.getOwner;
+            lc.args = {
+                identifier: null,
+                url: window.disqus_url,
+                title: null,
+                categoryId: null
+            };
+            Ember.getOwner = function() { return { lookup: function() { return { get: function() { return _forumShortName; }}}}}
+            lc.loadComments.perform();
+            Ember.getOwner = go;
+            this.classList.add('hide');
+        }
+    
+        function onClickTopCommentsButton() {
+            document.querySelector(".comments-toggle").click();
+            document.getElementById("comments").scrollIntoView();
+        }
+
         function onClickSidebarToggle() {
             document.getElementById('comments').classList.toggle('docked-comments');
             document.querySelector('.comments-docked-open').classList.toggle('comments-docked-hidden');
@@ -121,33 +152,25 @@
             if (null !== el) el.click();
         }
 
-        _re.addEventListener('mousedown', initResize, false);
+        function unloadDisqus() {
+            delete window.DISQUS;
+            delete window.DISQUS_RECOMMENDATIONS;
+            delete window.disqus_config;
+            delete window.disqus_recommendations_config;
 
-        document.querySelector('.comments-docked-open>button').onclick = onClickSidebarToggle;
-        document.querySelector('.comments-docked-close>a').onclick = onClickSidebarToggle;
-    }
-
-    function initButtons() {
-        function onClickCommentsButton() {
-            window.disqus_url = getDisqusUrl();
-            let dc = require('disqus/components/disqus-comments'),
-                lc = new dc.default(),
-                go = Ember.getOwner;
-            Ember.getOwner = function() { return { lookup: function() { return { get: function() { return "444hu"; }}}}}
-            lc.args = {
-                identifier: null,
-                url: window.disqus_url,
-                title: null,
-                categoryId: null
-            };
-            lc.loadComments.perform();
-            Ember.getOwner = go;
-            this.classList.add('hide');
+            let ss = document.evaluate("//script[@src='https://" + _forumShortName + ".disqus.com/embed.js']", document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
+            if (ss.snapshotLength) {
+                for (let i = 0; i < ss.snapshotLength; i++) {
+                    let s = ss.snapshotItem(i);
+                    s.remove();
+                }
+            }
         }
-    
-        function onClickTopCommentsButton() {
+
+        function onClickforumToggle() {
+            unloadDisqus();
+            _forumShortName = this.checked ? "444hsz" : "444hu";
             document.querySelector(".comments-toggle").click();
-            document.getElementById("comments").scrollIntoView();
         }
 
         function insertTopCommentsButton() {
@@ -185,6 +208,10 @@
         if (insertTopCommentsButton()) {
             document.querySelector(".comments-toggle-top").onclick = onClickTopCommentsButton;
         }
+        document.querySelector('.comments-docked-open>button#sidebarToggle').onclick = onClickSidebarToggle;
+        document.querySelector('.comments-docked-close>a').onclick = onClickSidebarToggle;
+        document.querySelector('.comments-docked-open>label>input#forumToggle').onclick = onClickforumToggle;
+        document.querySelector('.comments-docked-open>label>input#forumToggle').checked = !(_forumShortName === "444hu");
     }
 
     function initCommentsSection() {
@@ -207,10 +234,8 @@
     }
 
     function reset() {
-        if (typeof DISQUS !== "undefined") {
-            DISQUS.reset();
-            DISQUS_RECOMMENDATIONS.reset();
-        }
+        if (typeof DISQUS !== "undefined") DISQUS.reset();
+        if (typeof DISQUS_RECOMMENDATIONS !== "undefined") DISQUS_RECOMMENDATIONS.reset();
 
         let el;
         if (el = document.querySelector("#ap-article-footer1")) { // normal article
