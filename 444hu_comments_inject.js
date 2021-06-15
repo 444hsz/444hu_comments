@@ -25,17 +25,35 @@
             `<span class="logo bg-444comments-icon" title=""><span class="comments-docked-title">Kommentek</span></span>` +
             `<span class="comments-title">Uralkodj magadon!</span>` +
             `<span class="comments-docked-toggle">` + 
-                `<span class="comments-docked-open"><label class="slider-switch" for="forumToggle">444hsz<input type="checkbox" id="forumToggle"><span class="slider round"></span></label><button id="sidebarToggle" title="Oldalsáv">◨</button></span>` +
+                `<span class="comments-docked-open">
+                    <button id="settingsToggle" title="Beállítások"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"><path d="M24 13.616v-3.232c-1.651-.587-2.694-.752-3.219-2.019v-.001c-.527-1.271.1-2.134.847-3.707l-2.285-2.285c-1.561.742-2.433 1.375-3.707.847h-.001c-1.269-.526-1.435-1.576-2.019-3.219h-3.232c-.582 1.635-.749 2.692-2.019 3.219h-.001c-1.271.528-2.132-.098-3.707-.847l-2.285 2.285c.745 1.568 1.375 2.434.847 3.707-.527 1.271-1.584 1.438-3.219 2.02v3.232c1.632.58 2.692.749 3.219 2.019.53 1.282-.114 2.166-.847 3.707l2.285 2.286c1.562-.743 2.434-1.375 3.707-.847h.001c1.27.526 1.436 1.579 2.019 3.219h3.232c.582-1.636.75-2.69 2.027-3.222h.001c1.262-.524 2.12.101 3.698.851l2.285-2.286c-.744-1.563-1.375-2.433-.848-3.706.527-1.271 1.588-1.44 3.221-2.021zm-12 2.384c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4z"/></svg></button>
+                    <button id="sidebarToggle" title="Oldalsáv"><svg class="flipped" height="19px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g fill="#ffffff" fill-rule="nonzero"><path d="M19.25,4 C20.7688,4 22,5.23122 22,6.75 L22,6.75 L22,17.25 C22,18.7688 20.7688,20 19.25,20 L19.25,20 L4.75,20 C3.23122,20 2,18.7688 2,17.25 L2,17.25 L2,6.75 C2,5.23122 3.23122,4 4.75,4 L4.75,4 Z M19.25,5.5 L9,5.5 L9,18.5 L19.25,18.5 C19.9404,18.5 20.5,17.9404 20.5,17.25 L20.5,6.75 C20.5,6.05964 19.9404,5.5 19.25,5.5 Z"></path></g></g></svg></button>
+                </span>` +
                 `<span class="comments-docked-close comments-docked-hidden"><a><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAADxJREFUeNpi+A8BaUDMgAeD5BEMPBrg8gwENKCI45TAZgADHpMwbMLrRnQ5sk0m2s1EhwZJ4Ux0DAIEGABDKYzoRdlxEwAAAABJRU5ErkJggg=="></a></span>` +
             `</span>
         </div>
+        <div class="comments-settings bg-444comments-icon hide">
+            <div class="ext-wrapper">
+                <div title="Elrejtés" class="close-button"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg></div>
+                <div class="title">Kommentszekció beállítások</div>
+                <div class="wrapper">
+                    <div class="slider-switch-wrapper"><label class="slider-switch" for="rulesToggle">Kommentelési szabályok<input type="checkbox" id="rulesToggle" checked><span class="slider round"></span></label></div>
+                    <div class="slider-switch-wrapper"><label class="slider-switch" for="recommendationsToggle">Disqus ajánlások<input type="checkbox" id="recommendationsToggle"><span class="slider round"></span></label></div>
+                    <div class="slider-switch-wrapper">
+                        <label class="slider-switch" for="forumToggle">Alternatív Disqus fórum<input type="checkbox" id="forumToggle"><span class="slider round"></span></label>
+                        <p>Az alternatív fórum a közeljövőben be&shy;ve&shy;ze&shy;tés&shy;re kerülő, csak a 444 támogatói kör számára el&shy;ér&shy;he&shy;tő, fizetős kommentelés alternatívájának lett lét&shy;re&shy;hoz&shy;va. Itt nincs elő&shy;mo&shy;de&shy;rá&shy;ció, white&shy;list és paywall, csak szabad kom&shy;men&shy;tel&shy;és. A funkció egyelőre experi&shy;men&shy;tá&shy;lisnak tekintendő.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="comments-contents">
-            <div>
-                <ul class="forum-rules" id="444hu_forum_rules">
-                    <li><b>Új kommentelési szabályok érvényesek 2019. december 2-től.</b> <a href="https://444.hu/2019/12/02/valtoznak-a-kommenteles-szabalyai-a-444-en" target="_blank">Itt olvashatod el</a>, hogy mik azok, és <a href="https://444.hu/2019/12/02/ezert-valtoztatunk-a-kommenteles-szabalyain" target="_blank">itt azt</a>, hogy miért vezettük be őket.</li>
+            <div class="forum-rules">
+                <div title="Elrejtés" class="close-button"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg></div>
+                <ul id="444hu_forum_rules">
+                    <li><b>Új kommentelési szabályok érvényesek 2019. december 2-től.</b> <a href="https://444.hu/2019/12/02/valtoznak-a-kommenteles-szabalyai-a-444-en" target="_blank">Itt olvashatod el</a>, hogy mik azok, és <a href="https://444.hu/2019/12/02/ezert-valtoztatunk-a-kommenteles-szabalyain" target="_blank">itt azt</a>, hogy miért kerültek bevezetésre.</li>
                     <li>A 444-en előmoderálás működik, tehát a kommentek egy része csak azután jelenik meg mindenki számára láthatóan, hogy a moderátor jóváhagyta.</li>
-                    <li>A legaktívabb kommentelőkből, akik a hozzászólások 90 százalékát írják, létrehoztunk egy szabadlistát (white list). Az ő hozzászólásaik hamarabb megjelennek a cikkek alatt, de a szabályokat nekik is be kell tartaniuk.
-                    Aki azt gondolja, hogy ő is ilyen aktív kommentelő, de nem került fel első körben a szabadlistára, az küldje el a Disqus profiljának a linkjét a <a href="mailto:whitelist@444.hu">whitelist@444.hu</a> emailre, és ha január 21. után egy hónap alatt legalább 30 jóváhagyott hozzászólása van, akkor hozzáadjuk.</li>
+                    <li>A legaktívabb kommentelőkből a 444 létrehozott egy szabadlistát (whitelist). Az ő hozzászólásaik előmoderáció nélkül megjelennek a cikkek alatt, de a szabályokat nekik is be kell tartaniuk.
+                    Aki azt gondolja, hogy ő is ilyen aktív kommentelő, az küldje el a Disqus profiljának a linkjét a <a href="mailto:whitelist@444.hu">whitelist@444.hu</a> emailre, és ha egy hónap alatt legalább 30 jóváhagyott hozzászólása van, akkor hozzáadják.</li>
                 </ul>
             </div>
             <button class="gae-comment-click-open comments-toggle bg-444comments-icon">Kommentek mutatása</button>
@@ -143,6 +161,7 @@
         }
 
         function onClickSidebarToggle() {
+            document.querySelector(".comments-settings").classList.add('hide');
             document.getElementById('comments').classList.toggle('docked-comments');
             document.querySelector('.comments-docked-open').classList.toggle('comments-docked-hidden');
             document.querySelector('.comments-docked-close').classList.toggle('comments-docked-hidden');
@@ -204,14 +223,57 @@
             return false;
         }
 
+        function onClickCloseRules() {
+            this.parentElement.classList.add('hide');
+            document.querySelector('.comments-settings label>input#rulesToggle').checked = !document.querySelector('.comments-settings label>input#rulesToggle').checked;
+        }
+
+        function onClickToggleSettings() {
+            document.querySelector(".comments-settings").classList.toggle('hide');
+        }
+
+        function onClickRulesToggle() {
+            document.querySelector(".comments-contents .forum-rules").classList.toggle('hide');
+        }
+
+        function initRecommendationsToggle() {
+            function addHideStyle() {
+                var style = document.createElement('style');
+                style.id = "recommendationsToggleStyle";
+                //style.innerHTML = '#disqus_recommendations { display: none; }';
+                style.innerHTML = '#disqus_recommendations { visibility: hidden; height: 0; }';
+                document.getElementsByTagName('head')[0].appendChild(style);
+            }
+
+            function onClickRecommendationsToggle() {
+                if (null !== document.querySelector("#recommendationsToggleStyle")) {
+                    document.querySelector("#recommendationsToggleStyle").remove();
+                } else {
+                    addHideStyle();
+                }
+            }
+
+            document.querySelector('.comments-settings label>input#recommendationsToggle').onclick = onClickRecommendationsToggle;
+            addHideStyle();
+        }
+
         document.querySelector(".comments-toggle").onclick = onClickCommentsButton;
         if (insertTopCommentsButton()) {
             document.querySelector(".comments-toggle-top").onclick = onClickTopCommentsButton;
         }
+
         document.querySelector('.comments-docked-open>button#sidebarToggle').onclick = onClickSidebarToggle;
         document.querySelector('.comments-docked-close>a').onclick = onClickSidebarToggle;
-        document.querySelector('.comments-docked-open>label>input#forumToggle').onclick = onClickforumToggle;
-        document.querySelector('.comments-docked-open>label>input#forumToggle').checked = !(_forumShortName === "444hu");
+
+        document.querySelector('.comments-settings .close-button').onclick = onClickToggleSettings;
+        document.querySelector('.comments-docked-open>button#settingsToggle').onclick = onClickToggleSettings;
+        document.querySelector('.comments-settings label>input#forumToggle').onclick = onClickforumToggle;
+        document.querySelector('.comments-settings label>input#forumToggle').checked = !(_forumShortName === "444hu");
+
+        document.querySelector('.comments-contents .forum-rules .close-button').onclick = onClickCloseRules;
+        document.querySelector('.comments-settings label>input#rulesToggle').onclick = onClickRulesToggle;
+
+        initRecommendationsToggle();
     }
 
     function initCommentsSection() {

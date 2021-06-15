@@ -13,10 +13,32 @@ button.comments-toggle-top > img {
     vertical-align: middle;
 }
 
-section#comments .comments-docked-open>button {
+section#comments .comments-docked-open {
+    display: inline-flex;
+}
+
+section#comments .comments-docked-open button {
+    border-left: 1px solid #000;
     background-color: var(--c-secondary);
     font-family: var(--font-title);
     font-weight: var(--font-medium);
+    height: 23px;
+    padding: 0 15px;
+}
+
+section#comments .comments-docked-open button:hover {
+    background-color: #6ac540;
+}
+
+svg.flipped {
+    transform: scale(-1, 1);
+    transform-origin: center;
+}
+
+section#comments .comments-docked-open button svg {
+    margin-top: -1px;
+    fill: #fff;
+    vertical-align: middle;
 }
 
 section#comments .subhead {
@@ -118,29 +140,170 @@ section#comments.docked-comments .comments-contents::-webkit-scrollbar-thumb {
 }
 
 /* forum rules */
-section#comments .comments-contents ul.forum-rules a {
+section#comments .comments-contents .forum-rules ul a {
     color: var(--c-secondary);
 }
 
-section#comments .comments-contents ul.forum-rules {
+section#comments .comments-contents .forum-rules ul {
     list-style: square;
     list-style-position: inside;
-    padding: 0;
+    background-color: #eee;
+    padding: 20px 20px;
+    border-radius: 10px;
+    color: #000;
 }
 
-section#comments .comments-contents ul.forum-rules li {
+section#comments .comments-contents .forum-rules ul li {
     margin-bottom: 10px;
 }
 
+section#comments .comments-contents .forum-rules ul li:last-child {
+    margin-bottom: 0px;
+}
+
+section#comments .comments-contents .forum-rules ul li::marker {
+    color: var(--c-secondary);
+}
+
+div.close-button svg {
+    float: right;
+    margin: 10px;
+    fill: #666;
+    cursor: pointer;
+}
 
 /* checkbox slider */
-input#forumToggle:checked+.slider:before {
-    background-color: var(--c-secondary);
+.slider-switch-wrapper {
+    border-bottom: 1px solid #6ac540;
+    padding: 5px 0px;
+}
+
+.slider-switch-wrapper:last-child {
+    border: 0;
+    padding-bottom: 0;
+}
+
+.slider-switch-wrapper p {
+    letter-spacing: normal;
+    line-height: normal;
+    margin: 5px 0 0;
+    font-style: italic;
+    background-color: #6ac540;
+    padding: 6px;
+    border-radius: 5px;
 }
 
 .slider-switch {
-    font-size: 11px;
+    display: inline-block;
+    height: 23px;
+    position: relative;
+    width: auto;
     font-family: var(--font-title);
-    font-weight: var(--font-medium);
+    background-color: var(--c-secondary);
+    line-height: 22px;
+    padding: 0px 50px 0px 0px;
+    vertical-align: top;
+    /* font-weight: var(--font-medium); */
+    /* cursor: pointer; */
+    /* font-size: 11px; */
+}
+
+/* .slider-switch:hover {
+    background-color: #6ac540;
+} */
+
+.slider {
+    width: 31px;
+    height: 15px;
+    background-color: #eee;
+    bottom: 0;
+    cursor: pointer;
+    position: absolute;
+    right: 0px;
+    top: 4px;
+    -webkit-transition: .4s;
+    -o-transition: .4s;
+    transition: .4s;
+}
+
+.slider.round {
+    border-radius: 8.5px;
+}
+
+.slider-switch input {
+    display: none;
+}
+
+.slider-switch input:checked+.slider {
+    background-color: #fff;
+}
+
+.slider-switch input:checked+.slider:before {
+    -webkit-transform: translateX(1rem);
+    -ms-transform: translateX(1rem);
+    transform: translateX(1rem);
     background-color: var(--c-secondary);
 }
+
+.slider.round:before {
+    border-radius: 50%;
+}
+.slider:before {
+    background-color: #8cd07c;
+    bottom: 2px;
+    content: "";
+    left: 2px;
+    position: absolute;
+    -webkit-transition: .4s;
+    -o-transition: .4s;
+    transition: .4s;
+    height: 11px;
+    width: 11px;
+}
+
+.break {
+    flex-basis: 100%;
+    height: 0;
+}
+
+/* settings  */
+.comments-settings {
+    background-color: #8cd07c;
+    padding: 0;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 13px;
+    letter-spacing: 0.07812rem;
+    font-family: var(--font-title);
+    line-height: 22px;
+    background-position: 10px 10px;
+    background-color: #eee;
+}
+
+.comments-settings .ext-wrapper {
+    margin: 0 0 0.9375rem auto;
+    width: 328px;
+    background-color: var(--c-secondary);
+    border-radius: 10px;
+}
+
+.comments-settings .wrapper {
+    padding: 0 20px 20px 20px;
+}
+
+.comments-settings .title {
+    font-weight: var(--font-medium);
+    font-size: 0.875rem;
+    line-height: 40px;
+    padding-left: 15px;
+}
+
+.comments-settings .close-button svg {
+    fill: #fff;
+}
+
+.comments-settings label {
+    width: 100%;
+    text-align: left;
+}
+
