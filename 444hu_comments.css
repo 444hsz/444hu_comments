@@ -18,7 +18,7 @@ section#comments .comments-docked-open {
 }
 
 section#comments .comments-docked-open button {
-    border-left: 1px solid #000;
+    border-left: 1px solid #fff;
     background-color: var(--c-secondary);
     font-family: var(--font-title);
     font-weight: var(--font-medium);
@@ -165,11 +165,16 @@ section#comments .comments-contents .forum-rules ul li::marker {
     color: var(--c-secondary);
 }
 
-div.close-button svg {
+div.close-button {
     float: right;
     margin: 10px;
-    fill: #666;
     cursor: pointer;
+    width: 20px;
+    height: 20px;
+}
+
+div.close-button svg {
+    fill: #666;
 }
 
 /* checkbox slider */
@@ -285,6 +290,7 @@ div.close-button svg {
     width: 328px;
     background-color: var(--c-secondary);
     border-radius: 10px;
+    position: relative;
 }
 
 .comments-settings .wrapper {

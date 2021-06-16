@@ -49,7 +49,7 @@
         <div class="comments-contents">
             <div class="forum-rules">
                 <div title="Elrejtés" class="close-button"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg></div>
-                <ul id="444hu_forum_rules">
+                <ul>
                     <li><b>Új kommentelési szabályok érvényesek 2019. december 2-től.</b> <a href="https://444.hu/2019/12/02/valtoznak-a-kommenteles-szabalyai-a-444-en" target="_blank">Itt olvashatod el</a>, hogy mik azok, és <a href="https://444.hu/2019/12/02/ezert-valtoztatunk-a-kommenteles-szabalyain" target="_blank">itt azt</a>, hogy miért kerültek bevezetésre.</li>
                     <li>A 444-en előmoderálás működik, tehát a kommentek egy része csak azután jelenik meg mindenki számára láthatóan, hogy a moderátor jóváhagyta.</li>
                     <li>A legaktívabb kommentelőkből a 444 létrehozott egy szabadlistát (whitelist). Az ő hozzászólásaik előmoderáció nélkül megjelennek a cikkek alatt, de a szabályokat nekik is be kell tartaniuk.
@@ -65,6 +65,27 @@
         var tag = "%c[444comments]";
         if (ret) return tag + " " + msg;
         else console.debug(tag, "color: #29af0a;", msg);
+    }
+
+    function setCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days*24*60*60*1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+    }
+
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
     }
 
     function pageChanged() {
@@ -177,6 +198,8 @@
             delete window.disqus_config;
             delete window.disqus_recommendations_config;
 
+            if (null !== document.querySelector("#disqus_recommendations")) document.querySelector("#disqus_recommendations").remove();
+
             let ss = document.evaluate("//script[@src='https://" + _forumShortName + ".disqus.com/embed.js']", document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
             if (ss.snapshotLength) {
                 for (let i = 0; i < ss.snapshotLength; i++) {
@@ -225,7 +248,8 @@
 
         function onClickCloseRules() {
             this.parentElement.classList.add('hide');
-            document.querySelector('.comments-settings label>input#rulesToggle').checked = !document.querySelector('.comments-settings label>input#rulesToggle').checked;
+            setCookie("_444comments_hide_rules", 1);
+            document.querySelector('.comments-settings label>input#rulesToggle').checked = false;
         }
 
         function onClickToggleSettings() {
@@ -234,6 +258,7 @@
 
         function onClickRulesToggle() {
             document.querySelector(".comments-contents .forum-rules").classList.toggle('hide');
+            setCookie("_444comments_hide_rules", +!this.checked);
         }
 
         function initRecommendationsToggle() {
@@ -248,8 +273,10 @@
             function onClickRecommendationsToggle() {
                 if (null !== document.querySelector("#recommendationsToggleStyle")) {
                     document.querySelector("#recommendationsToggleStyle").remove();
+                    setCookie("_444comments_show_disqus_recommendations", 1);
                 } else {
                     addHideStyle();
+                    setCookie("_444comments_show_disqus_recommendations", 0);
                 }
             }
 
@@ -274,6 +301,19 @@
         document.querySelector('.comments-settings label>input#rulesToggle').onclick = onClickRulesToggle;
 
         initRecommendationsToggle();
+    }
+
+    function applySettings() {
+        if (getCookie("_444comments_hide_rules") == 1) {
+            document.querySelector(".comments-contents .forum-rules").classList.add('hide');
+            document.querySelector('.comments-settings label>input#rulesToggle').checked = false;
+            log("hide rules");
+        }
+
+        if (getCookie("_444comments_show_disqus_recommendations") == 1) {
+            document.querySelector('.comments-settings label>input#recommendationsToggle').click();
+            log("show recommend");
+        }
     }
 
     function initCommentsSection() {
@@ -358,6 +398,7 @@
                 initCommentsSection();
                 initSidebar();
                 initButtons();
+                applySettings();
                 scrollToHash();
                 //trackPageChange(); //TODO: maybe uncomment this after 444 fixed the duplicate head-layout rendering issue
                 log("Added comments section for: '" + _emberRouter.get("currentRoute.attributes.slug") + "'");
