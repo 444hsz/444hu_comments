@@ -8,7 +8,8 @@ document.addEventListener('DOMContentLoaded', function () {
         var config = {
             "default": { "legacy_frontend": true },
             "444.hu": { "legacy_frontend": false },
-            "membership.444.hu": { "disabled": true }
+            "membership.444.hu": { "disabled": true },
+            "kor.444.hu": { "disabled": true }
         }
 
         function getConfig(key) {
