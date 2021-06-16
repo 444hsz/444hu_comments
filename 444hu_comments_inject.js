@@ -37,10 +37,10 @@
                 <div title="Elrejtés" class="close-button"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg></div>
                 <div class="title">Kommentszekció beállítások</div>
                 <div class="wrapper">
+                    <div class="slider-switch-wrapper"><label class="slider-switch" for="autoloadToggle">Kommentek automatikus betöltése<input type="checkbox" id="autoloadToggle"><span class="slider round"></span></label></div>
                     <div class="slider-switch-wrapper"><label class="slider-switch" for="rulesToggle">Kommentelési szabályok<input type="checkbox" id="rulesToggle" checked><span class="slider round"></span></label></div>
-                    <div class="slider-switch-wrapper"><label class="slider-switch" for="recommendationsToggle">Disqus ajánlások<input type="checkbox" id="recommendationsToggle"><span class="slider round"></span></label></div>
-                    <div class="slider-switch-wrapper">
-                        <label class="slider-switch" for="forumToggle">Alternatív Disqus fórum<input type="checkbox" id="forumToggle"><span class="slider round"></span></label>
+                    <div class="slider-switch-wrapper"><label class="slider-switch" for="recommendationsToggle">Disqus ajánlások megjelenítése<input type="checkbox" id="recommendationsToggle"><span class="slider round"></span></label></div>
+                    <div class="slider-switch-wrapper"><label class="slider-switch" for="forumToggle">Alternatív Disqus fórum<input type="checkbox" id="forumToggle"><span class="slider round"></span></label>
                         <p>Az alternatív fórum a közeljövőben be&shy;ve&shy;ze&shy;tés&shy;re kerülő, csak a 444 támogatói kör számára el&shy;ér&shy;he&shy;tő, fizetős kommentelés alternatívájának lett lét&shy;re&shy;hoz&shy;va. Itt nincs elő&shy;mo&shy;de&shy;rá&shy;ció, white&shy;list és paywall, csak szabad kom&shy;men&shy;tel&shy;és. A funkció egyelőre experi&shy;men&shy;tá&shy;lisnak tekintendő.</p>
                     </div>
                 </div>
@@ -261,6 +261,10 @@
             setCookie("_444comments_hide_rules", +!this.checked);
         }
 
+        function onClickAutoloadToggle() {
+            setCookie("_444comments_autoload_comments", +this.checked);
+        }
+
         function initRecommendationsToggle() {
             function addHideStyle() {
                 var style = document.createElement('style');
@@ -300,6 +304,8 @@
         document.querySelector('.comments-contents .forum-rules .close-button').onclick = onClickCloseRules;
         document.querySelector('.comments-settings label>input#rulesToggle').onclick = onClickRulesToggle;
 
+        document.querySelector('.comments-settings label>input#autoloadToggle').onclick = onClickAutoloadToggle;
+
         initRecommendationsToggle();
     }
 
@@ -307,12 +313,15 @@
         if (getCookie("_444comments_hide_rules") == 1) {
             document.querySelector(".comments-contents .forum-rules").classList.add('hide');
             document.querySelector('.comments-settings label>input#rulesToggle').checked = false;
-            log("hide rules");
         }
 
         if (getCookie("_444comments_show_disqus_recommendations") == 1) {
             document.querySelector('.comments-settings label>input#recommendationsToggle').click();
-            log("show recommend");
+        }
+
+        if (getCookie("_444comments_autoload_comments") == 1) {
+            document.querySelector('.comments-settings label>input#autoloadToggle').checked = true;
+            document.querySelector(".comments-toggle").click();
         }
     }
 
