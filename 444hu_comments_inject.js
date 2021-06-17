@@ -34,21 +34,21 @@
         </div>
         <div class="comments-settings bg-444comments-icon hide">
             <div class="ext-wrapper">
-                <div title="Elrejtés" class="close-button"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg></div>
+                <div title="Bezár" class="close-button"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg></div>
                 <div class="title">Kommentszekció beállítások</div>
                 <div class="wrapper">
                     <div class="slider-switch-wrapper"><label class="slider-switch" for="autoloadToggle">Kommentek automatikus betöltése<input type="checkbox" id="autoloadToggle"><span class="slider round"></span></label></div>
                     <div class="slider-switch-wrapper"><label class="slider-switch" for="rulesToggle">Kommentelési szabályok<input type="checkbox" id="rulesToggle" checked><span class="slider round"></span></label></div>
                     <div class="slider-switch-wrapper"><label class="slider-switch" for="recommendationsToggle">Disqus ajánlások megjelenítése<input type="checkbox" id="recommendationsToggle"><span class="slider round"></span></label></div>
                     <div class="slider-switch-wrapper"><label class="slider-switch" for="forumToggle">Alternatív Disqus fórum<input type="checkbox" id="forumToggle"><span class="slider round"></span></label>
-                        <p>Az alternatív fórum a közeljövőben be&shy;ve&shy;ze&shy;tés&shy;re kerülő, csak a 444 támogatói kör számára el&shy;ér&shy;he&shy;tő, fizetős kommentelés alternatívájának lett lét&shy;re&shy;hoz&shy;va. Itt nincs elő&shy;mo&shy;de&shy;rá&shy;ció, white&shy;list és paywall, csak szabad kom&shy;men&shy;tel&shy;és. A funkció egyelőre experi&shy;men&shy;tá&shy;lisnak tekintendő.</p>
+                        <p>Az alternatív fórum a közeljövőben bevezetésre kerülő, csak a 444 támogatói kör számára el&shy;ér&shy;he&shy;tő, fizetős kommentelés alternatívájaként lett lét&shy;re&shy;hoz&shy;va. A funkció jelenleg proof-of-concept státusz&shy;ban van.</p>
                     </div>
                 </div>
             </div>
         </div>
         <div class="comments-contents">
             <div class="forum-rules">
-                <div title="Elrejtés" class="close-button"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg></div>
+                <div title="Bezár" class="close-button"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg></div>
                 <ul>
                     <li><b>Új kommentelési szabályok érvényesek 2019. december 2-től.</b> <a href="https://444.hu/2019/12/02/valtoznak-a-kommenteles-szabalyai-a-444-en" target="_blank">Itt olvashatod el</a>, hogy mik azok, és <a href="https://444.hu/2019/12/02/ezert-valtoztatunk-a-kommenteles-szabalyain" target="_blank">itt azt</a>, hogy miért kerültek bevezetésre.</li>
                     <li>A 444-en előmoderálás működik, tehát a kommentek egy része csak azután jelenik meg mindenki számára láthatóan, hogy a moderátor jóváhagyta.</li>
@@ -67,7 +67,7 @@
         else console.debug(tag, "color: #29af0a;", msg);
     }
 
-    function setCookie(name, value, days) {
+    function setCookie(name, value, days = 3650) {
         var expires = "";
         if (days) {
             var date = new Date();
@@ -285,7 +285,9 @@
             }
 
             document.querySelector('.comments-settings label>input#recommendationsToggle').onclick = onClickRecommendationsToggle;
-            addHideStyle();
+            if (null == document.querySelector("#recommendationsToggleStyle")) {
+                addHideStyle();
+            }
         }
 
         document.querySelector(".comments-toggle").onclick = onClickCommentsButton;
