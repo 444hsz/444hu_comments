@@ -15,7 +15,10 @@
         _commentsSectionInsertMethod = 0,
         _commentsLoaded = false,
         _commentsButtonTopEl = null,
-        _forumShortName = "444hu",
+        _defaultForumShortName = "444hu",
+        _defaultUserForumShortName = "444hsz",
+        _currentForumShortName = _defaultForumShortName,
+        _userForumShortName = _defaultUserForumShortName,
         _parentEl = null,
         _headContentAvailable = false;
 
@@ -38,11 +41,12 @@
                 <div title="Bezár" class="close-button"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg></div>
                 <div class="title">Kommentszekció beállítások</div>
                 <div class="wrapper">
-                    <div class="slider-switch-wrapper"><label class="slider-switch" for="autoloadToggle">Kommentek automatikus betöltése<input type="checkbox" id="autoloadToggle"><span class="slider round"></span></label></div>
+                    <div class="slider-switch-wrapper"><label class="slider-switch" for="autoloadToggle">Kommentek auto-betöltése<input type="checkbox" id="autoloadToggle"><span class="slider round"></span></label></div>
                     <div class="slider-switch-wrapper"><label class="slider-switch" for="rulesToggle">Kommentelési szabályok<input type="checkbox" id="rulesToggle" checked><span class="slider round"></span></label></div>
-                    <div class="slider-switch-wrapper"><label class="slider-switch" for="recommendationsToggle">Disqus ajánlások megjelenítése<input type="checkbox" id="recommendationsToggle"><span class="slider round"></span></label></div>
-                    <div class="slider-switch-wrapper"><label class="slider-switch" for="forumToggle">Alternatív Disqus fórum<input type="checkbox" id="forumToggle"><span class="slider round"></span></label>
-                        <p>Az alternatív fórum a közeljövőben bevezetésre kerülő, csak a 444 támogatói kör számára el&shy;ér&shy;he&shy;tő, fizetős kommentelés alternatívájaként lett lét&shy;re&shy;hoz&shy;va. A funkció jelenleg proof-of-concept státusz&shy;ban van.</p>
+                    <div class="slider-switch-wrapper"><label class="slider-switch" for="recommendationsToggle">Disqus ajánlások<input type="checkbox" id="recommendationsToggle"><span class="slider round"></span></label></div>
+                    <div class="slider-switch-wrapper">
+                        <label class="slider-switch" for="forumToggle">Custom Disqus fórum<input type="checkbox" id="forumToggle"><span class="slider round"></span></label>
+                        <ul><li><label class="" for="userForumShortName">Disqus shortname:<span><input type="text" id="userForumShortName" placeholder="444hsz"></span></label></li></ul>
                     </div>
                 </div>
             </div>
@@ -173,7 +177,7 @@
                     title: null,
                     categoryId: null
                 };
-                Ember.getOwner = function() { return { lookup: function() { return { get: function() { return _forumShortName; }}}}}
+                Ember.getOwner = function() { return { lookup: function() { return { get: function() { return _currentForumShortName; }}}}}
                 lc.loadComments.perform();
                 Ember.getOwner = go;
                 this.classList.add('hide');
@@ -204,7 +208,7 @@
 
             if (null !== document.querySelector("#disqus_recommendations")) document.querySelector("#disqus_recommendations").remove();
 
-            let ss = document.evaluate("//script[@src='https://" + _forumShortName + ".disqus.com/embed.js']", document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
+            let ss = document.evaluate("//script[@src='https://" + _currentForumShortName + ".disqus.com/embed.js']", document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
             if (ss.snapshotLength) {
                 for (let i = 0; i < ss.snapshotLength; i++) {
                     let s = ss.snapshotItem(i);
@@ -217,7 +221,7 @@
 
         function onClickforumToggle() {
             unloadDisqus();
-            _forumShortName = this.checked ? "444hsz" : "444hu";
+            _currentForumShortName = this.checked ? _userForumShortName : _defaultForumShortName;
             document.querySelector(".comments-toggle").click();
         }
 
@@ -295,6 +299,15 @@
             }
         }
 
+        function onChangeUserForumShortname() {
+            _userForumShortName = this.value ? this.value : _defaultUserForumShortName;
+            setCookie("_444comments_user_forum_shortname", _userForumShortName);
+        }
+
+        function onKeypressUserForumShortname(e) {
+            return /[a-z\d-]/.test(e.key);
+        }
+
         document.querySelector(".comments-toggle").onclick = onClickCommentsButton;
         if (insertTopCommentsButton()) {
             document.querySelector(".comments-toggle-top").onclick = onClickTopCommentsButton;
@@ -305,29 +318,37 @@
 
         document.querySelector('.comments-settings .close-button').onclick = onClickToggleSettings;
         document.querySelector('.comments-docked-open>button#settingsToggle').onclick = onClickToggleSettings;
-        document.querySelector('.comments-settings label>input#forumToggle').onclick = onClickforumToggle;
-        document.querySelector('.comments-settings label>input#forumToggle').checked = !(_forumShortName === "444hu");
+        document.querySelector('.comments-settings input#forumToggle').onclick = onClickforumToggle;
+        document.querySelector('.comments-settings input#forumToggle').checked = !(_currentForumShortName === _defaultForumShortName);
 
         document.querySelector('.comments-contents .forum-rules .close-button').onclick = onClickCloseRules;
-        document.querySelector('.comments-settings label>input#rulesToggle').onclick = onClickRulesToggle;
+        document.querySelector('.comments-settings input#rulesToggle').onclick = onClickRulesToggle;
 
-        document.querySelector('.comments-settings label>input#autoloadToggle').onclick = onClickAutoloadToggle;
+        document.querySelector('.comments-settings input#autoloadToggle').onclick = onClickAutoloadToggle;
+
+        document.querySelector('.comments-settings input#userForumShortName').onchange = onChangeUserForumShortname;
+        document.querySelector('.comments-settings input#userForumShortName').onkeypress = onKeypressUserForumShortname;
 
         initRecommendationsToggle();
     }
 
     function applySettings() {
+        if (getCookie("_444comments_user_forum_shortname")) {
+            _userForumShortName = getCookie("_444comments_user_forum_shortname");
+            document.querySelector('.comments-settings input#userForumShortName').value = _userForumShortName == _defaultUserForumShortName ? "" : _userForumShortName;
+        }
+
         if (getCookie("_444comments_hide_rules") == 1) {
             document.querySelector(".comments-contents .forum-rules").classList.add('hide');
-            document.querySelector('.comments-settings label>input#rulesToggle').checked = false;
+            document.querySelector('.comments-settings input#rulesToggle').checked = false;
         }
 
         if (getCookie("_444comments_show_disqus_recommendations") == 1) {
-            document.querySelector('.comments-settings label>input#recommendationsToggle').click();
+            document.querySelector('.comments-settings input#recommendationsToggle').click();
         }
 
         if (getCookie("_444comments_autoload_comments") == 1) {
-            document.querySelector('.comments-settings label>input#autoloadToggle').checked = true;
+            document.querySelector('.comments-settings input#autoloadToggle').checked = true;
             document.querySelector(".comments-toggle").click();
         }
     }

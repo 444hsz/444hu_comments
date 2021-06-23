@@ -180,26 +180,6 @@ div.close-button svg {
 }
 
 /* checkbox slider */
-.slider-switch-wrapper {
-    border-bottom: 1px solid #6ac540;
-    padding: 5px 0px;
-}
-
-.slider-switch-wrapper:last-child {
-    border: 0;
-    padding-bottom: 0;
-}
-
-.slider-switch-wrapper p {
-    letter-spacing: normal;
-    line-height: normal;
-    margin: 5px 0 0;
-    font-style: italic;
-    background-color: #6ac540;
-    padding: 6px;
-    border-radius: 5px;
-}
-
 .slider-switch {
     display: inline-block;
     height: 23px;
@@ -210,14 +190,7 @@ div.close-button svg {
     line-height: 22px;
     padding: 0px 50px 0px 0px;
     vertical-align: top;
-    /* font-weight: var(--font-medium); */
-    /* cursor: pointer; */
-    /* font-size: 11px; */
 }
-
-/* .slider-switch:hover {
-    background-color: #6ac540;
-} */
 
 .slider {
     width: 31px;
@@ -288,15 +261,26 @@ div.close-button svg {
 
 .comments-settings .ext-wrapper {
     margin: 0 0 0.9375rem auto;
-    width: 328px;
+    width: 260px;
     background-color: var(--c-secondary);
     border-radius: 10px;
     position: relative;
 }
 
 .comments-settings .wrapper {
-    padding: 0 20px 20px 20px;
+    padding: 0 15px 10px;
 }
+
+.comments-settings .wrapper div {
+    border-bottom: 1px solid #8cd07c;
+    padding: 2px 0px;
+}
+
+.comments-settings .wrapper div:last-child {
+    border: 0;
+    padding-bottom: 0;
+}
+
 
 .comments-settings .title {
     font-weight: var(--font-medium);
@@ -313,5 +297,43 @@ div.close-button svg {
 .comments-settings label {
     width: 100%;
     text-align: left;
+}
+
+.comments-settings p.notice {
+    letter-spacing: normal;
+    line-height: normal;
+    margin: 5px 0 0;
+    font-style: italic;
+    background-color: #6ac540;
+    padding: 6px;
+    border-radius: 5px;
+}
+
+.comments-settings label[for=userForumShortName] {
+    height: 23px;
+    display: block;
+    font-size: 11px;
+    color: white;
+}
+
+.comments-settings label[for=userForumShortName] span {
+    float: right;
+}
+
+.comments-settings input#userForumShortName {
+    background-color: #eee;
+    width: 70px;
+    border-radius: 10px;
+    border: 0;
+    border-color: #6ac540;
+    border-style: solid;
+    height: 14px;
+    font-size: 11px;
+}
+
+.comments-settings ul {
+    margin: 0;
+    list-style-type: square;
+    color: #6ac540;
 }
 
