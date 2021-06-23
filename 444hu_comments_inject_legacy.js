@@ -72,8 +72,8 @@
             e.preventDefault();
             document.body.style.pointerEvents = "none";
             ce.classList.toggle("dragged");
-            window.addEventListener('mousemove', Resize, false);
-            window.addEventListener('mouseup', stopResize, false);
+            document.addEventListener('mousemove', Resize, false);
+            document.addEventListener('mouseup', stopResize, false);
         }
         function Resize(e) {
             e.preventDefault();
@@ -85,8 +85,8 @@
         }
         function stopResize(e) {
             e.preventDefault();
-            window.removeEventListener('mousemove', Resize, false);
-            window.removeEventListener('mouseup', stopResize, false);
+            document.removeEventListener('mousemove', Resize, false);
+            document.removeEventListener('mouseup', stopResize, false);
             document.body.style.pointerEvents = "";
             ce.classList.toggle("dragged");
         }
