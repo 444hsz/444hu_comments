@@ -7,6 +7,7 @@ button.comments-toggle-top {
     font-size: .875rem;
     letter-spacing: .07812rem;
     align-items: center;
+    text-shadow: 1px 1px 0 #00000077;
 }
 
 button.comments-toggle-top > img {
@@ -60,10 +61,6 @@ section#comments .subhead {
     align-items: center;
 }
 
-section#comments.docked-comments .subhead .logo {
-    height: 33px;
-}
-
 .comments-toggle {
     width: 100%;
     border: 0;
@@ -79,6 +76,7 @@ section#comments.docked-comments .subhead .logo {
     letter-spacing: .07812rem;
     align-items: center;
     height: 36px;
+    text-shadow: 1px 1px 0 #00000077;
 }
 
 .hide {
@@ -107,8 +105,12 @@ section#comments .comments-title {
 }
 
 section#comments.docked-comments .comments-docked-title {
-    font-size: 16px;
-    margin-top: -2px;
+    font-family: var(--font-title);
+    font-weight: var(--font-medium);
+    font-size: 0.875rem;
+    letter-spacing: 0.07812rem;
+    text-shadow: rgba(0, 0, 0, 0.467) 1px 1px 0px;
+    margin-top: -4px;
 }
 
 
@@ -301,6 +303,7 @@ div.close-button svg {
     font-size: 0.875rem;
     line-height: 40px;
     padding-left: 15px;
+    text-shadow: 1px 1px 0 #00000077;
 }
 
 .comments-settings .close-button svg {

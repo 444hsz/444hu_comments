@@ -13,6 +13,7 @@
     var _commentsSectionEl = document.createElement("section"),
         _commentsSectionTempEl = null,
         _commentsSectionInsertMethod = 0,
+        _commentsLoaded = false,
         _commentsButtonTopEl = null,
         _forumShortName = "444hu",
         _parentEl = null,
@@ -160,20 +161,23 @@
 
     function initButtons() {
         function onClickCommentsButton() {
-            window.disqus_url = getDisqusUrl();
-            let dc = require('disqus/components/disqus-comments'),
-                lc = new dc.default(),
-                go = Ember.getOwner;
-            lc.args = {
-                identifier: null,
-                url: window.disqus_url,
-                title: null,
-                categoryId: null
-            };
-            Ember.getOwner = function() { return { lookup: function() { return { get: function() { return _forumShortName; }}}}}
-            lc.loadComments.perform();
-            Ember.getOwner = go;
-            this.classList.add('hide');
+            if (!_commentsLoaded) {
+                _commentsLoaded = true;
+                window.disqus_url = getDisqusUrl();
+                let dc = require('disqus/components/disqus-comments'),
+                    lc = new dc.default(),
+                    go = Ember.getOwner;
+                lc.args = {
+                    identifier: null,
+                    url: window.disqus_url,
+                    title: null,
+                    categoryId: null
+                };
+                Ember.getOwner = function() { return { lookup: function() { return { get: function() { return _forumShortName; }}}}}
+                lc.loadComments.perform();
+                Ember.getOwner = go;
+                this.classList.add('hide');
+            }
         }
     
         function onClickTopCommentsButton() {
@@ -207,6 +211,8 @@
                     s.remove();
                 }
             }
+
+            _commentsLoaded = false;
         }
 
         function onClickforumToggle() {
@@ -269,7 +275,6 @@
             function addHideStyle() {
                 var style = document.createElement('style');
                 style.id = "recommendationsToggleStyle";
-                //style.innerHTML = '#disqus_recommendations { display: none; }';
                 style.innerHTML = '#disqus_recommendations { visibility: hidden; height: 0; }';
                 document.getElementsByTagName('head')[0].appendChild(style);
             }
@@ -349,6 +354,8 @@
     function reset() {
         if (typeof DISQUS !== "undefined") DISQUS.reset();
         if (typeof DISQUS_RECOMMENDATIONS !== "undefined") DISQUS_RECOMMENDATIONS.reset();
+
+        _commentsLoaded = false;
 
         let el;
         if (el = document.querySelector("#ap-article-footer1")) { // normal article
