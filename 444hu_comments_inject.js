@@ -20,7 +20,8 @@
         _currentForumShortName = _defaultForumShortName,
         _userForumShortName = _defaultUserForumShortName,
         _parentEl = null,
-        _headContentAvailable = false;
+        _headContentAvailable = false,
+        _firstLoad = true;
 
     _commentsSectionEl.id = "comments";
     _commentsSectionEl.innerHTML =
@@ -468,13 +469,14 @@
                     }
                 break;
                 case "component:head-layout":
-                    if (_headContentAvailable && !payload.initialRender && pageChanged()) {
-                        init();
+                    if (_headContentAvailable && !payload.initialRender) {
+                        if (_firstLoad || pageChanged()) {
+                            _firstLoad = false;
+                            init();
+                        }
                     }
                 break;
             }
         }
     });
-
-    init(); //on the first pageload component:head-layout is rendered serverside, so init needs to be fired manually
 }());
