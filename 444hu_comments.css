@@ -150,9 +150,10 @@ section#comments .comments-contents .forum-rules ul {
     list-style: square;
     list-style-position: inside;
     background-color: #eee;
-    padding: 20px 20px;
+    padding: 50px 20px 20px;
     border-radius: 10px;
     color: #000;
+    background-position: 10px 10px;
 }
 
 section#comments .comments-contents .forum-rules ul li {
@@ -335,5 +336,18 @@ div.close-button svg {
     margin: 0;
     list-style-type: square;
     color: #6ac540;
+}
+
+/* toolbar toggle */
+
+.comments-docked-open .slider-switch {
+    padding-left: 10px;
+    line-height: 26px;
+    height: 23px;
+    font-size: 11px;
+}
+
+.comments-docked-open .slider-switch .slider {
+    right: 10px;
 }
 
