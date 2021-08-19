@@ -492,7 +492,14 @@
                 break;
                 case "component:head-layout":
                     if (_headContentAvailable && !payload.initialRender) {
-                        if (_firstLoad || pageChanged()) {
+                        if (pageChanged()) {
+                            init();
+                        }
+                    }
+                break;
+                case "component:-ensure0":
+                    if (payload.view.tagName == "header") {
+                        if (_firstLoad) {
                             _firstLoad = false;
                             init();
                         }
