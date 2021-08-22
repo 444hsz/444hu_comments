@@ -20,8 +20,7 @@
         _currentForumShortName = _defaultForumShortName,
         _userForumShortName = _defaultUserForumShortName,
         _parentEl = null,
-        _headContentAvailable = false,
-        _firstLoad = true;
+        _headContentAvailable = false;
 
     _commentsSectionEl.id = "comments";
     _commentsSectionEl.innerHTML =
@@ -481,6 +480,9 @@
         return true;
     });
 
+    Ember.run.schedule('afterRender', init); // when page is rendered by backend (on first pageload)
+
+    // when page is rendered on the client
     Ember.subscribe("render.component", {
         before(name, timestamp, payload) {},
         after(name, timestamp, payload, beganIndex) {
@@ -493,14 +495,6 @@
                 case "component:head-layout":
                     if (_headContentAvailable && !payload.initialRender) {
                         if (pageChanged()) {
-                            init();
-                        }
-                    }
-                break;
-                case "component:-ensure0":
-                    if (payload.view.tagName == "header") {
-                        if (_firstLoad) {
-                            _firstLoad = false;
                             init();
                         }
                     }
