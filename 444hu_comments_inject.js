@@ -251,7 +251,7 @@
                     }
                     break;
                 case 4:
-                    if (p = document.querySelector('.legacy')) {
+                    if (p = document.querySelector('.rich-text-feature') || document.querySelector('.legacy')) {
                         p.insertBefore(_commentsButtonTopEl, p.firstElementChild);
                         _commentsButtonTopEl.className = p.firstElementChild.className;
                         _commentsButtonTopEl.style.setProperty('margin', '-10px 0 20px');
