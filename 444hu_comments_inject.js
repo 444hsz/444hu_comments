@@ -30,7 +30,7 @@
             `<span class="comments-title">Uralkodj magadon!</span>` +
             `<span class="comments-docked-toggle">` + 
                 `<span class="comments-docked-open">
-                    <div class="slider-switch-wrapper"><label class="slider-switch" for="forumToggle2"><span>Saját Disqus fórum</span><input type="checkbox" id="forumToggle2"><span class="slider round"></span></label></div>
+                    <div class="slider-switch-wrapper"><label class="slider-switch" for="forumToggle2" title="Unofficial Disqus fórum"><span></span><input type="checkbox" id="forumToggle2"><span class="slider round"></span></label></div>
                     <button id="settingsToggle" title="Beállítások"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"><path d="M24 13.616v-3.232c-1.651-.587-2.694-.752-3.219-2.019v-.001c-.527-1.271.1-2.134.847-3.707l-2.285-2.285c-1.561.742-2.433 1.375-3.707.847h-.001c-1.269-.526-1.435-1.576-2.019-3.219h-3.232c-.582 1.635-.749 2.692-2.019 3.219h-.001c-1.271.528-2.132-.098-3.707-.847l-2.285 2.285c.745 1.568 1.375 2.434.847 3.707-.527 1.271-1.584 1.438-3.219 2.02v3.232c1.632.58 2.692.749 3.219 2.019.53 1.282-.114 2.166-.847 3.707l2.285 2.286c1.562-.743 2.434-1.375 3.707-.847h.001c1.27.526 1.436 1.579 2.019 3.219h3.232c.582-1.636.75-2.69 2.027-3.222h.001c1.262-.524 2.12.101 3.698.851l2.285-2.286c-.744-1.563-1.375-2.433-.848-3.706.527-1.271 1.588-1.44 3.221-2.021zm-12 2.384c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4z"/></svg></button>
                     <button id="sidebarToggle" title="Oldalsáv"><svg class="flipped" height="19px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g fill="#ffffff" fill-rule="nonzero"><path d="M19.25,4 C20.7688,4 22,5.23122 22,6.75 L22,6.75 L22,17.25 C22,18.7688 20.7688,20 19.25,20 L19.25,20 L4.75,20 C3.23122,20 2,18.7688 2,17.25 L2,17.25 L2,6.75 C2,5.23122 3.23122,4 4.75,4 L4.75,4 Z M19.25,5.5 L9,5.5 L9,18.5 L19.25,18.5 C19.9404,18.5 20.5,17.9404 20.5,17.25 L20.5,6.75 C20.5,6.05964 19.9404,5.5 19.25,5.5 Z"></path></g></g></svg></button>
                 </span>` +
@@ -46,7 +46,7 @@
                     <div class="slider-switch-wrapper"><label class="slider-switch" for="rulesToggle">Kommentelési szabályok<input type="checkbox" id="rulesToggle" checked><span class="slider round"></span></label></div>
                     <div class="slider-switch-wrapper"><label class="slider-switch" for="recommendationsToggle">Disqus ajánlások<input type="checkbox" id="recommendationsToggle"><span class="slider round"></span></label></div>
                     <div class="slider-switch-wrapper">
-                        <label class="slider-switch" for="forumToggle">Saját Disqus fórum<input type="checkbox" id="forumToggle"><span class="slider round"></span></label>
+                        <label class="slider-switch" for="forumToggle">Unofficial Disqus fórum<input type="checkbox" id="forumToggle"><span class="slider round"></span></label>
                         <ul><li><label class="" for="userForumShortName">Disqus shortname:<span><input type="text" id="userForumShortName" placeholder="444hsz"></span></label></li></ul>
                     </div>
                 </div>
@@ -56,19 +56,16 @@
             <div class="forum-rules">
                 <div title="Bezár" class="close-button"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg></div>
                 <ul class="bg-444comments-icon">
+                    <small>(Ezt üzenetet azért látod itt, mert telepítetted a "444 hozzászólások" Chrome extension-t.)</small>
                     <b>
-                        (Ezt üzenetet azért látod itt, mert telepítetted a "444 hozzászólások" Chrome extension-t.)<br/><br/>
-                        ---<br/><br/>
-                        Mélyen tisztelt kommentelők!<br/><br/>
-                        Én a fent említett extension fejlesztője vagyok, ez pedig egy szolgálati közlemény lenne.<br/><br/>
-                        A mai napon, 2021. augusztus 12-én a 444 teljesen megszüntette a szabad kommentelést a felületen, így ezentúl már csak a Kör tagsággal rendelkező előfizetők szólhatnak hozzá a cikkekhez. A whitelist halott.<br/><br/>
-                        Az időzítés váratlan, de nem meglepő, mivel ezt a lépést már korábban bejelentették. Ezért aztán az extension-be néhány verzióval ezelőtt beépítettem egy "saját disqus fórum" funkciót, aminek a segítségével tetszőleges, a 444-től független disqus fórumban kommentelhetők a cikkek. A funkciót a mai nappal élesítettem, ezzel kapcsolatban pedig a következők a tudnivalók:<br/><br/>
-                        <li>A hivatalos 444 disqus, és a saját disqus közötti átváltás a toolbaron (URALKODJ MAGADON felirat mellett jobbra) elhelyezett kapcsolóval történik.</li>
-                        <li>A kapcsoló állását megjegyzi a böngésző, tehát nem kell minden cikknél átkapcsolni.</li>
-                        <li>Az alapértelmezett saját disqus fórum a "444hsz", amit én hoztam létre a szabad kommentelés fenntartása végett.</li>
-                        <li>A saját disqus fórum megváltoztatható a Kommentszekció beállításokban (toolbaron fogaskerék ikon).</li>
-                        <br/>Üdv,<br/>
-                        nerblock (disqus: @nerblock)
+                        <h1>Szolgálati közlemény</h1>
+                        2021. augusztus 12-én a 444 megszüntette a cikkek szabad kommentelhetőségét. A továbbiakban a hivatalos Disqus fórumban csak a Kör tagsággal rendelkező előfizetők írhatnak kommenteket, mindenki más pedig "unofficial", azaz nem a 444 által fenntartott Disqus fórumokban tud kommentelni.<br/><br/>
+                        A "444 hozzászólások" Chrome extension a hivatalossal párhuzamosan egy unofficial Disqus fórumot is képes kezelni, amiről a következőket kell tudni:<br/><br/>
+                        <li>A hivatalos és az unofficial Disqus közti átváltás a toolbaron (URALKODJ MAGADON felirat mellett jobbra) elhelyezett kapcsolóval történik. Kikapcsolt állásban a hivatalos, bekapcsoltban pedig az unofficial fórumból töltődik be a cikkhez tartozó thread.</li>
+                        <li>A kapcsoló bal oldalán olvasható a beállított unofficial Disqus fórum neve.</li>
+                        <li>Az alapértelmezett unofficial Disqus fórum a "444hsz", ami a 444 szabad kommentelhetőségének fenntartásáért lett létrehozva.</li>
+                        <li>Az unofficial Disqus fórum neve megváltoztatható a Kommentszekció beállításokban (toolbaron fogaskerék ikon).</li>
+                        <li>A kapcsoló állását megjegyzi a böngésző.</li>
                     </b>
                 </ul>
             </div>
@@ -321,10 +318,11 @@
         function onChangeUserForumShortname() {
             _userForumShortName = this.value ? this.value : _defaultUserForumShortName;
             setCookie("_444comments_user_forum_shortname", _userForumShortName);
+            document.querySelector("label[for=forumToggle2] > span:first-child").innerHTML = _userForumShortName;
         }
 
         function onKeypressUserForumShortname(e) {
-            return /[a-z\d-]/.test(e.key);
+            return /[a-z\d\-]/.test(e.key);
         }
 
         document.querySelector(".comments-toggle").onclick = onClickCommentsButton;
@@ -358,6 +356,7 @@
             _userForumShortName = getCookie("_444comments_user_forum_shortname");
             document.querySelector('.comments-settings input#userForumShortName').value = _userForumShortName == _defaultUserForumShortName ? "" : _userForumShortName;
         }
+        document.querySelector("label[for=forumToggle2] > span:first-child").innerHTML = _userForumShortName;
 
         if (getCookie("_444comments_user_forum_enabled") == 1) {
             document.querySelector('.comments-settings input#forumToggle').checked = true;
