@@ -340,14 +340,27 @@ div.close-button svg {
 
 /* toolbar toggle */
 
-.comments-docked-open .slider-switch {
+label[for=forumToggle2] {
     padding-left: 10px;
     line-height: 26px;
     height: 23px;
     font-size: 11px;
 }
 
-.comments-docked-open .slider-switch .slider {
+label[for=forumToggle2] .slider {
     right: 10px;
 }
 
+@media screen and (max-width: 500px) {
+    label[for=forumToggle2] > span:first-child {
+        display: inline-block;
+        max-width: 63px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    section#comments .comments-docked-open button#sidebarToggle {
+        display: none;
+    }
+}
