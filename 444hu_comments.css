@@ -149,7 +149,7 @@ section#comments .comments-contents .forum-rules ul a {
 section#comments .comments-contents .forum-rules ul {
     list-style: square;
     list-style-position: outside;
-    background-color: #eee;
+    background-color: #ebeef2;
     padding: 50px 20px 20px;
     border-radius: 10px;
     color: #000;
@@ -181,6 +181,30 @@ div.close-button svg {
     fill: #666;
 }
 
+button.text-close-button {
+    box-shadow: 0 0 0 0 rgb(0 0 0 / 20%), 0 0 0 0 rgb(0 0 0 / 14%), 0 0 0 0 rgb(0 0 0 / 12%);
+    background-color: #000;
+    color: #fff;
+    height: 36px;
+    min-width: 64px;
+    border: 0;
+    text-overflow: ellipsis;
+    letter-spacing: .07812rem;
+    padding: 6px 16px 4px;
+    font-family: var(--font-title);
+    font-weight: var(--font-medium);
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    cursor: pointer;
+    background-color: #000;
+    font-size: 0.875rem;
+    text-shadow: rgba(0, 0, 0, 0.467) 1px 1px 0px;
+    background-color: var(--c-secondary);
+    border-radius: 0px;
+    margin-top: 30px;
+}
+
 /* checkbox slider */
 .slider-switch {
     display: inline-block;
@@ -197,7 +221,7 @@ div.close-button svg {
 .slider {
     width: 31px;
     height: 15px;
-    background-color: #eee;
+    background-color: #ebeef2;
     bottom: 0;
     cursor: pointer;
     position: absolute;
@@ -258,7 +282,7 @@ div.close-button svg {
     font-family: var(--font-title);
     line-height: 22px;
     background-position: 10px 10px;
-    background-color: #eee;
+    background-color: #ebeef2;
 }
 
 .comments-settings .ext-wrapper {
@@ -323,7 +347,7 @@ div.close-button svg {
 }
 
 .comments-settings input#userForumShortName {
-    background-color: #eee;
+    background-color: #ebeef2;
     width: 70px;
     border-radius: 10px;
     border: 0;
@@ -352,10 +376,15 @@ label[for=forumToggle2] .slider {
     right: 10px;
 }
 
+.comments-docked-open > .slider-switch-wrapper {
+    border-left: 1px solid #fff;
+    text-shadow: 1px 1px 0 #00000077;
+}
+
 @media screen and (max-width: 500px) {
     label[for=forumToggle2] > span:first-child {
         display: inline-block;
-        max-width: 63px;
+        max-width: 62px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;

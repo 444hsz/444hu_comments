@@ -43,7 +43,7 @@
                 <div class="title">Kommentszekció beállítások</div>
                 <div class="wrapper">
                     <div class="slider-switch-wrapper"><label class="slider-switch" for="autoloadToggle">Kommentek auto-betöltése<input type="checkbox" id="autoloadToggle"><span class="slider round"></span></label></div>
-                    <div class="slider-switch-wrapper"><label class="slider-switch" for="rulesToggle">Kommentelési szabályok<input type="checkbox" id="rulesToggle" checked><span class="slider round"></span></label></div>
+                    <div class="slider-switch-wrapper"><label class="slider-switch" for="rulesToggle">Szolgálati közlemény<input type="checkbox" id="rulesToggle" checked><span class="slider round"></span></label></div>
                     <div class="slider-switch-wrapper"><label class="slider-switch" for="recommendationsToggle">Disqus ajánlások<input type="checkbox" id="recommendationsToggle"><span class="slider round"></span></label></div>
                     <div class="slider-switch-wrapper">
                         <label class="slider-switch" for="forumToggle">Unofficial Disqus fórum<input type="checkbox" id="forumToggle"><span class="slider round"></span></label>
@@ -59,14 +59,15 @@
                     <small>(Ezt üzenetet azért látod itt, mert telepítetted a "444 hozzászólások" Chrome extension-t.)</small>
                     <b>
                         <h1>Szolgálati közlemény</h1>
-                        2021. augusztus 12-én a 444 megszüntette a cikkek szabad kommentelhetőségét. A továbbiakban a hivatalos Disqus fórumban csak a Kör tagsággal rendelkező előfizetők írhatnak kommenteket, mindenki más pedig "unofficial", azaz nem a 444 által fenntartott Disqus fórumokban tud kommentelni.<br/><br/>
-                        A "444 hozzászólások" Chrome extension a hivatalossal párhuzamosan egy unofficial Disqus fórumot is képes kezelni, amiről a következőket kell tudni:<br/><br/>
+                        <p>2021. augusztus 12-én a 444 megszüntette a cikkek szabad kommentelhetőségét. A továbbiakban a hivatalos Disqus fórumban csak a Kör tagsággal rendelkező előfizetők írhatnak kommenteket, mindenki más pedig "unofficial", azaz nem a 444 által fenntartott Disqus fórumokban tud kommentelni.</p>
+                        <p>A "444 hozzászólások" Chrome extension a hivatalossal párhuzamosan egy unofficial Disqus fórumot is képes kezelni, amiről a következőket kell tudni:</p>
                         <li>A hivatalos és az unofficial Disqus közti átváltás a toolbaron (URALKODJ MAGADON felirat mellett jobbra) elhelyezett kapcsolóval történik. Kikapcsolt állásban a hivatalos, bekapcsoltban pedig az unofficial fórumból töltődik be a cikkhez tartozó thread.</li>
                         <li>A kapcsoló bal oldalán olvasható a beállított unofficial Disqus fórum neve.</li>
                         <li>Az alapértelmezett unofficial Disqus fórum a "444hsz", ami a 444 szabad kommentelhetőségének fenntartásáért lett létrehozva.</li>
                         <li>Az unofficial Disqus fórum neve megváltoztatható a Kommentszekció beállításokban (toolbaron fogaskerék ikon).</li>
                         <li>A kapcsoló állását megjegyzi a böngésző.</li>
                     </b>
+                    <button class="text-close-button">Elolvastam, ne jelenjen meg többet</button>
                 </ul>
             </div>
             <button class="gae-comment-click-open comments-toggle bg-444comments-icon">Kommentek mutatása</button>
@@ -273,7 +274,7 @@
         }
 
         function onClickCloseRules() {
-            this.parentElement.classList.add('hide');
+            document.querySelector('.comments-contents .forum-rules').classList.add('hide');
             setCookie("_444comments_hide_rules2", 1);
             document.querySelector('.comments-settings label>input#rulesToggle').checked = false;
         }
@@ -341,6 +342,7 @@
         document.querySelector('.comments-docked-open input#forumToggle2').checked = !(_currentForumShortName === _defaultForumShortName);
 
         document.querySelector('.comments-contents .forum-rules .close-button').onclick = onClickCloseRules;
+        document.querySelector('.comments-contents .forum-rules .text-close-button').onclick = onClickCloseRules;
         document.querySelector('.comments-settings input#rulesToggle').onclick = onClickRulesToggle;
 
         document.querySelector('.comments-settings input#autoloadToggle').onclick = onClickAutoloadToggle;
