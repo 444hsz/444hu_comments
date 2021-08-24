@@ -178,17 +178,18 @@
                 _commentsLoaded = true;
                 window.disqus_url = getDisqusUrl();
                 let dc = require('disqus/components/disqus-comments'),
-                    lc = new dc.default(),
-                    go = Ember.getOwner;
+                    lc = new dc.default();
                 lc.args = {
                     identifier: null,
                     url: window.disqus_url,
                     title: null,
                     categoryId: null
                 };
-                Ember.getOwner = function() { return { lookup: function() { return { get: function() { return _currentForumShortName; }}}}}
+
+                Object.defineProperty(lc, 'fastboot', { get: function() { return 0; }});
+                Object.defineProperty(lc, 'config', { get: function() { return { get: function() { return _currentForumShortName; }}}});
+
                 lc.loadComments.perform();
-                Ember.getOwner = go;
                 this.classList.add('hide');
             }
         }
