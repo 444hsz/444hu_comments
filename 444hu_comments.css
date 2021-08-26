@@ -151,7 +151,7 @@ section#comments .comments-contents .forum-rules ul {
     list-style-position: outside;
     background-color: #ebeef2;
     padding: 50px 20px 20px;
-    border-radius: 10px;
+    border-radius: 4px;
     color: #000;
     background-position: 10px 10px;
 }
@@ -276,7 +276,7 @@ button.text-close-button {
 .comments-settings {
     background-color: #8cd07c;
     padding: 0;
-    border-radius: 10px;
+    border-radius: 4px;
     color: #fff;
     font-size: 13px;
     font-family: var(--font-title);
@@ -289,7 +289,7 @@ button.text-close-button {
     margin: 0 0 0.9375rem auto;
     width: 260px;
     background-color: var(--c-secondary);
-    border-radius: 10px;
+    border-radius: 4px;
     position: relative;
 }
 
@@ -370,6 +370,13 @@ label[for=forumToggle2] {
     line-height: 26px;
     height: 23px;
     font-size: 11px;
+    cursor: pointer;
+}
+
+@media (hover: hover) {
+    label[for=forumToggle2]:hover {
+        background-color: #6ac540;
+    }
 }
 
 label[for=forumToggle2] .slider {
