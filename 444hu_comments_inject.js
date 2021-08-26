@@ -239,24 +239,15 @@
         }
 
         function insertTopCommentsButton() {
-            _commentsButtonTopEl = document.createElement("div");
+            _commentsButtonTopEl = document.createElement("p");
             _commentsButtonTopEl.innerHTML = '<button class="gae-comment-click-open comments-toggle-top">Kommentek</button>';
 
             let p;
             switch (_commentsSectionInsertMethod) {
                 case 0:
-                    if (p = document.querySelector('[style="--avatar-width: 40px; --avatar-height: 40px;"]')) {
-                        p.style.setProperty("--avatar-width", "180px");
-                        p.style.setProperty("background", "none");
-                        p.insertBefore(_commentsButtonTopEl, p.firstElementChild);
-                        return true;
-                    }
-                    break;
-                case 4:
-                    if (p = document.querySelector('.rich-text-feature') || document.querySelector('.legacy')) {
-                        p.insertBefore(_commentsButtonTopEl, p.firstElementChild);
+                    if (p = document.querySelector('.rich-text-feature') || document.querySelector('.rich-text')) {
                         _commentsButtonTopEl.className = p.firstElementChild.className;
-                        _commentsButtonTopEl.style.setProperty('margin', '-10px 0 20px');
+                        p.insertBefore(_commentsButtonTopEl, p.firstElementChild);
                         return true;
                     }
                     break;
@@ -386,7 +377,6 @@
         _commentsSectionTempEl = _commentsSectionEl.cloneNode(true);
         switch (_commentsSectionInsertMethod) {
             case 0:
-            case 4:
                 _parentEl.insertBefore(_commentsSectionTempEl, _parentEl.firstElementChild);
                 break;
             case 1:
@@ -410,11 +400,7 @@
 
         let el;
         if (el = document.querySelector("#ap-article-footer1")) { // normal article
-            if (window.innerWidth > 500) {
-                _commentsSectionInsertMethod = 0; // wide screen
-            } else {
-                _commentsSectionInsertMethod = 4; // narrow screen
-            }
+            _commentsSectionInsertMethod = 0;
             _parentEl = el.parentElement;
         }
         else if (el = document.querySelector("aside")) { // livereport list
@@ -433,8 +419,6 @@
         if (null !== el) {
             log("Insert method: " + _commentsSectionInsertMethod);
             if (null !== _commentsButtonTopEl) {
-                _commentsButtonTopEl.parentElement.style.setProperty("--avatar-width", "40px");
-                _commentsButtonTopEl.parentElement.style.setProperty("background", null);
                 _commentsButtonTopEl.remove();
                 _commentsButtonTopEl = null;
             }
