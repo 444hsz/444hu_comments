@@ -27,8 +27,10 @@ section#comments .comments-docked-open button {
     padding: 0 15px;
 }
 
-section#comments .comments-docked-open button:hover {
-    background-color: #6ac540;
+@media (hover: hover) {
+    section#comments .comments-docked-open button:hover {
+        background-color: #6ac540;
+    }
 }
 
 svg.flipped {

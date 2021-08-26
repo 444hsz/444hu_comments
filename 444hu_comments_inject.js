@@ -245,9 +245,11 @@
             let p;
             switch (_commentsSectionInsertMethod) {
                 case 0:
-                    if (p = document.querySelector('.rich-text-feature') || document.querySelector('.rich-text')) {
-                        _commentsButtonTopEl.className = p.firstElementChild.className;
+                    if (p = document.querySelector('.rich-text-feature') || document.querySelector('.legacy')) {
                         p.insertBefore(_commentsButtonTopEl, p.firstElementChild);
+                        if (p.classList.contains("legacy")) {
+                            _commentsButtonTopEl.style.setProperty('margin', '-10px 0 22px');
+                        }
                         return true;
                     }
                     break;
