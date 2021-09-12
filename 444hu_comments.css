@@ -324,7 +324,7 @@ button.text-close-button {
 
 .comments-settings label {
     width: 100%;
-    text-align: left;
+    text-align: right;
 }
 
 .comments-settings p.notice {
@@ -345,6 +345,7 @@ button.text-close-button {
 }
 
 .comments-settings label[for=userForumShortName] span {
+    margin-left: 6px;
     float: right;
 }
 
@@ -367,31 +368,31 @@ button.text-close-button {
 
 /* toolbar toggle */
 
-label[for=forumToggle2] {
+label[for=forumToggle] {
     padding-left: 10px;
     line-height: 26px;
     height: 23px;
     font-size: 11px;
     cursor: pointer;
+    border-left: 1px solid #fff;
 }
 
 @media (hover: hover) {
-    label[for=forumToggle2]:hover {
+    label[for=forumToggle]:hover {
         background-color: #6ac540;
     }
 }
 
-label[for=forumToggle2] .slider {
+label[for=forumToggle] .slider {
     right: 10px;
 }
 
 .comments-docked-open > .slider-switch-wrapper {
-    border-left: 1px solid #fff;
     text-shadow: 1px 1px 0 #00000077;
 }
 
 @media screen and (max-width: 500px) {
-    label[for=forumToggle2] > span:first-child {
+    label[for=forumToggle] > span:first-child {
         display: inline-block;
         max-width: 62px;
         white-space: nowrap;
