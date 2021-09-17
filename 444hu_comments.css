@@ -25,6 +25,9 @@ section#comments .comments-docked-open button {
     font-weight: var(--font-medium);
     height: 23px;
     padding: 0 15px;
+    -webkit-transition: .4s;
+    -o-transition: .4s;
+    transition: .4s;
 }
 
 @media (hover: hover) {
@@ -375,11 +378,27 @@ label[for=forumToggle] {
     font-size: 11px;
     cursor: pointer;
     border-left: 1px solid #fff;
+    -webkit-transition: .4s;
+    -o-transition: .4s;
+    transition: .4s;
 }
+
+label[for=forumToggle].official {
+    background-color: #080808;
+    color: #fff;
+}
+
+.comments-docked-open .slider:before {
+    background-color: #080808;
+}
+
 
 @media (hover: hover) {
     label[for=forumToggle]:hover {
         background-color: #6ac540;
+    }
+    label[for=forumToggle].official:hover {
+        background-color: #666;
     }
 }
 

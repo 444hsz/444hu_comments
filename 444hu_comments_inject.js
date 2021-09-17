@@ -232,6 +232,7 @@
             unloadDisqus();
             _currentForumShortName = this.checked ? _userForumShortName : _defaultForumShortName;
             document.querySelector('.comments-docked-open input#forumToggle').checked = this.checked;
+            updateForumToggleLabel();
             setCookie("_444comments_user_forum_enabled", +this.checked);
             document.querySelector(".comments-toggle").click();
         }
@@ -311,7 +312,7 @@
         function onChangeUserForumShortname() {
             _userForumShortName = this.value ? this.value : _defaultUserForumShortName;
             setCookie("_444comments_user_forum_shortname", _userForumShortName);
-            document.querySelector("label[for=forumToggle] > span:first-child").innerHTML = _userForumShortName;
+            updateForumToggleLabel();
         }
 
         function onKeypressUserForumShortname(e) {
@@ -344,17 +345,27 @@
         initRecommendationsToggle();
     }
 
+    function updateForumToggleLabel() {
+        document.querySelector("label[for=forumToggle] > span:first-child").innerHTML = _userForumShortName;
+        if (_currentForumShortName == _defaultForumShortName) {
+            document.querySelector("label[for=forumToggle]").classList.add("official");
+        } else {
+            document.querySelector("label[for=forumToggle]").classList.remove("official");
+        }
+    }
+
     function applySettings() {
         if (getCookie("_444comments_user_forum_shortname")) {
             _userForumShortName = getCookie("_444comments_user_forum_shortname");
             document.querySelector('.comments-settings input#userForumShortName').value = _userForumShortName == _defaultUserForumShortName ? "" : _userForumShortName;
         }
-        document.querySelector("label[for=forumToggle] > span:first-child").innerHTML = _userForumShortName;
 
         if (getCookie("_444comments_user_forum_enabled") == 1) {
             document.querySelector('.comments-docked-open input#forumToggle').checked = true;
             _currentForumShortName = _userForumShortName;
         }
+
+        updateForumToggleLabel();
 
         if (getCookie("_444comments_hide_rules2") == 1) {
             document.querySelector(".comments-contents .forum-rules").classList.add('hide');
