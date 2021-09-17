@@ -5,6 +5,7 @@
             "comments_section_insert_selector": "article footer.hide-print",
             "comments_section_html": getCommentsInnerHTMLBlog,
             "init_script": function() {
+                window.disqus_shortname = '444hsz';
                 require('blog/comment').default();
             }
         },
@@ -19,6 +20,8 @@
                 let cd = document.querySelector("meta[itemprop='dateCreated']");
                 if (null !== cd && new Date(cd.getAttribute('content')).getTime() > 1453379951779) {
                     window.disqus_shortname = 'geekzblog';
+                } else {
+                    window.disqus_shortname = '444hsz';
                 }
             }
         }
@@ -129,10 +132,10 @@
             `</span>
         </div>
         <div class="comments-contents">
-            <div>
+            <!--<div>
                 <b>Új kommentelési szabályok érvényesek 2019. december 2-től.</b>
                 <a href="https://444.hu/2019/12/02/valtoznak-a-kommenteles-szabalyai-a-444-en" target="_blank">Itt olvashatod el</a>, hogy mik azok, és <a href="https://444.hu/2019/12/02/ezert-valtoztatunk-a-kommenteles-szabalyain" target="_blank">itt azt</a>, hogy miért vezettük be őket.
-            </div>
+            </div>-->
             <button class="gae-comment-click-open comments-toggle bg-444comments-icon">Hozzászólások</button>
             <div class="ad"><div id="444_aloldal_kommentek"></div></div>
             <div id="disqus_thread" class="freehand layout"></div>
