@@ -26,7 +26,7 @@
     _commentsSectionEl.innerHTML =
         `<div class="comments-docked-resizer"><div></div></div>
         <div class="subhead">` +
-            `<span class="logo bg-444comments-icon" title=""><span class="comments-docked-title">Kommentek</span></span>` +
+            `<span class="logo" title=""><span class="comments-docked-title">Kommentek</span></span>` +
             `<span class="comments-title">Uralkodj magadon!</span>` +
             `<span class="comments-docked-toggle">` + 
                 `<span class="comments-docked-open">
@@ -37,7 +37,7 @@
                 `<span class="comments-docked-close comments-docked-hidden"><a><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAADxJREFUeNpi+A8BaUDMgAeD5BEMPBrg8gwENKCI45TAZgADHpMwbMLrRnQ5sk0m2s1EhwZJ4Ux0DAIEGABDKYzoRdlxEwAAAABJRU5ErkJggg=="></a></span>` +
             `</span>
         </div>
-        <div class="comments-settings bg-444comments-icon hide">
+        <div class="comments-settings hide">
             <div class="ext-wrapper">
                 <div title="Bezár" class="close-button"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg></div>
                 <div class="title">Kommentszekció beállítások</div>
@@ -54,7 +54,7 @@
         <div class="comments-contents">
             <div class="forum-rules">
                 <div title="Bezár" class="close-button"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg></div>
-                <ul class="bg-444comments-icon">
+                <ul class="">
                     <small>(Ezt üzenetet azért látod itt, mert telepítetted a "444hsz" böngésző bővítményt.)</small>
                     <b>
                         <h1>Szolgálati közlemény</h1>
@@ -69,7 +69,7 @@
                     <button class="text-close-button">Elolvastam, ne jelenjen meg többet</button>
                 </ul>
             </div>
-            <button class="gae-comment-click-open comments-toggle bg-444comments-icon">Kommentek mutatása</button>
+            <button class="gae-comment-click-open comments-toggle">Kommentek mutatása</button>
             <div class="ad"><div id="444_aloldal_kommentek"></div></div>
             <div id="disqus_thread" class="freehand layout"></div>
         </div>`;
