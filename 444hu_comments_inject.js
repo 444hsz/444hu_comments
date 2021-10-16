@@ -4,30 +4,43 @@
     var _emberApp = Ember.A(Ember.Namespace.NAMESPACES).filter(n => {return n.name === 'n3'})[0];
     if (_emberApp) {
         var _emberRouter = _emberApp.__container__.lookup('router:main'),
-            _lastUrl = _emberRouter.get("url");
+            _lastUrl; // = _emberRouter.get("url");
     } else {
         log("frontend app not found, extension is disabled");
         return;
     }
 
-    var _commentsSectionEl = document.createElement("section"),
+    var _commentsSectionEl = document.createElement("div"),
+        _commentsSectionTabEl = document.createElement("div"),
         _commentsSectionTempEl = null,
+        _commentsSectionTempTabEl = null,
         _commentsSectionInsertMethod = 0,
         _commentsLoaded = false,
+        _commentsSectionLoadRetries,
         _commentsButtonTopEl = null,
         _defaultForumShortName = "444hu",
         _defaultUserForumShortName = "444hsz",
         _currentForumShortName = _defaultForumShortName,
         _userForumShortName = _defaultUserForumShortName,
         _parentEl = null,
-        _headContentAvailable = false;
+        _headContentAvailable = false,
+        _baseUrl = document.querySelector('meta[name="444hsz-extension-baseurl"]')['content'];
 
-    _commentsSectionEl.id = "comments";
+
+    console.log(_baseUrl);
+
+    _commentsSectionEl.id = "comments_wrapper";
     _commentsSectionEl.innerHTML =
+        `<div id="comments_tabs">` +
+            `<button class="tab_user"><img src="` + _baseUrl + `images/444hsz.svg"></button>` +
+            `<button class="tab_444hu"><img src="/logo-444.svg"></button>` +
+        `</div>` +
+        `<div class="comments-wrapper">` +
+        `<section id="comments">` +
         `<div class="comments-docked-resizer"><div></div></div>
         <div class="subhead">` +
             `<span class="logo" title=""><span class="comments-docked-title">Kommentek</span></span>` +
-            `<span class="comments-title">Uralkodj magadon!</span>` +
+            `<span class="comments-title">Kommentek</span>` +
             `<span class="comments-docked-toggle">` + 
                 `<span class="comments-docked-open">
                     <div class="slider-switch-wrapper"><label class="slider-switch" for="forumToggle" title="Nem hivatalos Disqus fórum"><span></span><input type="checkbox" id="forumToggle"><span class="slider round"></span></label></div>
@@ -54,10 +67,10 @@
         <div class="comments-contents">
             <div class="forum-rules">
                 <div title="Bezár" class="close-button"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg></div>
-                <ul class="">
-                    <small>(Ezt üzenetet azért látod itt, mert telepítetted a "444hsz" böngésző bővítményt.)</small>
+                <ul>
+                    <h1 class="title"><img src="` + _baseUrl + `images/444hsz.svg">Szolgálati közlemény</h1>
                     <b>
-                        <h1>Szolgálati közlemény</h1>
+                        <p>Ezt üzenetet azért látod itt, mert telepítetted a "444hsz" böngésző bővítményt.</p>
                         <p>2021. augusztus 12-én a 444 megszüntette a cikkek szabad kommentelhetőségét. A továbbiakban a hivatalos Disqus fórumban csak a Kör tagsággal rendelkező előfizetők írhatnak kommenteket, mindenki más pedig nem hivatalos, azaz nem a 444 által fenntartott Disqus fórumokban tud kommentelni.</p>
                         <p>A "444hsz" böngésző bővítmény a hivatalossal párhuzamosan egy nem hivatalos Disqus fórumot is képes kezelni, amiről a következőket kell tudni:</p>
                         <li>A hivatalos és a nem hivatalos Disqus közti átváltás a toolbaron (URALKODJ MAGADON felirat mellett jobbra) elhelyezett kapcsolóval történik. Kikapcsolt állásban a hivatalos, bekapcsoltban pedig a nem hivatalos fórumból töltődik be a cikkhez tartozó kommentfolyam.</li>
@@ -66,16 +79,18 @@
                         <li>A nem hivatalos Disqus fórum neve megváltoztatható a kommentszekció beállításokban (toolbaron fogaskerék ikon).</li>
                         <li>A kapcsoló állását megjegyzi a böngésző.</li>
                     </b>
-                    <button class="text-close-button">Elolvastam, ne jelenjen meg többet</button>
+                    <div class="text-close-button"><button>Elolvastam, ne jelenjen meg többet</button></div>
                 </ul>
             </div>
             <button class="gae-comment-click-open comments-toggle">Kommentek mutatása</button>
             <div class="ad"><div id="444_aloldal_kommentek"></div></div>
             <div id="disqus_thread" class="freehand layout"></div>
-        </div>`;
+        </div>` +
+        `</section>` +
+        `</div>`;
 
     function log(msg, ret) {
-        var tag = "%c[444comments]";
+        var tag = "%c[444hsz]";
         if (ret) return tag + " " + msg;
         else console.debug(tag, "color: #29af0a;", msg);
     }
@@ -383,10 +398,12 @@
     }
 
     function initCommentsSection() {
+        _commentsSectionTempTabEl = _commentsSectionTabEl.cloneNode(true);
         _commentsSectionTempEl = _commentsSectionEl.cloneNode(true);
         switch (_commentsSectionInsertMethod) {
             case 0:
                 _parentEl.insertBefore(_commentsSectionTempEl, _parentEl.firstElementChild);
+                //_parentEl.insertBefore(_commentsSectionTempTabEl, _parentEl.firstElementChild);
                 break;
             case 1:
             case 3:
@@ -458,7 +475,7 @@
     }
 
     function init() {
-        console.group("%c[444comments]", "color: #29af0a;", "log");
+        console.group("%c[444hsz]", "color: #29af0a;", "log");
         if (pageIsArticle()) {
             if (reset()) {
                 initCommentsSection();
@@ -468,13 +485,24 @@
                 scrollToHash();
                 //trackPageChange(); //TODO: maybe uncomment this after 444 fixed the duplicate head-layout rendering issue
                 log("Added comments section for: '" + _emberRouter.get("currentRoute.attributes.slug") + "'");
+                _commentsSectionLoadRetries--;
             } else {
                 log("Failed to add comments section for: '" + _emberRouter.get("currentRoute.attributes.slug") + "'");
+                if (_commentsSectionLoadRetries > 0) {
+                    _commentsSectionLoadRetries--;
+                    log("Retry #" + _commentsSectionLoadRetries);
+                    init();
+                }
             }
         } else {
             log("not on article page, doing nothing");
         }
         console.groupEnd();
+    }
+
+    function startInit() {
+        _commentsSectionLoadRetries = 0;
+        init();
     }
 
     _emberRouter.on('willTransition', trackPageChange);
@@ -485,7 +513,7 @@
         return true;
     });
 
-    Ember.run.schedule('afterRender', init); // when page is rendered by backend (on first pageload)
+    Ember.run.schedule('afterRender', startInit); // when page is rendered by backend (on first pageload)
 
     // when page is rendered on the client
     Ember.subscribe("render.component", {
@@ -500,7 +528,7 @@
                 case "component:head-layout":
                     if (_headContentAvailable && !payload.initialRender) {
                         if (pageChanged()) {
-                            init();
+                            startInit();
                         }
                     }
                 break;

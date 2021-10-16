@@ -14,6 +14,75 @@ button.comments-toggle-top > img {
     vertical-align: middle;
 }
 
+/* tabs */
+
+
+div#comments_tabs {
+    display: flex;
+    background-color: #dedede;
+    padding-top: 32px;
+    /* border-radius: 8px 8px 0 0; */
+}
+
+div#comments_tabs button {
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    border-spacing: 0;
+    color: #fff;
+    list-style: none outside none;
+    margin: 0;
+    text-align: left;
+    text-decoration: none;
+    text-indent: 0;
+    font-family: var(--font-title);
+    font-weight: var(--font-medium);
+    font-size: .875rem;
+    letter-spacing: .07812rem;
+    align-items: center;
+    text-shadow: 1px 1px 0 #00000077;
+    /* border-radius: 8px 8px 0 0; */
+    padding: 8px 8px 0 8px;
+    height: 36px;
+    cursor: pointer;
+}
+
+div#comments_tabs button.tab_user {
+    background-color: var(--c-secondary);
+}
+
+div#comments_tabs button.tab_444hu {
+    background-color: var(--c-primary);
+    /* padding: 8px 8px 4px 8px; */
+}
+
+div#comments_tabs button.tab_user img,
+div#comments_tabs button.tab_444hu img {
+    color: currentColor;
+    height: 24px;
+}
+
+
+/* comments section */
+div.comments-wrapper {
+    background-color: #dedede;
+    padding-bottom: 32px;
+}
+
+section#comments {
+    border-style: solid;
+    padding: 16px 16px 0;
+    border: 4px solid var(--c-secondary);
+    /* border-radius: 0 8px 8px 8px; */
+    background-color: #fff;
+    /* box-shadow: 8px 8px rgba(0, 0, 0, 0.75); */
+}
+
+section#comments.docked-comments {
+    padding: 0;
+    border-radius: 0px;
+    border: none;
+}
+
 section#comments .comments-docked-open {
     display: inline-flex;
 }
@@ -106,7 +175,7 @@ section#comments .comments-title {
     font-size: 25px;
     line-height: 23px;
     padding-top: 4px;
-    background: #fff;
+    /* background: #fff; */
 }
 
 section#comments.docked-comments .comments-docked-title {
@@ -147,6 +216,20 @@ section#comments.docked-comments .comments-contents::-webkit-scrollbar-thumb {
 }
 
 /* forum rules */
+
+section#comments .comments-contents .forum-rules ul .title {
+    border-bottom: 1px solid var(--c-secondary);
+    padding-bottom: 12px;
+    margin-top: 0px;
+}
+
+section#comments .comments-contents .forum-rules ul .title img {
+    height: 33px;
+    vertical-align: middle;
+    margin-top: -4px;
+    margin-left: -8px;
+}
+
 section#comments .comments-contents .forum-rules ul a {
     color: var(--c-secondary);
 }
@@ -155,7 +238,7 @@ section#comments .comments-contents .forum-rules ul {
     list-style: square;
     list-style-position: outside;
     background-color: #ebeef2;
-    padding: 50px 20px 20px;
+    padding: 20px 20px 20px;
     border-radius: 4px;
     color: #000;
     background-position: 10px 10px;
@@ -186,7 +269,11 @@ div.close-button svg {
     fill: #666;
 }
 
-button.text-close-button {
+div.text-close-button {
+    text-align: center;
+}
+
+div.text-close-button button {
     box-shadow: 0 0 0 0 rgb(0 0 0 / 20%), 0 0 0 0 rgb(0 0 0 / 14%), 0 0 0 0 rgb(0 0 0 / 12%);
     background-color: #000;
     color: #fff;
