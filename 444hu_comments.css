@@ -16,15 +16,27 @@ button.comments-toggle-top > img {
 
 /* tabs */
 
-
 div#comments_tabs {
     display: flex;
-    background-color: #dedede;
-    padding-top: 32px;
-    /* border-radius: 8px 8px 0 0; */
+    flex-direction: column;
+    background-color: var(--border-color);
+    /* border-bottom: 2px solid var(--c-primary); */
+    /* padding-top: 32px; */
+    /* border-radius: 2px 2px 0 0; */
 }
 
-div#comments_tabs button {
+div#comments_tabs .toolbar {
+    display: flex;
+    /* padding-left: 6px; */
+    /* box-shadow: 0 2px 4px -1px rgb(0 0 0 / 20%), 0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%); */
+}
+
+div#comments_tabs .toolbar-spacer {
+    flex: 1 1 auto;
+    border-bottom: var(--border-width) solid var(--border-color);
+}
+
+div#comments_tabs .toolbar button {
     background: none repeat scroll 0 0 transparent;
     border: medium none;
     border-spacing: 0;
@@ -40,41 +52,110 @@ div#comments_tabs button {
     letter-spacing: .07812rem;
     align-items: center;
     text-shadow: 1px 1px 0 #00000077;
-    /* border-radius: 8px 8px 0 0; */
-    padding: 8px 8px 0 8px;
+    padding: 6px 6px 0 8px;
     height: 36px;
     cursor: pointer;
+    /* border-radius: 4px 4px 0 0; */
+    border-bottom: var(--border-width) solid var(--border-color);
 }
 
-div#comments_tabs button.tab_user {
-    background-color: var(--c-secondary);
+div#comments_wrapper.user-forum div.comments-wrapper,
+div#comments_wrapper.user-forum div#comments_tabs .toolbar button.tab.selected,
+div#comments_wrapper.user-forum div#comments_tabs .toolbar button,
+div#comments_wrapper.user-forum div#comments_tabs .toolbar-spacer {
+    border-color: var(--border-secondary-color);
 }
 
-div#comments_tabs button.tab_444hu {
-    background-color: var(--c-primary);
-    /* padding: 8px 8px 4px 8px; */
+div#comments_tabs .toolbar button.tab.selected {
+    background-color: #f8f8f8;
+    border: var(--border-width) solid var(--border-color);
+    border-bottom: none;
+    border-top: none;
+    border-right: none;
+    padding: 6px 4px 0 4px;
 }
 
-div#comments_tabs button.tab_user img,
-div#comments_tabs button.tab_444hu img {
-    color: currentColor;
+div#comments_wrapper.user-forum div#comments_tabs .toolbar button.tab.selected {
+    border-top: var(--border-width) solid var(--border-secondary-color);
+    border-right: var(--border-width) solid var(--border-secondary-color);
+    padding: 2px 2px 0 2px;
+}
+
+img.invert {
+    filter: invert();
+}
+
+div#comments_tabs .titlebar {
+    display: flex;
+    height: 48px;
+    align-items: center;
+    color: #000000;
+}
+
+div#comments_tabs .titlebar .spacer {
+    flex: 1 1 auto;
+}
+
+div#comments_tabs .titlebar span.title {
+    font-family: var(--font-title);
+    font-weight: var(--font-medium);
+    text-transform: none;
+    font-size: 20px;
+    margin: 2px 0 0 12px;
+}
+
+div#comments_tabs button.tab img {
+    color: #000000;
     height: 24px;
+    opacity: 0.87;
 }
 
+div#comments_tabs button.tab.selected img {
+    opacity: 1;
+}
 
 /* comments section */
+div#comments_wrapper {
+    /* box-shadow: 0 2px 4px -1px rgb(0 0 0 / 15%), 0 4px 5px 0 rgb(0 0 0 / 9%), 0 1px 10px 0 rgb(0 0 0 / 7%); */
+    /* border-radius: 0 0 2px 2px; */
+    padding: 0;
+    margin: 16px auto 0 auto;
+    /* border: 2px solid var(--c-secondary); */
+    background: none;
+
+    --border-width: 4px;
+    --border-color: #dedede;
+    --border-secondary-color: #29af0a;
+}
+
+section#comments .comments-contents > div {
+    margin: 0;
+}
+
 div.comments-wrapper {
-    background-color: #dedede;
-    padding-bottom: 32px;
+    border: var(--border-width) solid var(--border-color);
+    border-top: none;
+    border-radius: inherit;
+}
+
+@media screen and (max-width: 767px) {
+    div.comments-wrapper {
+        border-left: none;
+        border-right: none;
+    }
 }
 
 section#comments {
-    border-style: solid;
     padding: 16px 16px 0;
-    border: 4px solid var(--c-secondary);
-    /* border-radius: 0 8px 8px 8px; */
-    background-color: #fff;
+    background-color: #f8f8f8;
+    transition: border .2s;
+    border-radius: inherit;
+    min-height: 60px;
+    /* border-radius: 8px 8px 0 0; */
+    /* border-radius: 0 0 6px 6px; */
     /* box-shadow: 8px 8px rgba(0, 0, 0, 0.75); */
+    /* -webkit-transition: .4s; */
+    /* -o-transition: .4s; */
 }
 
 section#comments.docked-comments {
@@ -151,6 +232,8 @@ section#comments .subhead {
     align-items: center;
     height: 36px;
     text-shadow: 1px 1px 0 #00000077;
+
+    margin-bottom: 16px;
 }
 
 .hide {

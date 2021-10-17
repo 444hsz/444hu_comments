@@ -27,14 +27,21 @@
         _baseUrl = document.querySelector('meta[name="444hsz-extension-baseurl"]')['content'];
 
 
-    console.log(_baseUrl);
-
     _commentsSectionEl.id = "comments_wrapper";
     _commentsSectionEl.innerHTML =
-        `<div id="comments_tabs">` +
-            `<button class="tab_user"><img src="` + _baseUrl + `images/444hsz.svg"></button>` +
-            `<button class="tab_444hu"><img src="/logo-444.svg"></button>` +
-        `</div>` +
+        `<div id="comments_tabs">
+            <div class="titlebar">
+                <span class="title">Kommentek</span>
+                <span class="spacer"></span>
+                <button class="button-settings" title="Beállítások"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"><path d="M24 13.616v-3.232c-1.651-.587-2.694-.752-3.219-2.019v-.001c-.527-1.271.1-2.134.847-3.707l-2.285-2.285c-1.561.742-2.433 1.375-3.707.847h-.001c-1.269-.526-1.435-1.576-2.019-3.219h-3.232c-.582 1.635-.749 2.692-2.019 3.219h-.001c-1.271.528-2.132-.098-3.707-.847l-2.285 2.285c.745 1.568 1.375 2.434.847 3.707-.527 1.271-1.584 1.438-3.219 2.02v3.232c1.632.58 2.692.749 3.219 2.019.53 1.282-.114 2.166-.847 3.707l2.285 2.286c1.562-.743 2.434-1.375 3.707-.847h.001c1.27.526 1.436 1.579 2.019 3.219h3.232c.582-1.636.75-2.69 2.027-3.222h.001c1.262-.524 2.12.101 3.698.851l2.285-2.286c-.744-1.563-1.375-2.433-.848-3.706.527-1.271 1.588-1.44 3.221-2.021zm-12 2.384c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4z"/></svg></button>
+                <button class="button-sidebar" title="Oldalsáv"><svg class="flipped" height="19px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g fill="#ffffff" fill-rule="nonzero"><path d="M19.25,4 C20.7688,4 22,5.23122 22,6.75 L22,6.75 L22,17.25 C22,18.7688 20.7688,20 19.25,20 L19.25,20 L4.75,20 C3.23122,20 2,18.7688 2,17.25 L2,17.25 L2,6.75 C2,5.23122 3.23122,4 4.75,4 L4.75,4 Z M19.25,5.5 L9,5.5 L9,18.5 L19.25,18.5 C19.9404,18.5 20.5,17.9404 20.5,17.25 L20.5,6.75 C20.5,6.05964 19.9404,5.5 19.25,5.5 Z"></path></g></g></svg></button>
+            </div>
+            <div class="toolbar">
+                <button id="tab-444hu" class="tab" title="Hivatalos kommentek"><img class="invert" src="/logo-444.svg"></button>
+                <button id="tab-user" class="tab" title="Nem hivatalos kommentek"><img src="` + _baseUrl + `images/444hsz.svg"></button>
+                <span class="toolbar-spacer"></span>
+        </div>
+        </div>` +
         `<div class="comments-wrapper">` +
         `<section id="comments">` +
         `<div class="comments-docked-resizer"><div></div></div>
@@ -43,7 +50,6 @@
             `<span class="comments-title">Kommentek</span>` +
             `<span class="comments-docked-toggle">` + 
                 `<span class="comments-docked-open">
-                    <div class="slider-switch-wrapper"><label class="slider-switch" for="forumToggle" title="Nem hivatalos Disqus fórum"><span></span><input type="checkbox" id="forumToggle"><span class="slider round"></span></label></div>
                     <button id="settingsToggle" title="Beállítások"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"><path d="M24 13.616v-3.232c-1.651-.587-2.694-.752-3.219-2.019v-.001c-.527-1.271.1-2.134.847-3.707l-2.285-2.285c-1.561.742-2.433 1.375-3.707.847h-.001c-1.269-.526-1.435-1.576-2.019-3.219h-3.232c-.582 1.635-.749 2.692-2.019 3.219h-.001c-1.271.528-2.132-.098-3.707-.847l-2.285 2.285c.745 1.568 1.375 2.434.847 3.707-.527 1.271-1.584 1.438-3.219 2.02v3.232c1.632.58 2.692.749 3.219 2.019.53 1.282-.114 2.166-.847 3.707l2.285 2.286c1.562-.743 2.434-1.375 3.707-.847h.001c1.27.526 1.436 1.579 2.019 3.219h3.232c.582-1.636.75-2.69 2.027-3.222h.001c1.262-.524 2.12.101 3.698.851l2.285-2.286c-.744-1.563-1.375-2.433-.848-3.706.527-1.271 1.588-1.44 3.221-2.021zm-12 2.384c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4z"/></svg></button>
                     <button id="sidebarToggle" title="Oldalsáv"><svg class="flipped" height="19px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g fill="#ffffff" fill-rule="nonzero"><path d="M19.25,4 C20.7688,4 22,5.23122 22,6.75 L22,6.75 L22,17.25 C22,18.7688 20.7688,20 19.25,20 L19.25,20 L4.75,20 C3.23122,20 2,18.7688 2,17.25 L2,17.25 L2,6.75 C2,5.23122 3.23122,4 4.75,4 L4.75,4 Z M19.25,5.5 L9,5.5 L9,18.5 L19.25,18.5 C19.9404,18.5 20.5,17.9404 20.5,17.25 L20.5,6.75 C20.5,6.05964 19.9404,5.5 19.25,5.5 Z"></path></g></g></svg></button>
                 </span>` +
@@ -243,13 +249,24 @@
             _commentsLoaded = false;
         }
 
-        function onClickforumToggle() {
-            unloadDisqus();
-            _currentForumShortName = this.checked ? _userForumShortName : _defaultForumShortName;
-            document.querySelector('.comments-docked-open input#forumToggle').checked = this.checked;
-            updateForumToggleLabel();
-            setCookie("_444comments_user_forum_enabled", +this.checked);
-            document.querySelector(".comments-toggle").click();
+        function onClickForumUser() {
+            if (_currentForumShortName != _userForumShortName) {
+                unloadDisqus();
+                _currentForumShortName = _userForumShortName;
+                updateForumTabs();
+                setCookie("_444comments_user_forum_enabled", 1);
+                document.querySelector(".comments-toggle").click();
+            }
+        }
+
+        function onClickForum444hu() {
+            if (_currentForumShortName == _userForumShortName) {
+                unloadDisqus();
+                _currentForumShortName = _defaultForumShortName;
+                updateForumTabs();
+                setCookie("_444comments_user_forum_enabled", 0);
+                document.querySelector(".comments-toggle").click();
+            }
         }
 
         function insertTopCommentsButton() {
@@ -327,7 +344,6 @@
         function onChangeUserForumShortname() {
             _userForumShortName = this.value ? this.value : _defaultUserForumShortName;
             setCookie("_444comments_user_forum_shortname", _userForumShortName);
-            updateForumToggleLabel();
         }
 
         function onKeypressUserForumShortname(e) {
@@ -345,8 +361,11 @@
         document.querySelector('.comments-settings .close-button').onclick = onClickToggleSettings;
         document.querySelector('.comments-docked-open>button#settingsToggle').onclick = onClickToggleSettings;
 
-        document.querySelector('.comments-docked-open input#forumToggle').onclick = onClickforumToggle;
-        document.querySelector('.comments-docked-open input#forumToggle').checked = !(_currentForumShortName === _defaultForumShortName);
+        document.getElementById('tab-user').onclick = onClickForumUser;
+        document.getElementById('tab-444hu').onclick = onClickForum444hu;
+
+        //document.querySelector('.comments-docked-open input#forumToggle').onclick = onClickForumToggle;
+        //document.querySelector('.comments-docked-open input#forumToggle').checked = !(_currentForumShortName === _defaultForumShortName);
 
         document.querySelector('.comments-contents .forum-rules .close-button').onclick = onClickCloseRules;
         document.querySelector('.comments-contents .forum-rules .text-close-button').onclick = onClickCloseRules;
@@ -360,12 +379,17 @@
         initRecommendationsToggle();
     }
 
-    function updateForumToggleLabel() {
-        document.querySelector("label[for=forumToggle] > span:first-child").innerHTML = _userForumShortName;
-        if (_currentForumShortName == _defaultForumShortName) {
-            document.querySelector("label[for=forumToggle]").classList.add("official");
+    function updateForumTabs() {
+        if (_currentForumShortName != _userForumShortName) {
+            log('444hu');
+            document.getElementById('comments_wrapper').classList.remove('user-forum');
+            document.getElementById('tab-user').classList.remove('selected');
+            document.getElementById('tab-444hu').classList.add('selected');
         } else {
-            document.querySelector("label[for=forumToggle]").classList.remove("official");
+            log('444hsz');
+            document.getElementById('comments_wrapper').classList.add('user-forum');
+            document.getElementById('tab-user').classList.add('selected');
+            document.getElementById('tab-444hu').classList.remove('selected');
         }
     }
 
@@ -376,11 +400,10 @@
         }
 
         if (getCookie("_444comments_user_forum_enabled") == 1) {
-            document.querySelector('.comments-docked-open input#forumToggle').checked = true;
             _currentForumShortName = _userForumShortName;
         }
 
-        updateForumToggleLabel();
+        updateForumTabs();
 
         if (getCookie("_444comments_hide_rules2") == 1) {
             document.querySelector(".comments-contents .forum-rules").classList.add('hide');
@@ -415,7 +438,6 @@
                 _commentsSectionTempEl.className = _commentsSectionTempEl.previousElementSibling.className;
                 break;
         }
-
     }
 
     function reset() {
