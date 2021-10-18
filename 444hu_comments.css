@@ -20,15 +20,10 @@ div#comments_tabs {
     display: flex;
     flex-direction: column;
     background-color: var(--border-color);
-    /* border-bottom: 2px solid var(--c-primary); */
-    /* padding-top: 32px; */
-    /* border-radius: 2px 2px 0 0; */
 }
 
 div#comments_tabs .toolbar {
     display: flex;
-    /* padding-left: 6px; */
-    /* box-shadow: 0 2px 4px -1px rgb(0 0 0 / 20%), 0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%); */
 }
 
 div#comments_tabs .toolbar-spacer {
@@ -36,13 +31,14 @@ div#comments_tabs .toolbar-spacer {
     border-bottom: var(--border-width) solid var(--border-color);
 }
 
-div#comments_tabs .toolbar button {
+div#comments_tabs .toolbar button.tab {
     background: none repeat scroll 0 0 transparent;
     border: medium none;
     border-spacing: 0;
     color: #fff;
     list-style: none outside none;
     margin: 0;
+    padding: 0;
     text-align: left;
     text-decoration: none;
     text-indent: 0;
@@ -52,38 +48,74 @@ div#comments_tabs .toolbar button {
     letter-spacing: .07812rem;
     align-items: center;
     text-shadow: 1px 1px 0 #00000077;
-    height: 36px;
     cursor: pointer;
-    /* border-radius: 4px 4px 0 0; */
-    border-bottom: var(--border-width) solid var(--border-color);
-    padding: 6px 6px 0 8px;
-}
-
-div#comments_wrapper.user-forum div.comments-wrapper,
-div#comments_wrapper.user-forum div#comments_tabs .toolbar button.tab.selected,
-div#comments_wrapper.user-forum div#comments_tabs .toolbar button,
-div#comments_wrapper.user-forum div#comments_tabs .toolbar-spacer {
-    border-color: var(--border-secondary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: inherit;
 }
 
 div#comments_tabs .toolbar button.tab.selected {
     background-color: #f8f8f8;
-    border: var(--border-width) solid var(--border-color);
-    border-bottom: none;
-    border-top: none;
-    border-right: none;
-    padding-left: 6px;
 }
 
-div#comments_wrapper.user-forum div#comments_tabs .toolbar button.tab.selected {
-    border-top: var(--border-width) solid var(--border-secondary-color);
-    border-right: var(--border-width) solid var(--border-secondary-color);
-    padding-top: 4px;
+div#comments_wrapper div#comments_tabs .toolbar div.tab-1,
+div#comments_wrapper div#comments_tabs .toolbar div.tab-2 {
+    height: 36px;
+    display: flex;
+    width: 100px;
+    justify-content: center;
+}
+
+div#comments_wrapper div#comments_tabs .toolbar .selected {
+    padding-bottom: var(--border-width);
+}
+
+div#comments_wrapper div#comments_tabs .toolbar div.tab-1 div.borderline {
+    width: var(--border-width);
+}
+
+div#comments_wrapper.official-forum div#comments_tabs .toolbar .tab-2 {
+    padding: 0 var(--border-width) var(--border-width);
+}
+
+
+div#comments_wrapper.user-forum div#comments_tabs .toolbar .tab-1 button:hover,
+div#comments_wrapper.official-forum div#comments_tabs .toolbar .tab-2 button:hover {
+    background-color: #f8f8f880;
+}
+
+div#comments_wrapper.user-forum div#comments_tabs .toolbar div.tab-1 {
+    border-bottom: var(--border-width) solid var(--border-secondary-color);
+}
+
+div#comments_wrapper.user-forum div#comments_tabs .toolbar div.tab-2 {
+    border: var(--border-width) solid var(--border-secondary-color);
+    border-bottom: none;
+}
+
+div#comments_wrapper div#comments_tabs .toolbar div.tab-1 img,
+div#comments_wrapper div#comments_tabs .toolbar div.tab-2 img {
+    margin-top: calc(var(--border-width) * 2);
+}
+
+div#comments_wrapper.user-forum div#comments_tabs .toolbar div.tab-2 img {
+    margin-top: var(--border-width);
+}
+
+
+div#comments_wrapper.user-forum div.comments-wrapper,
+div#comments_wrapper.user-forum div#comments_tabs .toolbar-spacer {
+    border-color: var(--border-secondary-color);
 }
 
 img.invert {
     filter: invert();
+    height: 20px !important;
+    margin: 2px 0;
 }
+
+/* title bar */
 
 div#comments_tabs .titlebar {
     display: flex;
@@ -115,14 +147,12 @@ div#comments_tabs button.tab.selected img {
 }
 
 /* comments section */
+
 div#comments_wrapper {
-    /* box-shadow: 0 2px 4px -1px rgb(0 0 0 / 15%), 0 4px 5px 0 rgb(0 0 0 / 9%), 0 1px 10px 0 rgb(0 0 0 / 7%); */
-    /* border-radius: 0 0 2px 2px; */
+    /* box-shadow: 0 2px 4px -1px rgb(0 0 0 / 20%), 0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%); */
     padding: 0;
     margin: 16px auto 0 auto;
-    /* border: 2px solid var(--c-secondary); */
     background: none;
-
     --border-width: 2px;
     --border-color: #dedede;
     --border-secondary-color: #29af0a;

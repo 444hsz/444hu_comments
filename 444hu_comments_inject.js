@@ -37,8 +37,13 @@
                 <button class="button-sidebar" title="Oldalsáv"><svg class="flipped" height="19px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g fill="#ffffff" fill-rule="nonzero"><path d="M19.25,4 C20.7688,4 22,5.23122 22,6.75 L22,6.75 L22,17.25 C22,18.7688 20.7688,20 19.25,20 L19.25,20 L4.75,20 C3.23122,20 2,18.7688 2,17.25 L2,17.25 L2,6.75 C2,5.23122 3.23122,4 4.75,4 L4.75,4 Z M19.25,5.5 L9,5.5 L9,18.5 L19.25,18.5 C19.9404,18.5 20.5,17.9404 20.5,17.25 L20.5,6.75 C20.5,6.05964 19.9404,5.5 19.25,5.5 Z"></path></g></g></svg></button>
             </div>
             <div class="toolbar">
-                <button id="tab-444hu" class="tab" title="Hivatalos kommentek"><img class="invert" src="/logo-444.svg"></button>
-                <button id="tab-user" class="tab" title="Nem hivatalos kommentek"><img src="` + _baseUrl + `images/444hsz.svg"></button>
+                <div class="tab-1">
+                    <div class="borderline"></div>
+                    <button id="tab-444hu" class="tab" title="Hivatalos kommentek"><img class="invert" src="/logo-444.svg"></button>
+                </div>
+                <div class="tab-2">
+                    <button id="tab-user" class="tab" title="Nem hivatalos kommentek"><img src="` + _baseUrl + `images/444hsz.svg"></button>
+                </div>
                 <span class="toolbar-spacer"></span>
         </div>
         </div>` +
@@ -382,11 +387,13 @@
     function updateForumTabs() {
         if (_currentForumShortName != _userForumShortName) {
             log('444hu');
+            document.getElementById('comments_wrapper').classList.add('official-forum');
             document.getElementById('comments_wrapper').classList.remove('user-forum');
             document.getElementById('tab-user').classList.remove('selected');
             document.getElementById('tab-444hu').classList.add('selected');
         } else {
             log('444hsz');
+            document.getElementById('comments_wrapper').classList.remove('official-forum');
             document.getElementById('comments_wrapper').classList.add('user-forum');
             document.getElementById('tab-user').classList.add('selected');
             document.getElementById('tab-444hu').classList.remove('selected');
