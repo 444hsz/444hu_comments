@@ -54,6 +54,7 @@ div#comments_tabs .toolbar button.tab {
     align-items: center;
     justify-content: center;
     width: inherit;
+    transition: background-color .1s linear;
 }
 
 div#comments_tabs .toolbar button.tab.selected {
@@ -145,6 +146,7 @@ div#comments_tabs .titlebar button {
     align-items: center;
     justify-content: center;
     margin: var(--border-width) var(--border-width) var(--border-width) 0;
+    transition: background-color .1s linear;
 }
 
 div#comments_tabs .titlebar button.active {
@@ -155,9 +157,21 @@ div#comments_tabs .titlebar button.active {
     padding-bottom: var(--border-width);
 }
 
+div#comments_tabs .titlebar button img {
+    opacity: .67;
+    /* transition: opacity .2s linear; */
+}
+
+div#comments_tabs .titlebar button.active img {
+    opacity: 1;
+}
+
 @media (hover: hover) {
     div#comments_tabs .titlebar button:hover {
         background-color: #f8f8f880;
+    }
+    div#comments_tabs .titlebar button:hover img {
+        opacity: 1;
     }
 }
 
@@ -580,10 +594,7 @@ div.text-close-button button {
 }
 
 .comments-settings label[for=userForumShortName] {
-    height: 23px;
     display: block;
-    font-size: 11px;
-    /* color: white; */
 }
 
 .comments-settings label[for=userForumShortName] span {
@@ -592,14 +603,9 @@ div.text-close-button button {
 }
 
 .comments-settings input#userForumShortName {
-    background-color: #ebeef2;
     width: 70px;
-    border-radius: 10px;
-    border: 0;
-    border-color: #6ac540;
+    border-color: var(--border-color);
     border-style: solid;
-    height: 14px;
-    font-size: 11px;
 }
 
 .comments-settings ul {
