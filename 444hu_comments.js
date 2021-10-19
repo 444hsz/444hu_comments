@@ -36,10 +36,15 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         function injectMeta() {
-            var baseurl = document.createElement('meta');
+            let baseurl = document.createElement('meta');
             baseurl.name = '444hsz-extension-baseurl';
             baseurl.content = chrome.runtime.getURL('');
             document.head.appendChild(baseurl);
+
+            let version = document.createElement('meta');
+            version.name = '444hsz-extension-version';
+            version.content = chrome.runtime.getManifest().version;
+            document.head.appendChild(version);
         }
 
         if (!getConfig("disabled")) {

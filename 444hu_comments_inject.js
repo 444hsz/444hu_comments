@@ -24,7 +24,8 @@
         _userForumShortName = _defaultUserForumShortName,
         _parentEl = null,
         _headContentAvailable = false,
-        _baseUrl = document.querySelector('meta[name="444hsz-extension-baseurl"]')['content'];
+        _baseUrl = document.querySelector('meta[name="444hsz-extension-baseurl"]')['content'],
+        _version = document.querySelector('meta[name="444hsz-extension-version"]')['content'];
 
 
     _commentsSectionEl.id = "comments_wrapper";
@@ -34,16 +35,13 @@
                 <span class="title">Kommentek</span>
                 <span class="spacer"></span>
                 <button class="button-sidebar" title="Oldalsáv"><img src="` + _baseUrl + `images/view_sidebar_black_24dp.svg"></button>
-                <button class="button-settings active" title="Beállítások"><img src="` + _baseUrl + `images/settings_black_24dp.svg"></button>
+                <button class="button-settings" title="Beállítások"><img src="` + _baseUrl + `images/settings_black_24dp.svg"></button>
             </div>
 
-            <div class="comments-settings">
+            <div class="comments-settings collapse">
                 <div class="ext-wrapper">
-                    <!--
-                    <div title="Bezár" class="close-button"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg></div>
-                    <div class="title">Beállítások</div>
-                    -->
                     <div class="wrapper">
+                        <div class="version">444hsz bővítmény verzió<span>` + _version + `</span></div>
                         <div class="slider-switch-wrapper"><label class="slider-switch" for="autoloadToggle">Kommentek auto-betöltése<input type="checkbox" id="autoloadToggle"><span class="slider round"></span></label></div>
                         <div class="slider-switch-wrapper"><label class="slider-switch" for="rulesToggle">Szolgálati közlemény<input type="checkbox" id="rulesToggle" checked><span class="slider round"></span></label></div>
                         <div class="slider-switch-wrapper"><label class="slider-switch" for="recommendationsToggle">Disqus ajánlások<input type="checkbox" id="recommendationsToggle"><span class="slider round"></span></label></div>
@@ -540,10 +538,6 @@
     }
 
     function startInit() {
-
-        log(_emberRouter);
-        log(_emberApp);
-
         _commentsSectionLoadRetries = 0;
         init();
     }

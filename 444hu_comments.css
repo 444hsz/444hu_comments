@@ -131,8 +131,8 @@ div#comments_tabs .titlebar .spacer {
 }
 
 div#comments_tabs .titlebar button {
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
     background: none repeat scroll 0 0 transparent;
     border: medium none;
     border-spacing: 0;
@@ -152,7 +152,7 @@ div#comments_tabs .titlebar button {
 div#comments_tabs .titlebar button.active {
     background-color: var(--settings-bgcolor);
     /* border-bottom: var(--border-width) solid var(--border-color); */
-    height: 42px;
+    height: 40px;
     margin-bottom: 0;
     padding-bottom: var(--border-width);
 }
@@ -179,7 +179,7 @@ div#comments_tabs .titlebar span.title {
     font-family: var(--font-title);
     font-weight: var(--font-medium);
     text-transform: none;
-    font-size: 20px;
+    font-size: 18px;
     margin: 2px 0 0 12px;
 }
 
@@ -465,16 +465,16 @@ div.text-close-button button {
     position: relative;
     width: auto;
     font-family: var(--font-title);
-    /* background-color: var(--c-secondary); */
     line-height: 22px;
     padding: 0px 50px 0px 0px;
     vertical-align: top;
 }
 
 .slider {
-    width: 31px;
-    height: 15px;
-    background-color: #ebeef2;
+    width: 35px;
+    height: 19px;
+    border: 2px solid var(--border-color);
+    background-color: #fff;
     bottom: 0;
     cursor: pointer;
     position: absolute;
@@ -486,7 +486,7 @@ div.text-close-button button {
 }
 
 .slider.round {
-    border-radius: 8.5px;
+    /* border-radius: 8.5px; */
 }
 
 .slider-switch input {
@@ -505,10 +505,10 @@ div.text-close-button button {
 }
 
 .slider.round:before {
-    border-radius: 50%;
+    /* border-radius: 50%; */
 }
 .slider:before {
-    background-color: #8cd07c;
+    background-color: var(--border-color);
     bottom: 2px;
     content: "";
     left: 2px;
@@ -558,11 +558,13 @@ div.text-close-button button {
 
 .comments-settings .wrapper div {
     padding: 2px 0px;
+    margin-right: 35px;
 }
 
 .comments-settings .wrapper div:last-child {
     border: 0;
     padding-bottom: 0;
+    margin-right: 0;
 }
 
 
@@ -598,7 +600,7 @@ div.text-close-button button {
 }
 
 .comments-settings label[for=userForumShortName] span {
-    margin-left: 6px;
+    margin-left: 16px;
     float: right;
 }
 
@@ -613,6 +615,17 @@ div.text-close-button button {
     list-style-type: square;
     color: #6ac540;
 }
+
+.comments-settings .wrapper .version {
+    margin-right: 32px;
+    text-align: right;
+}
+
+.comments-settings .wrapper .version span {
+    margin-left: 16px;
+    float: right;
+}
+
 
 /* toolbar toggle */
 
