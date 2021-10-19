@@ -20,6 +20,7 @@ div#comments_tabs {
     display: flex;
     flex-direction: column;
     background-color: var(--border-color);
+    position: relative;
 }
 
 div#comments_tabs .toolbar {
@@ -72,7 +73,7 @@ div#comments_wrapper div#comments_tabs .toolbar .selected {
 }
 
 div#comments_wrapper div#comments_tabs .toolbar div.tab-1 div.borderline {
-    width: var(--border-width);
+    min-width: var(--border-width);
 }
 
 div#comments_wrapper.official-forum div#comments_tabs .toolbar .tab-2 {
@@ -119,13 +120,45 @@ img.invert {
 
 div#comments_tabs .titlebar {
     display: flex;
-    height: 48px;
+    height: 42px;
     align-items: center;
     color: #000000;
 }
 
 div#comments_tabs .titlebar .spacer {
     flex: 1 1 auto;
+}
+
+div#comments_tabs .titlebar button {
+    width: 40px;
+    height: 40px;
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    border-spacing: 0;
+    color: #fff;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+    letter-spacing: .07812rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: var(--border-width) var(--border-width) var(--border-width) 0;
+}
+
+div#comments_tabs .titlebar button.active {
+    background-color: var(--settings-bgcolor);
+    /* border-bottom: var(--border-width) solid var(--border-color); */
+    height: 42px;
+    margin-bottom: 0;
+    padding-bottom: var(--border-width);
+}
+
+@media (hover: hover) {
+    div#comments_tabs .titlebar button:hover {
+        background-color: #f8f8f880;
+    }
 }
 
 div#comments_tabs .titlebar span.title {
@@ -153,9 +186,12 @@ div#comments_wrapper {
     padding: 0;
     margin: 16px auto 0 auto;
     background: none;
+    max-width: var(--container-width-medium);
     --border-width: 2px;
     --border-color: #dedede;
     --border-secondary-color: #29af0a;
+    --settings-bgcolor: #eee;
+    /* --border-secondary-color: #dedede; */
 }
 
 section#comments .comments-contents > div {
@@ -166,13 +202,6 @@ div.comments-wrapper {
     border: var(--border-width) solid var(--border-color);
     border-top: none;
     border-radius: inherit;
-}
-
-@media screen and (max-width: 767px) {
-    div.comments-wrapper {
-        border-left: none;
-        border-right: none;
-    }
 }
 
 section#comments {
@@ -267,7 +296,12 @@ section#comments .subhead {
 }
 
 .hide {
-    display: none;
+    display: none !important;
+    height: 0px;
+}
+
+.collapse {
+    max-height: 0px !important;
 }
 
 section#comments .comments-contents {
@@ -417,7 +451,7 @@ div.text-close-button button {
     position: relative;
     width: auto;
     font-family: var(--font-title);
-    background-color: var(--c-secondary);
+    /* background-color: var(--c-secondary); */
     line-height: 22px;
     padding: 0px 50px 0px 0px;
     vertical-align: top;
@@ -479,31 +513,36 @@ div.text-close-button button {
 
 /* settings  */
 .comments-settings {
-    background-color: #8cd07c;
     padding: 0;
-    border-radius: 4px;
-    color: #fff;
+    /* color: #fff; */
     font-size: 13px;
     font-family: var(--font-title);
     line-height: 22px;
     background-position: 10px 10px;
-    background-color: #ebeef2;
+    display: flex;
+    justify-content: flex-end;
+    overflow: hidden;
+    transition: max-height .5s ease-out;
+    max-height: 170px;
+    padding: 0 var(--border-width);
 }
 
 .comments-settings .ext-wrapper {
-    margin: 0 0 0.9375rem auto;
-    width: 260px;
-    background-color: var(--c-secondary);
-    border-radius: 4px;
+    /* width: 260px; */
     position: relative;
+    overflow: hidden;
+    /* border-left: var(--border-width) solid var(--border-secondary-color); */
+    /* background-color: #f8f8f880; */
+    background-color: var(--settings-bgcolor);
+    flex: 1;
+    margin-bottom: var(--border-width);
 }
 
 .comments-settings .wrapper {
-    padding: 0 15px 10px;
+    padding: 12px;
 }
 
 .comments-settings .wrapper div {
-    border-bottom: 1px solid #8cd07c;
     padding: 2px 0px;
 }
 
@@ -517,8 +556,8 @@ div.text-close-button button {
     font-weight: var(--font-medium);
     font-size: 0.875rem;
     line-height: 40px;
-    padding-left: 15px;
-    text-shadow: 1px 1px 0 #00000077;
+    padding-left: 12px;
+    /* text-shadow: 1px 1px 0 #00000077; */
 }
 
 .comments-settings .close-button svg {
@@ -544,7 +583,7 @@ div.text-close-button button {
     height: 23px;
     display: block;
     font-size: 11px;
-    color: white;
+    /* color: white; */
 }
 
 .comments-settings label[for=userForumShortName] span {
