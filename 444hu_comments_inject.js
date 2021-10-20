@@ -212,7 +212,7 @@
     
         function onClickTopCommentsButton() {
             document.querySelector(".comments-toggle").click();
-            document.getElementById("comments").scrollIntoView();
+            window.scroll({top: (document.getElementById("comments_wrapper").offsetTop - 64)});
         }
 
         function onClickSidebarToggle() {
