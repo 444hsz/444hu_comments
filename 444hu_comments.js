@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         function log(msg, ret) {
-            var tag = "%c[444comments]";
+            var tag = "%c[444hsz]";
             if (ret) return tag + " " + msg;
             else console.debug(tag, "color: #29af0a;", msg);
         }
@@ -28,13 +28,37 @@ document.addEventListener('DOMContentLoaded', function () {
             document.head.appendChild(script);
         }
 
+        function injectCSS(cssName) {
+            var css = document.createElement('link');
+            css.rel = "stylesheet";
+            css.href = cssName;
+            document.head.appendChild(css);
+        }
+
+        function injectMeta() {
+            let baseurl = document.createElement('meta');
+            baseurl.name = '444hsz-extension-baseurl';
+            baseurl.content = chrome.runtime.getURL('');
+            document.head.appendChild(baseurl);
+
+            let version = document.createElement('meta');
+            version.name = '444hsz-extension-version';
+            version.content = chrome.runtime.getManifest().version;
+            document.head.appendChild(version);
+        }
+
         if (!getConfig("disabled")) {
+            injectCSS(chrome.runtime.getURL("444hu_comments_legacy.css"));
+            injectMeta();
             if (getConfig("legacy_frontend")) {
                 log("Frontend: legacy");
                 injectScript(chrome.runtime.getURL('444hu_comments_inject_legacy.js'));
             } else {
-                log("Frontend: Ember");
-                injectScript(chrome.runtime.getURL('444hu_comments_inject.js'));
+                setTimeout(() => {
+                    log("Frontend: Ember");
+                    injectCSS(chrome.runtime.getURL("444hu_comments.css"));
+                    injectScript(chrome.runtime.getURL('444hu_comments_inject.js'));
+                }, 1000);
             }
         } else {
             log("Extension is disabled on " + window.location.hostname);

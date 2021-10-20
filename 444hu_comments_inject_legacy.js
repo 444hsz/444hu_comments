@@ -32,7 +32,7 @@
     }
 
     function log(msg, ret) {
-        var tag = "%c[444comments]";
+        var tag = "%c[444hsz]";
         if (ret) return tag + " " + msg;
         else console.debug(tag, "color: #29af0a;", msg);
     }
