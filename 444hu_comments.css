@@ -14,6 +14,71 @@ button.comments-toggle-top > img {
     vertical-align: middle;
 }
 
+/* sidebar */
+#comments_wrapper.sidebar {
+    --sidebar-bgcolor: #f5f5f5;
+    --sidebar-padding: 17px;
+    --sidebar-width: 420px;
+
+    background-color: var(--border-color);
+    width: var(--sidebar-width);
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    z-index: 10000;
+    max-width: none;
+    min-width: none;
+    overflow: hidden;
+
+    box-shadow: 12px 0px 40px #000;
+
+    display: flex;
+    flex-direction: column;
+}
+
+#comments_wrapper.sidebar #comments {
+    /* padding-top: 0; */
+    padding-right: 4px;
+    margin: 0;
+}
+
+#comments_wrapper.sidebar .comments-contents {
+    padding: var(--docked-comments-padding);
+    padding-right: 0px;
+    margin: 0;
+}
+
+#comments_wrapper.sidebar .comments-wrapper {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    overscroll-behavior: contain;
+}
+
+#comments_wrapper.sidebar .comments-wrapper::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 13px;
+}
+
+#comments_wrapper.sidebar .comments-wrapper::-webkit-scrollbar-track {
+    background-color: var(--comments-bgcolor);
+}
+
+#comments_wrapper.sidebar .comments-wrapper::-webkit-scrollbar-thumb {
+    border-radius: 0px;
+    background-color: var(--accent-color);
+    border: 2px solid var(--comments-bgcolor);
+    border-top: 4px solid var(--comments-bgcolor);
+    border-bottom: 4px solid var(--comments-bgcolor);
+}
+
+#comments_wrapper.sidebar.user-forum .comments-wrapper::-webkit-scrollbar-thumb {
+    background-color: var(--border-secondary-color);
+}
+
+
 /* tabs */
 
 div#comments_tabs {
@@ -151,15 +216,17 @@ div#comments_tabs .titlebar button {
 
 div#comments_tabs .titlebar button.active {
     background-color: var(--settings-bgcolor);
-    /* border-bottom: var(--border-width) solid var(--border-color); */
-    height: 40px;
-    margin-bottom: 0;
+}
+
+div#comments_tabs .titlebar button.button-settings.active {
     padding-bottom: var(--border-width);
+    margin-bottom: 0;
+    height: 40px;
 }
 
 div#comments_tabs .titlebar button img {
     opacity: .67;
-    /* transition: opacity .2s linear; */
+    transition: opacity .1s linear;
 }
 
 div#comments_tabs .titlebar button.active img {
@@ -196,16 +263,19 @@ div#comments_tabs button.tab.selected img {
 /* comments section */
 
 div#comments_wrapper {
-    /* box-shadow: 0 2px 4px -1px rgb(0 0 0 / 20%), 0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%); */
     padding: 0;
     margin: 16px auto 0 auto;
     background: none;
-    max-width: var(--container-width-medium);
+    /* transition: 0.2s linear; */
+    width: var(--container-width-medium);
+
     --border-width: 2px;
     --border-color: #dedede;
     --border-secondary-color: #29af0a;
-    --settings-bgcolor: #eee;
     /* --border-secondary-color: #dedede; */
+    --settings-bgcolor: #eee;
+    --comments-bgcolor: #f8f8f8;
+    --accent-color: #888;
 }
 
 section#comments .comments-contents > div {
@@ -403,6 +473,7 @@ section#comments .comments-contents .forum-rules ul {
     border-radius: 4px;
     color: #000;
     background-position: 10px 10px;
+    margin: 0;
 }
 
 section#comments .comments-contents .forum-rules ul li {
@@ -473,20 +544,20 @@ div.text-close-button button {
 .slider {
     width: 35px;
     height: 19px;
-    border: 2px solid var(--border-color);
-    background-color: #fff;
+    border: 2px solid var(--accent-color);
+    background-color: var(--settings-bgcolor);
     bottom: 0;
     cursor: pointer;
     position: absolute;
     right: 0px;
-    top: 4px;
+    top: 2px;
     -webkit-transition: .4s;
     -o-transition: .4s;
     transition: .4s;
 }
 
 .slider.round {
-    /* border-radius: 8.5px; */
+    border-radius: 8.5px;
 }
 
 .slider-switch input {
@@ -494,7 +565,7 @@ div.text-close-button button {
 }
 
 .slider-switch input:checked+.slider {
-    background-color: #fff;
+    background-color: var(--settings-bgcolor);
 }
 
 .slider-switch input:checked+.slider:before {
@@ -505,10 +576,11 @@ div.text-close-button button {
 }
 
 .slider.round:before {
-    /* border-radius: 50%; */
+    border-radius: 50%;
 }
+
 .slider:before {
-    background-color: var(--border-color);
+    background-color: var(--accent-color);
     bottom: 2px;
     content: "";
     left: 2px;
@@ -606,7 +678,7 @@ div.text-close-button button {
 
 .comments-settings input#userForumShortName {
     width: 70px;
-    border-color: var(--border-color);
+    border-color: var(--accent-color);
     border-style: solid;
 }
 
