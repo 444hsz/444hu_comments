@@ -266,6 +266,12 @@ div#comments_tabs .titlebar button {
     transition: background-color .1s linear;
 }
 
+@media screen and (max-width: 768px) {
+    div#comments_tabs .titlebar button.button-sidebar {
+        display: none;
+    }
+}
+
 div#comments_tabs .titlebar button.active {
     background-color: var(--settings-bgcolor);
 }
@@ -319,7 +325,6 @@ div#comments_wrapper {
     margin: 16px auto 0 auto;
     background: none;
     /* transition: 0.2s linear; */
-    width: var(--container-width-medium);
     font-family: "boxed","Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
     user-select: none;
     -webkit-user-drag: none;
@@ -478,7 +483,7 @@ section#comments .comments-contents .forum-rules ul {
     border-radius: 4px;
     color: #000;
     background-position: 10px 10px;
-    margin: 0;
+    margin-bottom: 32px;
 }
 
 section#comments .comments-contents .forum-rules ul li {
@@ -745,16 +750,3 @@ label[for=forumToggle] .slider {
     text-shadow: 1px 1px 0 #00000077;
 }
 
-@media screen and (max-width: 500px) {
-    label[for=forumToggle] > span:first-child {
-        display: inline-block;
-        max-width: 62px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    section#comments .comments-docked-open button#sidebarToggle {
-        display: none;
-    }
-}

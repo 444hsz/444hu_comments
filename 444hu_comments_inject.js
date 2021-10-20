@@ -75,15 +75,12 @@
                     <h1 class="title"><img draggable="false" src="` + _baseUrl + `images/444hsz.svg">Szolgálati közlemény</h1>
                     <b>
                         <p>Ezt üzenetet azért látod itt, mert telepítetted a "444hsz" böngésző bővítményt.</p>
-                        <p>2021. augusztus 12-én a 444 megszüntette a cikkek szabad kommentelhetőségét. A továbbiakban a hivatalos Disqus fórumban csak a Kör tagsággal rendelkező előfizetők írhatnak kommenteket, mindenki más pedig nem hivatalos, azaz nem a 444 által fenntartott Disqus fórumokban tud kommentelni.</p>
-                        <p>A "444hsz" böngésző bővítmény a hivatalossal párhuzamosan egy nem hivatalos Disqus fórumot is képes kezelni, amiről a következőket kell tudni:</p>
-                        <li>A hivatalos és a nem hivatalos Disqus közti átváltás a toolbaron (URALKODJ MAGADON felirat mellett jobbra) elhelyezett kapcsolóval történik. Kikapcsolt állásban a hivatalos, bekapcsoltban pedig a nem hivatalos fórumból töltődik be a cikkhez tartozó kommentfolyam.</li>
-                        <li>A kapcsoló bal oldalán olvasható a beállított nem hivatalos Disqus fórum neve.</li>
+                        <p>2021. augusztus 12-én a 444 megszüntette a cikkek szabad kommentelhetőségét, így innentől kezdve csak a Kör tagsággal rendelkező előfizetők írhatnak kommenteket.</p>
+                        <p>A "444hsz" böngésző bővítmény a hivatalossal párhuzamosan egy nem hivatalos, mindenki által szabadon használható Disqus fórumot is képes kezelni. Erről a következőket kell tudni:</p>
+                        <li>A hivatalos és a nem hivatalos kommentek között váltani a feljebb látható "444" illetve "444hsz" logós fülekre kattintva lehet (Kommentek felirat alatt). A 444 logóra kattintva a hivatalos, a 444hsz logóra pedig a nem hivatalos kommentek töltődnek be a cikkhez. A kiválasztott fület megjegyzi a böngésző.</li>
                         <li>Az alapértelmezett nem hivatalos fórum a "444hsz", ami a 444 szabad kommentelhetőségének fenntartásáért lett létrehozva.</li>
-                        <li>A nem hivatalos Disqus fórum neve megváltoztatható a kommentszekció beállításokban (toolbaron fogaskerék ikon).</li>
-                        <li>A kapcsoló állását megjegyzi a böngésző.</li>
                     </b>
-                    <div class="text-close-button"><button>Elolvastam, ne jelenjen meg többet</button></div>
+                    <div class="text-close-button"><button>Vettem az adást, ne jelenjen meg többet.</button></div>
                 </ul>
             </div>
             <button class="gae-comment-click-open comments-toggle">Kommentek mutatása</button>
