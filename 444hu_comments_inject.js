@@ -29,13 +29,16 @@
 
 
     _commentsSectionEl.id = "comments_wrapper";
-    _commentsSectionEl.innerHTML =
-        `<div id="comments_tabs">
+    _commentsSectionEl.innerHTML = `
+        <div class="comments-resizer"><div></div></div>
+        <div class="comments-resizer-right"><div></div></div>
+        <div class="comments-main">
+        <div id="comments_tabs">
             <div class="titlebar">
                 <span class="title">Kommentek</span>
                 <span class="spacer"></span>
-                <button class="button-sidebar" title="Oldalsáv"><img src="` + _baseUrl + `images/view_sidebar_black_24dp.svg"></button>
-                <button class="button-settings" title="Beállítások"><img src="` + _baseUrl + `images/settings_black_24dp.svg"></button>
+                <button class="button-sidebar" title="Oldalsáv"><img draggable="false" src="` + _baseUrl + `images/view_sidebar_black_24dp.svg"></button>
+                <button class="button-settings" title="Beállítások"><img draggable="false" src="` + _baseUrl + `images/settings_black_24dp.svg"></button>
             </div>
 
             <div class="comments-settings collapse">
@@ -55,22 +58,21 @@
             <div class="toolbar">
                 <div class="tab-1">
                     <div class="borderline"></div>
-                    <button id="tab-444hu" class="tab" title="Hivatalos kommentek"><img class="invert" src="/logo-444.svg"></button>
+                    <button id="tab-444hu" class="tab" title="Hivatalos kommentek"><img draggable="false" class="invert" src="/logo-444.svg"></button>
                 </div>
                 <div class="tab-2">
-                    <button id="tab-user" class="tab" title="Nem hivatalos kommentek"><img src="` + _baseUrl + `images/444hsz.svg"></button>
+                    <button id="tab-user" class="tab" title="Nem hivatalos kommentek"><img draggable="false" src="` + _baseUrl + `images/444hsz.svg"></button>
                 </div>
                 <span class="toolbar-spacer"></span>
             </div>
         </div>` +
         `<div class="comments-wrapper">` +
         `<section id="comments">` +
-        `<div class="comments-docked-resizer"><div></div></div>
-        <div class="comments-contents">
+        `<div class="comments-contents">
             <div class="forum-rules">
                 <div title="Bezár" class="close-button"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg></div>
                 <ul>
-                    <h1 class="title"><img src="` + _baseUrl + `images/444hsz.svg">Szolgálati közlemény</h1>
+                    <h1 class="title"><img draggable="false" src="` + _baseUrl + `images/444hsz.svg">Szolgálati közlemény</h1>
                     <b>
                         <p>Ezt üzenetet azért látod itt, mert telepítetted a "444hsz" böngésző bővítményt.</p>
                         <p>2021. augusztus 12-én a 444 megszüntette a cikkek szabad kommentelhetőségét. A továbbiakban a hivatalos Disqus fórumban csak a Kör tagsággal rendelkező előfizetők írhatnak kommenteket, mindenki más pedig nem hivatalos, azaz nem a 444 által fenntartott Disqus fórumokban tud kommentelni.</p>
@@ -89,7 +91,8 @@
             <div id="disqus_thread" class="freehand layout"></div>
         </div>` +
         `</section>` +
-        `</div>`;
+        `</div>
+        </div>`;
 
     function log(msg, ret) {
         var tag = "%c[444hsz]";
@@ -157,8 +160,8 @@
     }
 
     function initSidebar() {
-        var _ce = document.querySelector("section#comments");
-        var _re = document.querySelector("section#comments .comments-docked-resizer");
+        var _ce = document.getElementById("comments_wrapper");
+        var _re = document.querySelector("#comments_wrapper .comments-resizer");
 
         function initResize(e) {
             e.preventDefault();
@@ -173,7 +176,7 @@
             var w = document.body.clientWidth - e.clientX;
             if (w >= 335) {
                 _ce.style.width =  w + 'px';
-                _re.style.right =  (w - 8) + 'px';
+                //_re.style.right =  (w - 8) + 'px';
             }
         }
 
@@ -216,18 +219,10 @@
         }
 
         function onClickSidebarToggle() {
-            //document.querySelector(".comments-settings").classList.add('collapse');
-            //document.querySelector("div#comments_tabs .titlebar button.button-settings").classList.remove('active');
-
             document.getElementById('comments_wrapper').classList.toggle('sidebar');
             document.querySelector("div#comments_tabs .titlebar button.button-sidebar").classList.toggle('active');
 
-
-            //document.querySelector('.comments-docked-open').classList.toggle('comments-docked-hidden');
-            //document.querySelector('.comments-docked-close').classList.toggle('comments-docked-hidden');
-            document.getElementById('comments').style.width = 'var(--docked-comments-width)';
-
-            document.querySelector("#comments_wrapper .comments-docked-resizer").style.right = "calc(var(--docked-comments-width) - var(--docked-comments-resizer-width))";
+            document.getElementById('comments_wrapper').style.width = 'var(--docked-comments-width)';
 
             let el = document.querySelector(".comments-toggle");
             if (null !== el) el.click();
@@ -379,13 +374,11 @@
 
     function updateForumTabs() {
         if (_currentForumShortName != _userForumShortName) {
-            log('444hu');
             document.getElementById('comments_wrapper').classList.add('official-forum');
             document.getElementById('comments_wrapper').classList.remove('user-forum');
             document.getElementById('tab-user').classList.remove('selected');
             document.getElementById('tab-444hu').classList.add('selected');
         } else {
-            log('444hsz');
             document.getElementById('comments_wrapper').classList.remove('official-forum');
             document.getElementById('comments_wrapper').classList.add('user-forum');
             document.getElementById('tab-user').classList.add('selected');
