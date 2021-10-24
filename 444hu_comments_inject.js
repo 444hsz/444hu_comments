@@ -13,7 +13,6 @@
     var _commentsSectionEl = document.createElement("div"),
         _commentsSectionTabEl = document.createElement("div"),
         _commentsSectionTempEl = null,
-        _commentsSectionTempTabEl = null,
         _commentsSectionInsertMethod = 0,
         _commentsLoaded = false,
         _commentsSectionLoadRetries,
@@ -27,9 +26,8 @@
         _baseUrl = document.querySelector('meta[name="444hsz-extension-baseurl"]')['content'],
         _version = document.querySelector('meta[name="444hsz-extension-version"]')['content'];
 
-
     _commentsSectionEl.id = "comments_wrapper";
-    _commentsSectionEl.innerHTML = `
+    _commentsSectionElInnerHTML = `
         <div class="comments-resizer"><div></div></div>
         <div class="comments-resizer-right"><div></div></div>
         <div class="comments-main">
@@ -91,6 +89,10 @@
         `</div>
         </div>`;
 
+    let tmp = (new DOMParser()).parseFromString(_commentsSectionElInnerHTML, `text/html`).getElementsByTagName(`body`)[0].children;
+    _commentsSectionEl.append(...tmp);
+    delete tmp;
+    
     function log(msg, ret) {
         var tag = "%c[444hsz]";
         if (ret) return tag + " " + msg;
@@ -411,12 +413,10 @@
     }
 
     function initCommentsSection() {
-        _commentsSectionTempTabEl = _commentsSectionTabEl.cloneNode(true);
         _commentsSectionTempEl = _commentsSectionEl.cloneNode(true);
         switch (_commentsSectionInsertMethod) {
             case 0:
                 _parentEl.insertBefore(_commentsSectionTempEl, _parentEl.firstElementChild);
-                //_parentEl.insertBefore(_commentsSectionTempTabEl, _parentEl.firstElementChild);
                 break;
             case 1:
             case 3:

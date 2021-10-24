@@ -3,18 +3,17 @@
         "default": {
             "top_button_insert_selector": "div.byline",
             "comments_section_insert_selector": "article footer.hide-print",
-            "comments_section_html": getCommentsInnerHTMLBlog,
+            "comments_section_html": getCommentsInnerHTMLBlog(),
             "init_script": function() {
                 window.disqus_shortname = '444hsz';
                 require('blog/comment').default();
             }
         },
         "jo.444.hu": {
-            "button_icon_inverted": true,
             "button_text_color": "#222"
         },
         "geekz.444.hu": {
-            "comments_section_html": getCommentsInnerHTMLGeekz,
+            "comments_section_html": getCommentsInnerHTMLGeekz(),
             "init_script": function() {
                 require('blog/comment').default();
                 let cd = document.querySelector("meta[itemprop='dateCreated']");
@@ -49,8 +48,11 @@
 
         let bl = document.querySelector(getConfig("top_button_insert_selector"));
         if (null !== bl) {
-            let cls = getConfig('button_icon_inverted') ? ' inverted' : '';
-            bl.innerHTML = '<button class="gae-comment-click-open comments-toggle-top">Hozzászólások</button>' + bl.innerHTML;
+
+            let tmp = (new DOMParser()).parseFromString('<button class="gae-comment-click-open comments-toggle-top">Hozzászólások</button>', `text/html`).getElementsByTagName(`body`)[0].children;
+            bl.prepend(...tmp);
+            delete tmp;
+
             document.querySelector('.comments-toggle-top').style.color = getConfig("button_text_color");
             document.querySelector('.comments-toggle-top').addEventListener('click', () => {
                 if (null !== document.querySelector(".comments-toggle")) document.querySelector(".comments-toggle").click();
@@ -151,11 +153,16 @@
             log("article page detected");
             if (null !== document.getElementById("disqus_thread")) {
                 log("comments enabled by 444.hu");
-                document.getElementById("comments").innerHTML = getConfig("comments_section_html")();
+                let tmp = (new DOMParser()).parseFromString(getConfig("comments_section_html"), `text/html`).getElementsByTagName(`body`)[0].children;
+                let cel = document.getElementById("comments");
+                cel.innerText = '';
+                cel.append(...tmp);
+                delete tmp;
             } else {
                 log("comments disabled by 444.hu");
-                af = document.querySelector(getConfig("comments_section_insert_selector"));
-                af.innerHTML += '<section id="comments">' + getConfig("comments_section_html")() + '</section>';
+                let tmp = (new DOMParser()).parseFromString('<section id="comments">' + getConfig("comments_section_html") + '</section>', `text/html`).getElementsByTagName(`body`)[0].children;
+                af.append(...tmp);
+                delete tmp;
             }
 
             addResizeBar();
