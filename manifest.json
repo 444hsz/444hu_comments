@@ -1,7 +1,7 @@
 {
   "name": "444hsz",
   "short_name": "444hsz",
-  "version": "1.4.0.1",
+  "version": "1.4.0.2",
   "manifest_version": 2,
   "author": "nerblock",
   "description": "Kommenteld szabadon a 444.hu cikkeit!",
@@ -24,16 +24,24 @@
     "images/settings_black_24dp.svg"
   ],
   "page_action": {
+    "show_matches": ["*://*.444.hu/*"],
+    "hide_matches": ["*://kor.444.hu/*", "*://membership.444.hu/*"],
     "default_icon": {
       "16": "images/icon16.png",
+      "19": "images/icon19.png",
       "24": "images/icon24.png",
-      "32": "images/icon32.png"
+      "32": "images/icon32.png",
+      "38": "images/icon38.png"
     }
   },
   "icons": {
     "16": "images/icon16.png",
+    "19": "images/icon19.png",
+    "24": "images/icon24.png",
     "32": "images/icon32.png",
+    "38": "images/icon38.png",
     "48": "images/icon48.png",
+    "96": "images/icon96.png",
     "128": "images/icon128.png"
   }
 }
