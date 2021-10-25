@@ -78,7 +78,7 @@
                         <li>A hivatalos és a nem hivatalos kommentek között váltani a feljebb látható "444" illetve "444hsz" logós fülekre kattintva lehet (Kommentek felirat alatt). A 444 logóra kattintva a hivatalos, a 444hsz logóra pedig a nem hivatalos kommentek töltődnek be a cikkhez. A kiválasztott fület megjegyzi a böngésző.</li>
                         <li>Az alapértelmezett nem hivatalos fórum a "444hsz", ami a 444 szabad kommentelhetőségének fenntartásáért lett létrehozva.</li>
                     </b>
-                    <div class="text-close-button"><button>Vettem az adást, ne jelenjen meg többet.</button></div>
+                    <div class="text-close-button"><button>Ne jelenjen meg többet</button></div>
                 </ul>
             </div>
             <button class="gae-comment-click-open comments-toggle">Kommentek mutatása</button>
@@ -99,25 +99,12 @@
         else console.debug(tag, "color: #29af0a;", msg);
     }
 
-    function setCookie(name, value, days = 3650) {
-        var expires = "";
-        if (days) {
-            var date = new Date();
-            date.setTime(date.getTime() + (days*24*60*60*1000));
-            expires = "; expires=" + date.toUTCString();
-        }
-        document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+    function storeSetting(name, value) {
+        localStorage.setItem(name, value);
     }
 
-    function getCookie(name) {
-        var nameEQ = name + "=";
-        var ca = document.cookie.split(';');
-        for(var i=0;i < ca.length;i++) {
-            var c = ca[i];
-            while (c.charAt(0)==' ') c = c.substring(1,c.length);
-            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-        }
-        return null;
+    function loadSetting(name) {
+        return localStorage.getItem(name);
     }
 
     function pageChanged() {
@@ -251,7 +238,7 @@
                 unloadDisqus();
                 _currentForumShortName = _userForumShortName;
                 updateForumTabs();
-                setCookie("_444comments_user_forum_enabled", 1);
+                storeSetting("_444hsz_user_forum_enabled", 1);
                 document.querySelector(".comments-toggle").click();
             }
         }
@@ -261,7 +248,7 @@
                 unloadDisqus();
                 _currentForumShortName = _defaultForumShortName;
                 updateForumTabs();
-                setCookie("_444comments_user_forum_enabled", 0);
+                storeSetting("_444hsz_user_forum_enabled", 0);
                 document.querySelector(".comments-toggle").click();
             }
         }
@@ -297,7 +284,7 @@
 
         function onClickCloseRules() {
             document.querySelector('.comments-contents .forum-rules').classList.add('hide');
-            setCookie("_444comments_hide_rules2", 1);
+            storeSetting("_444hsz_announcement_read", 1);
             document.querySelector('.comments-settings label>input#rulesToggle').checked = false;
         }
 
@@ -308,11 +295,11 @@
 
         function onClickRulesToggle() {
             document.querySelector(".comments-contents .forum-rules").classList.toggle('hide');
-            setCookie("_444comments_hide_rules2", +!this.checked);
+            storeSetting("_444hsz_announcement_read", +!this.checked);
         }
 
         function onClickAutoloadToggle() {
-            setCookie("_444comments_autoload_comments", +this.checked);
+            storeSetting("_444hsz_autoload_comments", +this.checked);
         }
 
         function initRecommendationsToggle() {
@@ -326,10 +313,10 @@
             function onClickRecommendationsToggle() {
                 if (null !== document.querySelector("#recommendationsToggleStyle")) {
                     document.querySelector("#recommendationsToggleStyle").remove();
-                    setCookie("_444comments_show_disqus_recommendations", 1);
+                    storeSetting("_444hsz_show_disqus_recommendations", 1);
                 } else {
                     addHideStyle();
-                    setCookie("_444comments_show_disqus_recommendations", 0);
+                    storeSetting("_444hsz_show_disqus_recommendations", 0);
                 }
             }
 
@@ -341,7 +328,7 @@
 
         function onChangeUserForumShortname() {
             _userForumShortName = this.value ? this.value : _defaultUserForumShortName;
-            setCookie("_444comments_user_forum_shortname", _userForumShortName);
+            storeSetting("_444hsz_user_forum_shortname", _userForumShortName);
         }
 
         function onKeypressUserForumShortname(e) {
@@ -386,27 +373,27 @@
     }
 
     function applySettings() {
-        if (getCookie("_444comments_user_forum_shortname")) {
-            _userForumShortName = getCookie("_444comments_user_forum_shortname");
+        if (loadSetting("_444hsz_user_forum_shortname")) {
+            _userForumShortName = loadSetting("_444hsz_user_forum_shortname");
             document.querySelector('.comments-settings input#userForumShortName').value = _userForumShortName == _defaultUserForumShortName ? "" : _userForumShortName;
         }
 
-        if (getCookie("_444comments_user_forum_enabled") == 1) {
+        if (loadSetting("_444hsz_user_forum_enabled") == 1) {
             _currentForumShortName = _userForumShortName;
         }
 
         updateForumTabs();
 
-        if (getCookie("_444comments_hide_rules2") == 1) {
+        if (loadSetting("_444hsz_announcement_read") == 1) {
             document.querySelector(".comments-contents .forum-rules").classList.add('hide');
             document.querySelector('.comments-settings input#rulesToggle').checked = false;
         }
 
-        if (getCookie("_444comments_show_disqus_recommendations") == 1) {
+        if (loadSetting("_444hsz_show_disqus_recommendations") == 1) {
             document.querySelector('.comments-settings input#recommendationsToggle').click();
         }
 
-        if (getCookie("_444comments_autoload_comments") == 1) {
+        if (loadSetting("_444hsz_autoload_comments") == 1) {
             document.querySelector('.comments-settings input#autoloadToggle').checked = true;
             document.querySelector(".comments-toggle").click();
         }
