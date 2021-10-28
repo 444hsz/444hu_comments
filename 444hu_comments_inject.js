@@ -15,7 +15,6 @@
 
     function waitForEmber() {
         if (typeof Ember === "undefined") {
-            console.log('444hsz', 'waiting for ember');
             setTimeout(waitForEmber, 200);
         } else {
             waitForRouter();
