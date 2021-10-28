@@ -54,11 +54,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 log("Frontend: legacy");
                 injectScript(chrome.runtime.getURL('444hu_comments_inject_legacy.js'));
             } else {
-                setTimeout(() => {
-                    log("Frontend: Ember");
-                    injectCSS(chrome.runtime.getURL("444hu_comments.css"));
-                    injectScript(chrome.runtime.getURL('444hu_comments_inject.js'));
-                }, 1000);
+                log("Frontend: Ember");
+                injectCSS(chrome.runtime.getURL("444hu_comments.css"));
+                injectScript(chrome.runtime.getURL('444hu_comments_inject.js'));
             }
         } else {
             log("Extension is disabled on " + window.location.hostname);
