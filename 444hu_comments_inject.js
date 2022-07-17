@@ -534,6 +534,9 @@
 
     function initCommentsSection() {
       _commentsSectionTempEl = _commentsSectionEl.cloneNode(true);
+      if (_parentEl.classList.contains("ad-wrapper")) {
+        _parentEl = _parentEl.parentElement;
+      }
       switch (_commentsSectionInsertMethod) {
         case 0:
           _parentEl.insertBefore(
