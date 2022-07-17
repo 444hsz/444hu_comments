@@ -5,12 +5,23 @@
   "manifest_version": 2,
   "author": "nerblock",
   "description": "Kommenteld szabadon a 444.hu cikkeit!",
-  "permissions": ["http://*.444.hu/", "https://*.444.hu/"],
+  "permissions": [
+    "http://*.444.hu/",
+    "https://*.444.hu/"
+  ],
   "content_scripts": [
     {
-      "matches": ["http://*.444.hu/*", "https://*.444.hu/*"],
-      "exclude_matches": ["*://kor.444.hu/*", "*://membership.444.hu/*"],
-      "js": ["444hu_comments.js"],
+      "matches": [
+        "http://*.444.hu/*",
+        "https://*.444.hu/*"
+      ],
+      "exclude_matches": [
+        "*://kor.444.hu/*",
+        "*://membership.444.hu/*"
+      ],
+      "js": [
+        "444hu_comments.js"
+      ],
       "run_at": "document_start"
     }
   ],
@@ -24,8 +35,13 @@
     "images/settings_black_24dp.svg"
   ],
   "page_action": {
-    "show_matches": ["*://*.444.hu/*"],
-    "hide_matches": ["*://kor.444.hu/*", "*://membership.444.hu/*"],
+    "show_matches": [
+      "*://*.444.hu/*"
+    ],
+    "hide_matches": [
+      "*://kor.444.hu/*",
+      "*://membership.444.hu/*"
+    ],
     "default_icon": {
       "16": "images/icon16.png",
       "19": "images/icon19.png",
