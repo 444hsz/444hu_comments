@@ -255,10 +255,16 @@
         }
       }
 
+      function getOffsetTop(element) {
+        return element
+          ? element.offsetTop + getOffsetTop(element.offsetParent)
+          : 0;
+      }
+
       function onClickTopCommentsButton() {
         document.querySelector(".comments-toggle").click();
         window.scroll({
-          top: document.getElementById("comments_wrapper").offsetTop - 64,
+          top: getOffsetTop(document.getElementById("comments_wrapper")) - 64,
         });
       }
 
