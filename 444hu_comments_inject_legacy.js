@@ -5,7 +5,7 @@
       comments_section_insert_selector: "article footer.hide-print",
       comments_section_html: getCommentsInnerHTMLBlog(),
       init_script: function () {
-        window.disqus_shortname = "negy";
+        window.disqus_shortname = "444hsz3";
         require("blog/comment").default();
       },
     },
@@ -23,7 +23,7 @@
         ) {
           window.disqus_shortname = "geekzblog";
         } else {
-          window.disqus_shortname = "negy";
+          window.disqus_shortname = "444hsz3";
         }
       },
     },
