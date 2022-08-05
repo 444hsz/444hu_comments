@@ -45,7 +45,7 @@
       _commentsSectionLoadRetries,
       _commentsButtonTopEl = null,
       _defaultForumShortName = "444hu",
-      _defaultUserForumShortName = "444hsz2",
+      _defaultUserForumShortName = "negy",
       _currentForumShortName = _defaultForumShortName,
       _userForumShortName = _defaultUserForumShortName,
       _parentEl = null,
@@ -501,7 +501,10 @@
     function applySettings() {
       if (loadSetting("_444hsz_user_forum_shortname")) {
         _userForumShortName = loadSetting("_444hsz_user_forum_shortname");
-        if (_userForumShortName == "444hsz") {
+        if (
+          _userForumShortName == "444hsz" ||
+          _userForumShortName == "444hsz2"
+        ) {
           _userForumShortName = _defaultUserForumShortName;
         }
         document.querySelector(
