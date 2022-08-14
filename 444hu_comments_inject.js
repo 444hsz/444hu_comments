@@ -38,14 +38,13 @@
     }
 
     var _commentsSectionEl = document.createElement("div"),
-      _commentsSectionTabEl = document.createElement("div"),
       _commentsSectionTempEl = null,
       _commentsSectionInsertMethod = 0,
       _commentsLoaded = false,
       _commentsSectionLoadRetries,
       _commentsButtonTopEl = null,
       _defaultForumShortName = "444hu",
-      _defaultUserForumShortName = "444hsz3",
+      _defaultUserForumShortName = "444hsz",
       _currentForumShortName = _defaultForumShortName,
       _userForumShortName = _defaultUserForumShortName,
       _parentEl = null,
@@ -501,7 +500,7 @@
     function applySettings() {
       if (loadSetting("_444hsz_user_forum_shortname")) {
         _userForumShortName = loadSetting("_444hsz_user_forum_shortname");
-        if (["444hsz", "444hsz2", "negy"].includes(_userForumShortName)) {
+        if (["444hsz3", "444hsz2", "negy"].includes(_userForumShortName)) {
           _userForumShortName = _defaultUserForumShortName;
         }
         document.querySelector(
