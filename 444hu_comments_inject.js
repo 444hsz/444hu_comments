@@ -59,7 +59,7 @@
       )["content"];
 
     const _useTempUserForumFrom = new Date("2022-08-03T20:00:00+02:00");
-    const _useTempUserForumTo = new Date("2022-08-11T21:15:20+02:00");
+    const _useTempUserForumTo = new Date("2022-08-15T14:00:00+02:00");
 
     _commentsSectionEl.id = "comments_wrapper";
     _commentsSectionElInnerHTML =
@@ -531,6 +531,7 @@
             _useTempUserForum = true;
             _userForumShortName = _tempUserForumShortName;
           }
+          log("Article uses temporary forum");
         } else {
           if (_useTempUserForum) {
             unloadDisqus();
