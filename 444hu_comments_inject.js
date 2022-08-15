@@ -45,6 +45,8 @@
       _commentsButtonTopEl = null,
       _defaultForumShortName = "444hu",
       _defaultUserForumShortName = "444hsz",
+      _tempUserForumShortName = "444hsz3",
+      _useTempUserForum = false,
       _currentForumShortName = _defaultForumShortName,
       _userForumShortName = _defaultUserForumShortName,
       _parentEl = null,
@@ -55,6 +57,9 @@
       _version = document.querySelector(
         'meta[name="444hsz-extension-version"]'
       )["content"];
+
+    const _useTempUserForumFrom = new Date("2022-08-03T20:00:00+02:00");
+    const _useTempUserForumTo = new Date("2022-08-11T21:15:20+02:00");
 
     _commentsSectionEl.id = "comments_wrapper";
     _commentsSectionElInnerHTML =
@@ -220,6 +225,33 @@
       _re.addEventListener("mousedown", initResize, false);
     }
 
+    function unloadDisqus() {
+      delete window.DISQUS;
+      delete window.DISQUS_RECOMMENDATIONS;
+      delete window.disqus_config;
+      delete window.disqus_recommendations_config;
+
+      if (null !== document.querySelector("#disqus_recommendations"))
+        document.querySelector("#disqus_recommendations").remove();
+
+      let ss = document.evaluate(
+        "//script[contains(@src, 'disqus.com/embed.js')]",
+        document,
+        null,
+        XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE,
+        null
+      );
+
+      if (ss.snapshotLength) {
+        for (let i = 0; i < ss.snapshotLength; i++) {
+          let s = ss.snapshotItem(i);
+          s.remove();
+        }
+      }
+
+      _commentsLoaded = false;
+    }
+
     function initButtons() {
       function onClickCommentsButton() {
         if (!_commentsLoaded) {
@@ -278,34 +310,6 @@
 
         let el = document.querySelector(".comments-toggle");
         if (null !== el) el.click();
-      }
-
-      function unloadDisqus() {
-        delete window.DISQUS;
-        delete window.DISQUS_RECOMMENDATIONS;
-        delete window.disqus_config;
-        delete window.disqus_recommendations_config;
-
-        if (null !== document.querySelector("#disqus_recommendations"))
-          document.querySelector("#disqus_recommendations").remove();
-
-        let ss = document.evaluate(
-          "//script[@src='https://" +
-            _currentForumShortName +
-            ".disqus.com/embed.js']",
-          document,
-          null,
-          XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE,
-          null
-        );
-        if (ss.snapshotLength) {
-          for (let i = 0; i < ss.snapshotLength; i++) {
-            let s = ss.snapshotItem(i);
-            s.remove();
-          }
-        }
-
-        _commentsLoaded = false;
       }
 
       function onClickForumUser() {
@@ -509,6 +513,30 @@
           _userForumShortName == _defaultUserForumShortName
             ? ""
             : _userForumShortName;
+      }
+
+      // use temp forum if article date is in the forum outage interval
+      const publishedEl = document.querySelector(
+        'meta[property="article:published_time"]'
+      );
+      if (publishedEl) {
+        const publishedDate = new Date(publishedEl.getAttribute("content"));
+
+        if (
+          publishedDate > _useTempUserForumFrom &&
+          publishedDate < _useTempUserForumTo
+        ) {
+          if (!_useTempUserForum) {
+            unloadDisqus();
+            _useTempUserForum = true;
+            _userForumShortName = _tempUserForumShortName;
+          }
+        } else {
+          if (_useTempUserForum) {
+            unloadDisqus();
+            _useTempUserForum = false;
+          }
+        }
       }
 
       if (loadSetting("_444hsz_user_forum_enabled") == 1) {
