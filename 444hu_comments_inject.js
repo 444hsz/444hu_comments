@@ -1,3 +1,5 @@
+var Ember;
+
 (function () {
   function waitForRouter() {
     let app = Ember.A(Ember.Namespace.NAMESPACES).filter((n) => {
@@ -16,6 +18,9 @@
   }
 
   function waitForEmber() {
+    try {
+      Ember = require("ember/index").default;
+    } catch (error) {}
     if (typeof Ember === "undefined") {
       setTimeout(waitForEmber, 200);
     } else {
@@ -98,7 +103,7 @@
                 <div class="toolbar">
                     <div class="tab-1">
                         <div class="borderline"></div>
-                        <button id="tab-444hu" class="tab" title="Hivatalos kommentek"><img draggable="false" class="invert" src="/logo-444.svg"></button>
+                        <button id="tab-444hu" class="tab" title="Hivatalos kommentek"><img draggable="false" src="/logo-444.svg"></button>
                     </div>
                     <div class="tab-2">
                         <button id="tab-user" class="tab" title="Nem hivatalos kommentek"><img draggable="false" src="` +
@@ -109,7 +114,7 @@
                 </div>
             </div>` +
       `<div class="comments-wrapper">` +
-      `<section id="comments">` +
+      `<section id="comments-444hsz">` +
       `<div class="comments-contents">
                 <div class="forum-rules">
                     <div title="Bezár" class="close-button"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg></div>
@@ -257,7 +262,7 @@
         if (!_commentsLoaded) {
           _commentsLoaded = true;
           window.disqus_url = getDisqusUrl();
-          let dc = require("disqus/components/disqus-comments"),
+          let dc = require("reader/components/disqus-comments"),
             lc = new dc.default();
           lc.args = {
             identifier: null,
@@ -333,18 +338,16 @@
       }
 
       function insertTopCommentsButton() {
-        _commentsButtonTopEl = document.createElement("p");
+        _commentsButtonTopEl = document.createElement("div");
+        _commentsButtonTopEl.className = "comments-toggle-top-wrapper";
         _commentsButtonTopEl.innerHTML =
           '<button class="gae-comment-click-open comments-toggle-top">Kommentek</button>';
 
         let p;
         switch (_commentsSectionInsertMethod) {
           case 0:
-            if (
-              (p =
-                document.querySelector(".rich-text-feature") ||
-                document.querySelector(".legacy"))
-            ) {
+            p = _parentEl.parentElement;
+            if (p) {
               p.insertBefore(_commentsButtonTopEl, p.firstElementChild);
               if (p.classList.contains("legacy")) {
                 _commentsButtonTopEl.style.setProperty(
@@ -603,10 +606,9 @@
       _commentsLoaded = false;
 
       let el;
-      if ((el = document.querySelector("#ap-article-footer1"))) {
-        // normal article
+      if ((el = document.querySelector("#comments"))) {
         _commentsSectionInsertMethod = 0;
-        _parentEl = el.parentElement;
+        _parentEl = el;
       } else if ((el = document.querySelector("aside"))) {
         // livereport list
         _commentsSectionInsertMethod = 1;
@@ -686,7 +688,9 @@
           if (_commentsSectionLoadRetries > 0) {
             _commentsSectionLoadRetries--;
             log("Retry #" + _commentsSectionLoadRetries);
-            init();
+            setTimeout(() => {
+              init();
+            }, 500);
           }
         }
       } else {
@@ -696,39 +700,25 @@
     }
 
     function startInit() {
-      _commentsSectionLoadRetries = 0;
-      init();
+      _commentsSectionLoadRetries = 3;
+      setTimeout(() => {
+        init();
+      }, 1000);
     }
 
-    _emberRouter.on("willTransition", trackPageChange);
-    _emberRouter.on("didTransition", () => {
-      if (!pageIsArticle()) {
-        trackPageChange();
-      }
-      return true;
-    });
-
-    Ember.run.schedule("afterRender", startInit); // when page is rendered by backend (on first pageload)
+    // when page is rendered by backend (on first pageload)
+    require("@ember/runloop").schedule("afterRender", startInit);
 
     // when page is rendered on the client
-    Ember.subscribe("render.component", {
-      before(name, timestamp, payload) {},
-      after(name, timestamp, payload, beganIndex) {
-        switch (payload.containerKey) {
-          case "component:head-content":
-            if (pageIsArticle()) {
-              _headContentAvailable = true;
-            }
-            break;
-          case "component:head-layout":
-            if (_headContentAvailable && !payload.initialRender) {
-              if (pageChanged()) {
-                startInit();
-              }
-            }
-            break;
-        }
+    _emberRouter.addObserver(
+      "currentURL",
+      {
+        change: (router, property) => {
+          trackPageChange();
+          startInit();
+        },
       },
-    });
+      "change"
+    );
   }
 })();

@@ -1,13 +1,31 @@
+body {
+  --c-primary: #ff0000;
+  --c-secondary: #24a809;
+  --font-title: "boxed", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+  --font-medium: 600;
+}
+
 button.comments-toggle-top {
   width: 130px;
   background-color: var(--c-secondary);
-  margin-right: 10px;
   font-family: var(--font-title);
   font-weight: var(--font-medium);
   font-size: 0.875rem;
   letter-spacing: 0.07812rem;
   align-items: center;
   text-shadow: 1px 1px 0 #00000077;
+}
+
+.comments-toggle-top-wrapper {
+  padding: 0 16px;
+}
+
+@media only screen and (max-width: 63.99em) {
+  .comments-toggle-top-wrapper {
+    max-width: var(--_1j78v4x0, min(100%, 664px));
+    margin-inline-end: auto;
+    margin-inline-start: auto;
+  }
 }
 
 button.comments-toggle-top > img {
@@ -100,7 +118,7 @@ button.comments-toggle-top > img {
   background-color: var(--accent-color);
 }
 
-#comments_wrapper.sidebar #comments {
+#comments_wrapper.sidebar #comments-444hsz {
   /* padding-top: 0; */
   padding-right: 4px;
   margin: 0;
@@ -120,6 +138,7 @@ button.comments-toggle-top > img {
 
 #comments_wrapper.sidebar .comments-wrapper::-webkit-scrollbar {
   -webkit-appearance: none;
+  appearance: none;
   width: 22px;
 }
 
@@ -345,7 +364,7 @@ div#comments_wrapper {
   --accent-color: #bebebe;
 }
 
-section#comments .comments-contents > div {
+section#comments-444hsz.comments-contents > div {
   margin: 0;
 }
 
@@ -353,9 +372,10 @@ div.comments-wrapper {
   border: var(--border-width) solid var(--border-color);
   border-top: none;
   border-radius: inherit;
+  margin-bottom: 16px;
 }
 
-section#comments {
+section#comments-444hsz {
   padding: 16px 16px 0;
   background-color: #f8f8f8;
   transition: border 0.2s;
@@ -374,11 +394,11 @@ section#comments.docked-comments {
   border: none;
 }
 
-section#comments .comments-docked-open {
+section#comments-444hsz.comments-docked-open {
   display: inline-flex;
 }
 
-section#comments .comments-docked-open button {
+section#comments-444hsz.comments-docked-open button {
   border-left: 1px solid #fff;
   background-color: var(--c-secondary);
   font-family: var(--font-title);
@@ -391,7 +411,7 @@ section#comments .comments-docked-open button {
 }
 
 @media (hover: hover) {
-  section#comments .comments-docked-open button:hover {
+  section#comments-444hsz.comments-docked-open button:hover {
     background-color: #6ac540;
   }
 }
@@ -401,13 +421,13 @@ svg.flipped {
   transform-origin: center;
 }
 
-section#comments .comments-docked-open button svg {
+section#comments-444hsz.comments-docked-open button svg {
   margin-top: -1px;
   fill: #fff;
   vertical-align: middle;
 }
 
-section#comments .subhead {
+section#comments-444hsz.subhead {
   font-family: var(--font-title);
   font-weight: var(--font-medium);
   font-size: 0.875rem;
@@ -442,6 +462,7 @@ section#comments .subhead {
   align-items: center;
   height: 36px;
   text-shadow: 1px 1px 0 #00000077;
+  text-align: center;
 
   margin-bottom: 16px;
 }
@@ -465,24 +486,24 @@ section#comments .subhead {
 
 /* forum rules */
 
-section#comments .comments-contents .forum-rules ul .title {
+section#comments-444hsz.comments-contents .forum-rules ul .title {
   border-bottom: 1px solid var(--c-secondary);
   padding-bottom: 12px;
   margin-top: 0px;
 }
 
-section#comments .comments-contents .forum-rules ul .title img {
+section#comments-444hsz.comments-contents .forum-rules ul .title img {
   height: 33px;
   vertical-align: middle;
   margin-top: -4px;
   margin-left: -8px;
 }
 
-section#comments .comments-contents .forum-rules ul a {
+section#comments-444hsz.comments-contents .forum-rules ul a {
   color: var(--c-secondary);
 }
 
-section#comments .comments-contents .forum-rules ul {
+section#comments-444hsz.comments-contents .forum-rules ul {
   list-style: square;
   list-style-position: outside;
   background-color: #ebeef2;
@@ -493,16 +514,16 @@ section#comments .comments-contents .forum-rules ul {
   margin-bottom: 32px;
 }
 
-section#comments .comments-contents .forum-rules ul li {
+section#comments-444hsz.comments-contents .forum-rules ul li {
   margin-bottom: 10px;
   margin-left: 20px;
 }
 
-section#comments .comments-contents .forum-rules ul li:last-child {
+section#comments-444hsz.comments-contents .forum-rules ul li:last-child {
   margin-bottom: 0px;
 }
 
-section#comments .comments-contents .forum-rules ul li::marker {
+section#comments-444hsz.comments-contents .forum-rules ul li::marker {
   color: var(--c-secondary);
 }
 
@@ -520,6 +541,7 @@ div.close-button svg {
 
 div.text-close-button {
   text-align: center;
+  margin-bottom: 16px;
 }
 
 div.text-close-button button {
@@ -697,6 +719,7 @@ div.text-close-button button {
   width: 70px;
   border-color: var(--accent-color);
   border-style: solid;
+  padding: 0px 4px;
 }
 
 .comments-settings ul {
