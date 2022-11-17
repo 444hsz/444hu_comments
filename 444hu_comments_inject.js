@@ -185,7 +185,7 @@ var Ember;
     }
 
     function getDisqusUrl() {
-      let url = document.URL;
+      let url = document.URL.split("?")[0];
       if (pageIsFociArticle()) {
         let d = _emberRouter.get("currentRoute.attributes.date");
         if (d && new Date(d) < new Date("2021-06-09")) {
