@@ -357,7 +357,7 @@ var Ember;
             break;
           case 1:
           case 4:
-            if ((p = document.querySelector("h1").parentElement)) {
+            if ((p = document.querySelector("header ~ div h1").parentElement)) {
               if (p.nextElementSibling) {
                 p.parentElement.insertBefore(
                   _commentsButtonTopEl,
@@ -466,9 +466,13 @@ var Ember;
 
       document.querySelector(".comments-toggle").onclick =
         onClickCommentsButton;
-      if (insertTopCommentsButton()) {
-        document.querySelector(".comments-toggle-top").onclick =
-          onClickTopCommentsButton;
+      try {
+        if (insertTopCommentsButton()) {
+          document.querySelector(".comments-toggle-top").onclick =
+            onClickTopCommentsButton;
+        }
+      } catch (error) {
+        log("error inserting top comments button");
       }
 
       document.querySelector(
