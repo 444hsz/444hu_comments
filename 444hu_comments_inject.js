@@ -359,6 +359,29 @@ var Ember;
             }
             break;
           case 1:
+          case 4:
+            if ((p = document.querySelector("h1").parentElement)) {
+              if (p.nextElementSibling) {
+                p.parentElement.insertBefore(
+                  _commentsButtonTopEl,
+                  p.nextElementSibling.nextElementSibling
+                );
+
+                _commentsButtonTopEl.className =
+                  _commentsButtonTopEl.previousElementSibling.className;
+                _commentsButtonTopEl.style.setProperty("padding-bottom", "0");
+                _commentsButtonTopEl.style.setProperty("padding-top", "0");
+              } else {
+                p.parentElement.parentElement.insertBefore(
+                  _commentsButtonTopEl,
+                  p.parentElement.nextElementSibling
+                );
+                _commentsButtonTopEl.className =
+                  _commentsButtonTopEl.nextElementSibling.className;
+                _commentsButtonTopEl.style.setProperty("border", "none");
+              }
+              return true;
+            }
           case 3:
             if ((p = document.getElementById("toolbar-dropdown-target"))) {
               p.nextElementSibling.insertBefore(
@@ -584,6 +607,12 @@ var Ember;
             _parentEl.firstElementChild
           );
           break;
+        case 4:
+          let footerEl = document.querySelector("footer");
+          _parentEl.insertBefore(_commentsSectionTempEl, footerEl);
+          _commentsSectionTempEl.className = footerEl.className;
+          _commentsSectionTempEl.style.setProperty("margin", "0");
+          break;
         case 1:
         case 3:
           _parentEl.insertBefore(_commentsSectionTempEl, null);
@@ -610,19 +639,17 @@ var Ember;
         _commentsSectionInsertMethod = 0;
         _parentEl = el;
       } else if ((el = document.querySelector("aside"))) {
-        // livereport list
+        // template with sidebar
         _commentsSectionInsertMethod = 1;
         _parentEl = el.previousElementSibling.firstElementChild;
       } else if ((el = document.querySelector("article > div > footer"))) {
         // livereport single item
         _commentsSectionInsertMethod = 2;
         _parentEl = el.parentElement.parentElement;
-      } else if ((el = document.querySelector("#toolbar-dropdown-target"))) {
-        // livereport list with rendered no sidebar
-        _commentsSectionInsertMethod = 3;
-        _parentEl =
-          el.nextElementSibling.lastElementChild.firstElementChild
-            .firstElementChild;
+      } else if ((el = document.querySelector("footer"))) {
+        // generic fallback
+        _commentsSectionInsertMethod = 4;
+        _parentEl = el.parentElement;
       }
 
       if (null !== el) {
@@ -687,7 +714,7 @@ var Ember;
           );
           if (_commentsSectionLoadRetries > 0) {
             _commentsSectionLoadRetries--;
-            log("Retry #" + _commentsSectionLoadRetries);
+            log("Retries left: " + _commentsSectionLoadRetries);
             setTimeout(() => {
               init();
             }, 500);
@@ -700,7 +727,7 @@ var Ember;
     }
 
     function startInit() {
-      _commentsSectionLoadRetries = 3;
+      _commentsSectionLoadRetries = 10;
       setTimeout(() => {
         init();
       }, 1000);
