@@ -495,6 +495,14 @@ section#comments-444hsz .forum-rules ul .title {
   font-weight: bold;
 }
 
+section#comments-444hsz .forum-rules ul .important {
+  font-weight: bold;
+}
+
+section#comments-444hsz .forum-rules ul .green {
+  color: #24a809;
+}
+
 section#comments-444hsz .forum-rules ul p {
   margin-bottom: 10px;
 }
