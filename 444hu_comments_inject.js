@@ -566,6 +566,10 @@ var Ember;
         }
       }
 
+      if (loadSetting("_444hsz_user_forum_enabled") == null) {
+        storeSetting("_444hsz_user_forum_enabled", 1);
+      }
+
       if (loadSetting("_444hsz_user_forum_enabled") == 1) {
         _currentForumShortName = _userForumShortName;
       }
