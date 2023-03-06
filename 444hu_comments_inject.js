@@ -119,16 +119,12 @@ var Ember;
                 <div class="forum-rules">
                     <div title="Bezár" class="close-button"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg></div>
                     <ul>
-                        <h1 class="title"><img draggable="false" src="` +
-      _baseUrl +
-      `images/444hsz.svg">Szolgálati közlemény</h1>
-                        <b>
-                            <p>Ezt üzenetet azért látod itt, mert telepítetted a "444hsz" böngésző bővítményt.</p>
-                            <p>2021. augusztus 12-én a 444 megszüntette a cikkek szabad kommentelhetőségét, így innentől kezdve csak a Kör tagsággal rendelkező előfizetők írhatnak kommenteket.</p>
-                            <p>A "444hsz" böngésző bővítmény a hivatalossal párhuzamosan egy nem hivatalos, mindenki által szabadon használható Disqus fórumot is képes kezelni. Erről a következőket kell tudni:</p>
-                            <li>A hivatalos és a nem hivatalos kommentek között váltani a feljebb látható "444" illetve "444hsz" logós fülekre kattintva lehet (Kommentek felirat alatt). A 444 logóra kattintva a hivatalos, a 444hsz logóra pedig a nem hivatalos kommentek töltődnek be a cikkhez. A kiválasztott fület megjegyzi a böngésző.</li>
-                            <li>Az alapértelmezett nem hivatalos fórum a "444hsz", ami a 444 szabad kommentelhetőségének fenntartásáért lett létrehozva.</li>
-                        </b>
+                        <h1 class="title">Szolgálati közlemény</h1>
+                        <p>Ezt üzenetet azért látod itt, mert telepítetted a "444hsz" böngésző bővítményt.</p>
+                        <p>2023. márciustól a 444 teljesen megszüntette a cikkek kommentelését. A hivatalos, csak előfizetők által kommentelhető Disqus fórum egyelőre továbbra is használható a bővítmény segítségével, de előbb vagy utóbb valószínű, hogy mi is ki fogjuk venni a támogatását, mert okafogyottá vált.</p>
+                        <p>A "444hsz" böngésző bővítmény egy nem hivatalos, mindenki által szabadon használható Disqus fórumot rak be a cikkek alá. Erről a következőket kell tudni:</p>
+                        <li>A hivatalos és a nem hivatalos kommentek között váltani a feljebb látható "444" illetve "444hsz" logós fülekre kattintva lehet (Kommentek felirat alatt). A 444 logóra kattintva a hivatalos, a 444hsz logóra pedig a nem hivatalos kommentek töltődnek be a cikkhez. A kiválasztott fület megjegyzi a böngésző.</li>
+                        <li>Az alapértelmezett nem hivatalos fórum a "444hsz", ami a 444 szabad kommentelhetőségének fenntartásáért lett létrehozva.</li>
                         <div class="text-close-button"><button>Ne jelenjen meg többet</button></div>
                     </ul>
                 </div>

@@ -486,24 +486,31 @@ section#comments-444hsz.subhead {
 
 /* forum rules */
 
-section#comments-444hsz.comments-contents .forum-rules ul .title {
+section#comments-444hsz .forum-rules ul .title {
   border-bottom: 1px solid var(--c-secondary);
-  padding-bottom: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
   margin-top: 0px;
+  font-size: 18px;
+  font-weight: bold;
 }
 
-section#comments-444hsz.comments-contents .forum-rules ul .title img {
+section#comments-444hsz .forum-rules ul p {
+  margin-bottom: 10px;
+}
+
+section#comments-444hsz .forum-rules ul .title img {
   height: 33px;
   vertical-align: middle;
-  margin-top: -4px;
+  margin-top: -10px;
   margin-left: -8px;
 }
 
-section#comments-444hsz.comments-contents .forum-rules ul a {
+section#comments-444hsz .forum-rules ul a {
   color: var(--c-secondary);
 }
 
-section#comments-444hsz.comments-contents .forum-rules ul {
+section#comments-444hsz .forum-rules ul {
   list-style: square;
   list-style-position: outside;
   background-color: #ebeef2;
@@ -514,16 +521,16 @@ section#comments-444hsz.comments-contents .forum-rules ul {
   margin-bottom: 32px;
 }
 
-section#comments-444hsz.comments-contents .forum-rules ul li {
+section#comments-444hsz .forum-rules ul li {
   margin-bottom: 10px;
   margin-left: 20px;
 }
 
-section#comments-444hsz.comments-contents .forum-rules ul li:last-child {
+section#comments-444hsz .forum-rules ul li:last-child {
   margin-bottom: 0px;
 }
 
-section#comments-444hsz.comments-contents .forum-rules ul li::marker {
+section#comments-444hsz .forum-rules ul li::marker {
   color: var(--c-secondary);
 }
 
