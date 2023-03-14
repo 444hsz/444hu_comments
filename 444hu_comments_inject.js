@@ -184,7 +184,12 @@ var Ember;
     function getDisqusUrl() {
       let url = document.URL.split("?")[0];
       if (pageIsFociArticle()) {
-        let d = _emberRouter.get("currentRoute.attributes.date");
+        let d =
+          _emberRouter.get("currentRoute.params.year") +
+          "-" +
+          _emberRouter.get("currentRoute.params.month") +
+          "-" +
+          _emberRouter.get("currentRoute.params.day");
         if (d && new Date(d) < new Date("2021-06-09")) {
           // convert thread urls to the old address format for older articles
           // last thread on foci.444.hu was: https://foci.444.hu/2021/06/08/gol-nelkuli-foproba-az-eb-elott
@@ -646,7 +651,7 @@ var Ember;
       } else if ((el = document.querySelector("aside"))) {
         // template with sidebar
         _commentsSectionInsertMethod = 1;
-        _parentEl = el.previousElementSibling.firstElementChild;
+        _parentEl = el.previousElementSibling;
       } else if ((el = document.querySelector("article > div > footer"))) {
         // livereport single item
         _commentsSectionInsertMethod = 2;
@@ -707,14 +712,14 @@ var Ember;
           //trackPageChange(); //TODO: maybe uncomment this after 444 fixed the duplicate head-layout rendering issue
           log(
             "Added comments section for: '" +
-              _emberRouter.get("currentRoute.attributes.slug") +
+              _emberRouter.get("currentRoute.params.slug") +
               "'"
           );
           _commentsSectionLoadRetries--;
         } else {
           log(
             "Failed to add comments section for: '" +
-              _emberRouter.get("currentRoute.attributes.slug") +
+              _emberRouter.get("currentRoute.params.slug") +
               "'"
           );
           if (_commentsSectionLoadRetries > 0) {

@@ -347,6 +347,7 @@ div#comments_tabs button.tab.selected img {
 /* comments section */
 
 div#comments_wrapper {
+  display: block;
   padding: 0;
   margin: 16px auto 0 auto;
   background: none;
@@ -655,7 +656,7 @@ div.text-close-button button {
 /* settings  */
 .comments-settings {
   padding: 0;
-  /* color: #fff; */
+  color: #000;
   font-size: 13px;
   font-family: var(--font-title);
   line-height: 22px;
