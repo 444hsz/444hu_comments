@@ -166,8 +166,27 @@ var Ember;
       return true;
     }
 
-    function pageIsArticle() {
-      return String(_emberRouter.currentRouteName).endsWith("--reader.post");
+    async function delay(ms) {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve("done");
+        }, ms);
+      });
+    }
+
+    async function pageIsArticle() {
+      for (let i = 0; i < 10; i++) {
+        if (String(_emberRouter.currentRouteName).endsWith("--reader.post")) {
+          return Promise.resolve(true);
+        } else if (
+          String(_emberRouter.currentRouteName).endsWith("--reader.index")
+        ) {
+          return Promise.resolve(false);
+        } else {
+          log("waiting for reader to finish loading...");
+          await delay(500);
+        }
+      }
     }
 
     function pageIsFociArticle() {
@@ -700,9 +719,9 @@ var Ember;
       return false;
     }
 
-    function init() {
+    async function init() {
       console.group("%c[444hsz]", "color: #29af0a;", "log");
-      if (pageIsArticle()) {
+      if (await pageIsArticle()) {
         if (reset()) {
           initCommentsSection();
           initSidebar();
