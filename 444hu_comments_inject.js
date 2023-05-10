@@ -103,7 +103,7 @@ var Ember;
                 <div class="toolbar">
                     <div class="tab-1">
                         <div class="borderline"></div>
-                        <button id="tab-444hu" class="tab" title="Hivatalos kommentek"><img draggable="false" src="/logo-444.svg"></button>
+                        <button id="tab-444hu" class="tab" title="Hivatalos kommentek"><img draggable="false" src="/assets/logo-444.svg#logo"></button>
                     </div>
                     <div class="tab-2">
                         <button id="tab-user" class="tab" title="Nem hivatalos kommentek"><img draggable="false" src="` +
