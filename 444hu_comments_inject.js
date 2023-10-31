@@ -48,6 +48,7 @@ var Ember;
 
     var _commentsSectionEl = document.createElement("div"),
       _commentsSectionTempEl = null,
+      _commentsSectionElInnerHTML = "",
       _commentsSectionInsertMethod = 0,
       _commentsLoaded = false,
       _commentsSectionLoadRetries,
@@ -145,7 +146,7 @@ var Ember;
       .parseFromString(_commentsSectionElInnerHTML, `text/html`)
       .getElementsByTagName(`body`)[0].children;
     _commentsSectionEl.append(...tmp);
-    delete tmp;
+    tmp = null;
 
     function log(msg, ret) {
       var tag = "%c[444hsz]";
