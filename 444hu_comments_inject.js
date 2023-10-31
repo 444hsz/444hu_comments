@@ -288,31 +288,14 @@ var Ember;
         if (!_commentsLoaded) {
           _commentsLoaded = true;
           window.disqus_url = getDisqusUrl();
-          let dc = require("reader/components/disqus-comments"),
-            lc = new dc.default();
-          lc.args = {
-            identifier: null,
-            url: window.disqus_url,
-            title: null,
-            categoryId: null,
-          };
 
-          Object.defineProperty(lc, "fastboot", {
-            get: function () {
-              return 0;
-            },
-          });
-          Object.defineProperty(lc, "config", {
-            get: function () {
-              return {
-                get: function () {
-                  return _currentForumShortName;
-                },
-              };
-            },
-          });
+          const s = document.createElement("script");
+          s.async = true;
+          s.src = `https://${_currentForumShortName}.disqus.com/embed.js`;
+          (
+            document.head || document.getElementsByTagName("head")[0]
+          ).appendChild(s);
 
-          lc.loadComments.perform();
           this.classList.add("hide");
         }
       }
