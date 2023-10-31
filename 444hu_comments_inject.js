@@ -1,3 +1,7 @@
+import Backburner from "./backburner.js";
+
+var backburner = new Backburner(["afterRender"]);
+
 var Ember;
 
 (function () {
@@ -763,7 +767,7 @@ var Ember;
     }
 
     // when page is rendered by backend (on first pageload)
-    require("@ember/runloop").schedule("afterRender", startInit);
+    backburner.schedule("afterRender", startInit);
 
     // when page is rendered on the client
     _emberRouter.addObserver(

@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function injectScript(scriptName) {
       var script = document.createElement("script");
       script.src = scriptName;
+      script.type = "module";
       document.head.appendChild(script);
     }
 
@@ -59,6 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         log("Frontend: Ember");
         injectCSS(chrome.runtime.getURL("444hu_comments.css"));
+        injectScript(chrome.runtime.getURL("backburner.js"));
         injectScript(chrome.runtime.getURL("444hu_comments_inject.js"));
       }
     } else {

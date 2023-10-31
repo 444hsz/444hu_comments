@@ -17,6 +17,7 @@
   "web_accessible_resources": [
     "444hu_comments_inject.js",
     "444hu_comments_inject_legacy.js",
+    "backburner.js",
     "444hu_comments.css",
     "444hu_comments_legacy.css",
     "images/444hsz.svg",
