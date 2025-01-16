@@ -2,15 +2,15 @@ import Backburner from "./backburner.js";
 
 var backburner = new Backburner(["afterRender"]);
 
-var Ember;
-
 (function () {
+  let app, router;
+
   function waitForRouter() {
-    let app = Ember.A(Ember.Namespace.NAMESPACES).filter((n) => {
+    app = new requirejs("n3/app").default.NAMESPACES.filter((n) => {
       return n.name === "n3";
     })[0];
     if (app) {
-      let router = app.__container__.lookup("router:main");
+      router = app.__container__.lookup("router:main");
       if (router.currentRouteName != null) {
         start444hsz();
       } else {
@@ -21,31 +21,9 @@ var Ember;
     }
   }
 
-  function waitForEmber() {
-    try {
-      Ember = require("ember/index").default;
-    } catch (error) {}
-    if (typeof Ember === "undefined") {
-      setTimeout(waitForEmber, 200);
-    } else {
-      waitForRouter();
-    }
-  }
-
-  waitForEmber();
+  waitForRouter();
 
   function start444hsz() {
-    var _emberApp = Ember.A(Ember.Namespace.NAMESPACES).filter((n) => {
-      return n.name === "n3";
-    })[0];
-    if (_emberApp) {
-      var _emberRouter = _emberApp.__container__.lookup("router:main"),
-        _lastUrl; // = _emberRouter.get("url");
-    } else {
-      log("frontend app not found, extension is disabled");
-      return;
-    }
-
     var _commentsSectionEl = document.createElement("div"),
       _commentsSectionTempEl = null,
       _commentsSectionElInnerHTML = "",
@@ -61,6 +39,7 @@ var Ember;
       _userForumShortName = _defaultUserForumShortName,
       _parentEl = null,
       _headContentAvailable = false,
+      _lastUrl = null,
       _baseUrl = document.querySelector(
         'meta[name="444hsz-extension-baseurl"]'
       )["content"],
@@ -163,11 +142,11 @@ var Ember;
     }
 
     function pageChanged() {
-      return _lastUrl !== _emberRouter.get("url");
+      return _lastUrl !== router.get("url");
     }
 
     function trackPageChange() {
-      _lastUrl = _emberRouter.get("url");
+      _lastUrl = router.get("url");
       return true;
     }
 
@@ -181,11 +160,9 @@ var Ember;
 
     async function pageIsArticle() {
       for (let i = 0; i < 10; i++) {
-        if (String(_emberRouter.currentRouteName).endsWith("--reader.post")) {
+        if (String(router.currentRouteName).endsWith("--reader.post")) {
           return Promise.resolve(true);
-        } else if (
-          String(_emberRouter.currentRouteName).endsWith("--reader.index")
-        ) {
+        } else if (String(router.currentRouteName).endsWith("--reader.index")) {
           return Promise.resolve(false);
         } else {
           log("waiting for reader to finish loading...");
@@ -195,7 +172,7 @@ var Ember;
     }
 
     function pageIsFociArticle() {
-      return _emberRouter.currentRouteName == "foci--reader.post";
+      return router.currentRouteName == "foci--reader.post";
     }
 
     function scrollToHash() {
@@ -209,11 +186,11 @@ var Ember;
       let url = document.URL.split("?")[0];
       if (pageIsFociArticle()) {
         let d =
-          _emberRouter.get("currentRoute.params.year") +
+          router.get("currentRoute.params.year") +
           "-" +
-          _emberRouter.get("currentRoute.params.month") +
+          router.get("currentRoute.params.month") +
           "-" +
-          _emberRouter.get("currentRoute.params.day");
+          router.get("currentRoute.params.day");
         if (d && new Date(d) < new Date("2021-06-09")) {
           // convert thread urls to the old address format for older articles
           // last thread on foci.444.hu was: https://foci.444.hu/2021/06/08/gol-nelkuli-foproba-az-eb-elott
@@ -719,14 +696,14 @@ var Ember;
           //trackPageChange(); //TODO: maybe uncomment this after 444 fixed the duplicate head-layout rendering issue
           log(
             "Added comments section for: '" +
-              _emberRouter.get("currentRoute.params.slug") +
+              router.get("currentRoute.params.slug") +
               "'"
           );
           _commentsSectionLoadRetries--;
         } else {
           log(
             "Failed to add comments section for: '" +
-              _emberRouter.get("currentRoute.params.slug") +
+              router.get("currentRoute.params.slug") +
               "'"
           );
           if (_commentsSectionLoadRetries > 0) {
@@ -754,7 +731,7 @@ var Ember;
     backburner.schedule("afterRender", startInit);
 
     // when page is rendered on the client
-    _emberRouter.addObserver(
+    router.addObserver(
       "currentURL",
       {
         change: (router, property) => {
