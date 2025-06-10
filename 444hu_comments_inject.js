@@ -1,6 +1,8 @@
 import Backburner from "./backburner.js";
 
 var backburner = new Backburner(["afterRender"]);
+var firstInitDone444hsz = false;
+var lastUrl444hsz = null;
 
 (function () {
   let app, router;
@@ -9,6 +11,18 @@ var backburner = new Backburner(["afterRender"]);
     app = new requirejs("n3/app").default.NAMESPACES.filter((n) => {
       return n.name === "n3";
     })[0];
+
+    try {
+      router = app.__container__.lookup("router:main");
+      if (router.currentRouteName != null) {
+        start444hsz();
+      } else {
+        throw new Error("router not ready");
+      }
+    } catch (error) {
+      setTimeout(waitForRouter, 200);
+    }
+
     if (app) {
       router = app.__container__.lookup("router:main");
       if (router.currentRouteName != null) {
@@ -39,7 +53,6 @@ var backburner = new Backburner(["afterRender"]);
       _userForumShortName = _defaultUserForumShortName,
       _parentEl = null,
       _headContentAvailable = false,
-      _lastUrl = null,
       _baseUrl = document.querySelector(
         'meta[name="444hsz-extension-baseurl"]'
       )["content"],
@@ -142,11 +155,11 @@ var backburner = new Backburner(["afterRender"]);
     }
 
     function pageChanged() {
-      return _lastUrl !== router.get("url");
+      return lastUrl444hsz !== router.get("url");
     }
 
     function trackPageChange() {
-      _lastUrl = router.get("url");
+      lastUrl444hsz = router.get("url");
       return true;
     }
 
@@ -720,6 +733,13 @@ var backburner = new Backburner(["afterRender"]);
       console.groupEnd();
     }
 
+    function firstInit() {
+      if (firstInitDone444hsz) return;
+      firstInitDone444hsz = true;
+      trackPageChange();
+      startInit();
+    }
+
     function startInit() {
       _commentsSectionLoadRetries = 10;
       setTimeout(() => {
@@ -728,15 +748,17 @@ var backburner = new Backburner(["afterRender"]);
     }
 
     // when page is rendered by backend (on first pageload)
-    backburner.schedule("afterRender", startInit);
+    backburner.schedule("afterRender", firstInit);
 
     // when page is rendered on the client
     router.addObserver(
       "currentURL",
       {
         change: (router, property) => {
-          trackPageChange();
-          startInit();
+          if (pageChanged()) {
+            trackPageChange();
+            startInit();
+          }
         },
       },
       "change"
