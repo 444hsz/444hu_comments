@@ -382,13 +382,8 @@ var lastUrl444hsz = null;
               return true;
             }
           case 3:
-            if ((p = document.getElementById("toolbar-dropdown-target"))) {
-              p.nextElementSibling.insertBefore(
-                _commentsButtonTopEl,
-                p.nextElementSibling.firstElementChild.nextElementSibling
-              );
-              _commentsButtonTopEl.className =
-                p.nextElementSibling.firstElementChild.className;
+            if ((p = document.getElementById("ap-article-top-001"))) {
+              p.insertBefore(_commentsButtonTopEl, null);
               return true;
             }
             break;
@@ -653,6 +648,10 @@ var lastUrl444hsz = null;
         // livereport single item
         _commentsSectionInsertMethod = 2;
         _parentEl = el.parentElement.parentElement;
+      } else if ((el = document.querySelector("#ap-article-bottom-001"))) {
+        // 202507 update
+        _commentsSectionInsertMethod = 3;
+        _parentEl = el;
       } else if ((el = document.querySelector("footer"))) {
         // generic fallback
         _commentsSectionInsertMethod = 4;

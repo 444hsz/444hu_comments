@@ -17,7 +17,7 @@ button.comments-toggle-top {
 }
 
 .comments-toggle-top-wrapper {
-  padding: 0 16px;
+  padding: 0;
 }
 
 @media only screen and (max-width: 63.99em) {
