@@ -384,6 +384,7 @@ var lastUrl444hsz = null;
           case 3:
             if ((p = document.getElementById("ap-article-top-001"))) {
               p.insertBefore(_commentsButtonTopEl, null);
+              p.style.setProperty("grid-column", "content-start");
               return true;
             }
             break;
@@ -618,6 +619,7 @@ var lastUrl444hsz = null;
         case 1:
         case 3:
           _parentEl.insertBefore(_commentsSectionTempEl, null);
+          _parentEl.style.setProperty("grid-column", "content-start");
           _commentsSectionTempEl.className =
             _parentEl.firstElementChild.className;
           break;
