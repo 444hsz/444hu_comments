@@ -358,7 +358,7 @@ var lastUrl444hsz = null;
             }
             break;
           case 1:
-          case 4:
+          case -1:
             if ((p = document.querySelector("header ~ div h1").parentElement)) {
               if (p.nextElementSibling) {
                 p.parentElement.insertBefore(
@@ -381,6 +381,7 @@ var lastUrl444hsz = null;
               }
               return true;
             }
+            break;
           case 3:
             if ((p = document.getElementById("ap-article-top-001"))) {
               p.insertBefore(_commentsButtonTopEl, null);
@@ -388,6 +389,12 @@ var lastUrl444hsz = null;
               return true;
             }
             break;
+          case 4:
+            let el =
+              _parentEl.nextElementSibling.firstElementChild.firstElementChild
+                .lastElementChild;
+            el.insertBefore(_commentsButtonTopEl, el.firstElementChild);
+            return true;
         }
         log("failed to insert top comments button");
         _commentsButtonTopEl = null;
@@ -610,7 +617,7 @@ var lastUrl444hsz = null;
             _parentEl.firstElementChild
           );
           break;
-        case 4:
+        case -1:
           let footerEl = document.querySelector("footer");
           _parentEl.insertBefore(_commentsSectionTempEl, footerEl);
           _commentsSectionTempEl.className = footerEl.className;
@@ -622,6 +629,12 @@ var lastUrl444hsz = null;
           _parentEl.style.setProperty("grid-column", "content-start");
           _commentsSectionTempEl.className =
             _parentEl.firstElementChild.className;
+          break;
+        case 4:
+          let el =
+            _parentEl.nextElementSibling.lastElementChild.firstElementChild;
+          el.insertBefore(_commentsSectionTempEl, null);
+          _commentsSectionTempEl.style.setProperty("margin", "0");
           break;
         case 2:
           _parentEl.insertBefore(_commentsSectionTempEl, null);
@@ -651,12 +664,16 @@ var lastUrl444hsz = null;
         _commentsSectionInsertMethod = 2;
         _parentEl = el.parentElement.parentElement;
       } else if ((el = document.querySelector("#ap-article-bottom-001"))) {
-        // 202507 update
+        // 202507 article
         _commentsSectionInsertMethod = 3;
+        _parentEl = el;
+      } else if ((el = document.querySelector("#ap-site-header-bottom"))) {
+        // 202507 livereport
+        _commentsSectionInsertMethod = 4;
         _parentEl = el;
       } else if ((el = document.querySelector("footer"))) {
         // generic fallback
-        _commentsSectionInsertMethod = 4;
+        _commentsSectionInsertMethod = -1;
         _parentEl = el.parentElement;
       }
 
