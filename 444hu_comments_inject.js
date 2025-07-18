@@ -391,10 +391,14 @@ var lastUrl444hsz = null;
             break;
           case 4:
             let el =
-              _parentEl.nextElementSibling.firstElementChild.firstElementChild
-                .lastElementChild;
-            el.insertBefore(_commentsButtonTopEl, el.firstElementChild);
-            return true;
+              _parentEl.nextElementSibling?.firstElementChild?.firstElementChild
+                ?.lastElementChild ||
+              _parentEl.nextElementSibling?.firstElementChild
+                ?.nextElementSibling?.nextElementSibling?.firstElementChild;
+            if (el) {
+              el.insertBefore(_commentsButtonTopEl, el.firstElementChild);
+              return true;
+            }
         }
         log("failed to insert top comments button");
         _commentsButtonTopEl = null;
