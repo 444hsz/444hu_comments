@@ -155,11 +155,11 @@ var lastUrl444hsz = null;
     }
 
     function pageChanged() {
-      return lastUrl444hsz !== router.get("url");
+      return lastUrl444hsz !== router.get("currentURL");
     }
 
     function trackPageChange() {
-      lastUrl444hsz = router.get("url");
+      lastUrl444hsz = router.get("currentURL");
       return true;
     }
 
