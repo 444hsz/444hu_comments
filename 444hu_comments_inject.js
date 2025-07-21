@@ -304,7 +304,12 @@ var lastUrl444hsz = null;
       }
 
       function onClickSidebarToggle() {
-        document.getElementById("comments_wrapper").classList.toggle("sidebar");
+        storeSetting(
+          "_444hsz_sidebar",
+          +document
+            .getElementById("comments_wrapper")
+            .classList.toggle("sidebar")
+        );
         document
           .querySelector("div#comments_tabs .titlebar button.button-sidebar")
           .classList.toggle("active");
@@ -606,6 +611,12 @@ var lastUrl444hsz = null;
           ".comments-settings input#autoloadToggle"
         ).checked = true;
         document.querySelector(".comments-toggle").click();
+      }
+
+      if (loadSetting("_444hsz_sidebar") == 1) {
+        document
+          .querySelector("#comments_tabs .titlebar button.button-sidebar")
+          .click();
       }
     }
 
