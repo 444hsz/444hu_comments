@@ -52,7 +52,7 @@ var lastUrl444hsz = null;
       _currentForumShortName = _defaultForumShortName,
       _userForumShortName = _defaultUserForumShortName,
       _parentEl = null,
-      _headContentAvailable = false,
+      _darkMode = false,
       _baseUrl = document.querySelector(
         'meta[name="444hsz-extension-baseurl"]'
       )["content"],
@@ -724,8 +724,6 @@ var lastUrl444hsz = null;
           _commentsSectionTempEl = null;
         }
 
-        _headContentAvailable = false;
-
         let btns = document.evaluate(
           "//button[contains(., 'Kommentek mutatása')]",
           document,
@@ -742,18 +740,50 @@ var lastUrl444hsz = null;
               break;
             }
           }
-        } else {
-          log("Article commentable: no");
         }
         return true;
       }
       return false;
     }
 
+    function initDarkMode() {
+      const getCookie = (name) => {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(";").shift();
+      };
+
+      switch (getCookie("jeti-theme")) {
+        case "light":
+          _darkMode = false;
+          break;
+        case "dark":
+          _darkMode = true;
+          break;
+        default:
+          if (
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches
+          ) {
+            _darkMode = true;
+          }
+      }
+
+      _commentsSectionEl.style.setProperty(
+        "--comments-bgcolor",
+        _darkMode
+          ? "var(--comments-bgcolor-dark)"
+          : "var(--comments-bgcolor-light)"
+      );
+
+      log("Dark mode: " + _darkMode);
+    }
+
     async function init() {
       console.group("%c[444hsz]", "color: #29af0a;", "log");
       if (await pageIsArticle()) {
         if (reset()) {
+          initDarkMode();
           initCommentsSection();
           initSidebar();
           initButtons();
