@@ -395,13 +395,20 @@ var lastUrl444hsz = null;
             }
             break;
           case 4:
-            let el =
+            p =
               _parentEl.nextElementSibling?.firstElementChild?.firstElementChild
                 ?.lastElementChild ||
               _parentEl.nextElementSibling?.firstElementChild
                 ?.nextElementSibling?.nextElementSibling?.firstElementChild;
-            if (el) {
-              el.insertBefore(_commentsButtonTopEl, el.firstElementChild);
+            if (p) {
+              p.insertBefore(_commentsButtonTopEl, p.firstElementChild);
+              return true;
+            }
+            break;
+          case 5:
+            if ((p = document.getElementById("ap-article-top-001"))) {
+              p.insertBefore(_commentsButtonTopEl, null);
+              p.style.setProperty("grid-column", "content-start");
               return true;
             }
         }
@@ -646,9 +653,18 @@ var lastUrl444hsz = null;
             _parentEl.firstElementChild.className;
           break;
         case 4:
-          let el =
-            _parentEl.nextElementSibling.lastElementChild.firstElementChild;
-          el.insertBefore(_commentsSectionTempEl, null);
+          _parentEl.nextElementSibling.lastElementChild.firstElementChild.insertBefore(
+            _commentsSectionTempEl,
+            null
+          );
+          _commentsSectionTempEl.style.setProperty("margin", "0");
+          break;
+        case 5:
+          _parentEl.nextElementSibling.nextElementSibling.lastElementChild.firstElementChild.insertBefore(
+            _commentsSectionTempEl,
+            _parentEl.nextElementSibling.nextElementSibling.lastElementChild
+              .firstElementChild.lastElementChild
+          );
           _commentsSectionTempEl.style.setProperty("margin", "0");
           break;
         case 2:
@@ -683,8 +699,12 @@ var lastUrl444hsz = null;
         _commentsSectionInsertMethod = 3;
         _parentEl = el;
       } else if ((el = document.querySelector("#ap-site-header-bottom"))) {
-        // 202507 livereport
-        _commentsSectionInsertMethod = 4;
+        // 202507
+        if (el.nextElementSibling?.lastElementChild?.firstElementChild) {
+          _commentsSectionInsertMethod = 4; // livereport
+        } else {
+          _commentsSectionInsertMethod = 5; // article
+        }
         _parentEl = el;
       } else if ((el = document.querySelector("footer"))) {
         // generic fallback
