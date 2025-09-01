@@ -70,7 +70,7 @@
         )
         .getElementsByTagName(`body`)[0].children;
       bl.prepend(...tmp);
-      delete tmp;
+      tmp = null;
 
       document.querySelector(".comments-toggle-top").style.color =
         getConfig("button_text_color");
@@ -193,7 +193,7 @@
         let cel = document.getElementById("comments");
         cel.innerText = "";
         cel.append(...tmp);
-        delete tmp;
+        tmp = null;
       } else {
         log("comments disabled by 444.hu");
         let tmp = new DOMParser()
@@ -205,7 +205,7 @@
           )
           .getElementsByTagName(`body`)[0].children;
         af.append(...tmp);
-        delete tmp;
+        tmp = null;
       }
 
       addResizeBar();
